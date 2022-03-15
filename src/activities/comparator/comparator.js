@@ -1,8 +1,10 @@
 /* GCompris - comparator.js
  *
  * SPDX-FileCopyrightText: 2022 Aastha Chauhan <aastha.chauhan01@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
  *
+ * Authors:
+ *   Aastha Chauhan <aastha.chauhan01@gmail.com>
+ *   SPDX-License-Identifier: GPL-3.0-or-later
  */
 .pragma library
 .import QtQuick 2.9 as Quick

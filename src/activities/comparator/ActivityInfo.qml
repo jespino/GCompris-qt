@@ -1,7 +1,10 @@
 /* GCompris - ActivityInfo.qml
  *
  * SPDX-FileCopyrightText: 2022 Aastha Chauhan <aastha.chauhan01@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ * Authors:
+ *   Aastha Chauhan <aastha.chauhan01@gmail.com>
+ *   SPDX-License-Identifier: GPL-3.0-or-later
  */
 import GCompris 1.0
 

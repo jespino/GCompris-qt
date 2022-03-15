@@ -1,9 +1,10 @@
 /* GCompris - Data.qml
  *
- * SPDX-FileCopyrightText: 2020 Timothée Giet <animtim@gmail.com>
+ * SPDX-FileCopyrightText: 2022 Aastha Chauhan <aastha.chauhan01@gmail.com>
  *
  * Authors:
- *   Timothée Giet <animtim@gmail.com>
+ *   Aastha Chauhan <aastha.chauhan01@gmail.com>
+ *   Harsh Kumar <hadron43@yahoo.com>
  *
  *   SPDX-License-Identifier: GPL-3.0-or-later
  */

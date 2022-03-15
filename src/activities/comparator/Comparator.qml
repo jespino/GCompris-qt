@@ -1,9 +1,13 @@
-/* GCompris - comparator.qml
+/* GCompris - Comparator.qml
  *
  * SPDX-FileCopyrightText: 2022 Aastha Chauhan <aastha.chauhan01@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ * Authors:
+ *   Aastha Chauhan <aastha.chauhan01@gmail.com>
+ *   SPDX-License-Identifier: GPL-3.0-or-later
  */
 import QtQuick 2.9
+import QtQuick.Controls 2.15
 
 import "../../core"
 import "comparator.js" as Activity
@@ -14,10 +18,13 @@ ActivityBase {
     onStart: focus = true
     onStop: {}
 
-    pageComponent: Rectangle {
+    pageComponent: Image{
         id: background
+        source: "qrc:/gcompris/src/activities/checkers/resource/background-wood.svg"
+        anchors.centerIn: parent
         anchors.fill: parent
-        color: "#ABCDEF"
+        fillMode: Image.PreserveAspectCrop
+        sourceSize.height: height
         signal start
         signal stop
 
@@ -41,11 +48,116 @@ ActivityBase {
 
         GCText {
             anchors.centerIn: parent
-            text: "comparator activity"
+            text: ""
             fontSize: largeSize
         }
 
-        DialogHelp {
+            Row{
+
+            spacing: 50
+            x:800
+            y:400
+
+            BarButton {
+
+            id: up
+            height: 130
+            width: 130
+            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+            rotation: -90
+            Rectangle {
+                anchors.fill: parent
+                radius: width * 0.5
+                color: "white"
+                border.color: "black"
+                border.width: 4
+                opacity: 0.2
+
+                       }
+                    }
+
+
+        BarButton {
+
+            id: down
+            height: 130
+            width: 130
+            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+            rotation: +90
+            Rectangle {
+                anchors.fill: parent
+                radius: width * 0.5
+                color: "white"
+                border.color: "black"
+                border.width: 4
+                opacity: 0.2
+
+                      }
+                  }
+            }
+
+
+         Row{
+
+            spacing: 50
+            x:740
+            y:700
+
+            BarButton {
+
+            id: lessThan
+            height: 100
+            width: 100
+            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+            rotation: -90
+            Rectangle   {
+                anchors.fill: parent
+                radius: width * 0.5
+                color: "#00FFFFFF"
+                border.color: "#F2F2F2"
+                border.width: 4
+
+                        }
+                     }
+
+        BarButton {
+
+            id: equal
+            height: 100
+            width: 100
+            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+            rotation: +90
+            Rectangle {
+                anchors.fill: parent
+                radius: width * 0.5
+                color: "#00FFFFFF"
+                border.color: "#F2F2F2"
+                border.width: 4
+
+                      }
+                  }
+
+            BarButton {
+
+            id: greaterThan
+            height: 100
+            width: 100
+            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+            rotation: +180
+            Rectangle {
+                anchors.fill: parent
+                radius: width * 0.5
+                color: "#00FFFFFF"
+                border.color: "#F2F2F2"
+                border.width: 4
+
+                       }
+
+                    }
+            }
+
+
+            DialogHelp {
             id: dialogHelp
             onClose: home()
         }
