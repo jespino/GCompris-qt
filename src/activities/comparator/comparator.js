@@ -25,6 +25,18 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1
+    items.dataListModel.clear()
+    var minValue = items.levels[currentLevel].minValue  //reading the minValue
+    var maxValue = items.levels[currentLevel].maxValue
+    var count = items.levels[currentLevel].count
+    for(let i = 0; i < count; ++i) {
+        let lhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+        let rhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+        items.dataListModel.append({
+            "lhs": lhs.toString(),
+            "rhs": rhs.toString()
+        })
+    }
 }
 
 function nextLevel() {

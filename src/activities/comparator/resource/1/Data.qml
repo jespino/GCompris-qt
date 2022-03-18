@@ -17,9 +17,14 @@ Data {
 
     data: [
         {
-            questionsArray: [1, 2],
-            circlesModel: 3
-
+            minValue: 0,
+            maxValue: 10,
+            count: 4
+        },
+        {
+            minValue: 11,
+            maxValue: 20,
+            count: 4
         }
     ]
 }

@@ -41,6 +41,7 @@ ActivityBase {
             property alias bar: bar
             property alias bonus: bonus
             property var levels: activity.datasetLoader.data
+            property alias dataListModel: dataListModel
         }
 
         onStart: { Activity.start(items) }
@@ -52,112 +53,113 @@ ActivityBase {
             fontSize: largeSize
         }
 
-            Row{
+        ListModel {
+            id: dataListModel
+        }
 
+        Column {
+            Repeater {
+                model: dataListModel
+                delegate: GCText {
+                    x: 820
+                    y: 100
+                    text: lhs + "........." + rhs
+                    fontSize: largeSize
+                    color: "white"
+                }
+            }
+        }
+
+        Row {
             spacing: 50
             x:800
-            y:400
+            y:500
 
             BarButton {
-
-            id: up
-            height: 130
-            width: 130
-            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-            rotation: -90
-            Rectangle {
-                anchors.fill: parent
-                radius: width * 0.5
-                color: "white"
-                border.color: "black"
-                border.width: 4
-                opacity: 0.2
-
-                       }
-                    }
-
-
-        BarButton {
-
-            id: down
-            height: 130
-            width: 130
-            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-            rotation: +90
-            Rectangle {
-                anchors.fill: parent
-                radius: width * 0.5
-                color: "white"
-                border.color: "black"
-                border.width: 4
-                opacity: 0.2
-
-                      }
-                  }
+                id: up
+                height: 130
+                width: 130
+                source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                rotation: -90
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width * 0.5
+                    color: "white"
+                    border.color: "black"
+                    border.width: 4
+                    opacity: 0.2
+                }
             }
 
+            BarButton {
+                id: down
+                height: 130
+                width: 130
+                source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                rotation: +90
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width * 0.5
+                    color: "white"
+                    border.color: "black"
+                    border.width: 4
+                    opacity: 0.2
+                }
+            }
+        }
 
-         Row{
-
+        Row {
             spacing: 50
             x:740
-            y:700
+            y:750
 
             BarButton {
-
-            id: lessThan
-            height: 100
-            width: 100
-            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-            rotation: -90
-            Rectangle   {
-                anchors.fill: parent
-                radius: width * 0.5
-                color: "#00FFFFFF"
-                border.color: "#F2F2F2"
-                border.width: 4
-
-                        }
-                     }
-
-        BarButton {
-
-            id: equal
-            height: 100
-            width: 100
-            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-            rotation: +90
-            Rectangle {
-                anchors.fill: parent
-                radius: width * 0.5
-                color: "#00FFFFFF"
-                border.color: "#F2F2F2"
-                border.width: 4
-
-                      }
-                  }
-
-            BarButton {
-
-            id: greaterThan
-            height: 100
-            width: 100
-            source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-            rotation: +180
-            Rectangle {
-                anchors.fill: parent
-                radius: width * 0.5
-                color: "#00FFFFFF"
-                border.color: "#F2F2F2"
-                border.width: 4
-
-                       }
-
-                    }
+                id: lessThan
+                height: 100
+                width: 100
+                source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                rotation: -90
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width * 0.5
+                    color: "#00FFFFFF"
+                    border.color: "#F2F2F2"
+                    border.width: 4
+                }
             }
 
+            BarButton {
+                id: equal
+                height: 100
+                width: 100
+                source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                rotation: +90
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width * 0.5
+                    color: "#00FFFFFF"
+                    border.color: "#F2F2F2"
+                    border.width: 4
+                }
+            }
 
-            DialogHelp {
+            BarButton {
+                id: greaterThan
+                height: 100
+                width: 100
+                source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                rotation: +180
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width * 0.5
+                    color: "#00FFFFFF"
+                    border.color: "#F2F2F2"
+                    border.width: 4
+                }
+            }
+        }
+
+        DialogHelp {
             id: dialogHelp
             onClose: home()
         }
