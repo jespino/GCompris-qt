@@ -78,6 +78,7 @@ ActivityBase {
         }
 
         Item {
+            id: upDownButtonSet
             height: parent.height*0.1
             width: parent.width
             anchors.top: numList.bottom
@@ -126,6 +127,7 @@ ActivityBase {
         }
 
         Item {
+            id: buttonSet
             height: parent.height*0.2
             width: parent.width
             anchors.bottom: bar.top
@@ -135,9 +137,8 @@ ActivityBase {
 
                 BarButton {
                     id: lessThan
-                    height: 100
-                    width: 100
                     source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                    sourceSize.width: items.size
                     rotation: -90
                     Rectangle {
                         anchors.fill: parent
@@ -150,9 +151,8 @@ ActivityBase {
 
                 BarButton {
                     id: equal
-                    height: 100
-                    width: 100
                     source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                    sourceSize.width: items.size
                     rotation: +90
                     Rectangle {
                         anchors.fill: parent
@@ -165,9 +165,8 @@ ActivityBase {
 
                 BarButton {
                     id: greaterThan
-                    height: 100
-                    width: 100
                     source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
+                    sourceSize.width: items.size
                     rotation: +180
                     Rectangle {
                         anchors.fill: parent
@@ -179,6 +178,42 @@ ActivityBase {
                 }
             }
         }
+
+        Item {
+            height: parent.height*0.2
+            anchors.top: upDownButtonSet.bottom
+            anchors.bottom: buttonSet.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            Row {
+                spacing: items.spacing
+                GCText {
+                    id:lhs
+                    //anchors.right: inputArea.left
+                    color: "#FFFFFF"
+                    fontSize: largeSize
+                    text: (dataListModel.get(items.selected).lhs).toString()
+                }
+
+                Rectangle {
+                        id: inputArea
+                        height: items.size
+                        width: items.size
+                        radius: 10
+                        color: "#E8E8E8"
+                }
+
+                GCText {
+                    id:rhs
+                    //anchors.right: inputArea.right
+                    color: "#FFFFFF"
+                    fontSize: largeSize
+                    text: (dataListModel.get(items.selected).rhs).toString()
+                }
+            }
+        }
+
+
+
 
         DialogHelp {
             id: dialogHelp
