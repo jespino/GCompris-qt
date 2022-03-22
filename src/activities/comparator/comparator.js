@@ -32,10 +32,26 @@ function initLevel() {
     for(let i = 0; i < count; ++i) {
         let lhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
         let rhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+        let symbol = "......."
         items.dataListModel.append({
             "lhs": lhs.toString(),
-            "rhs": rhs.toString()
+            "rhs": rhs.toString(),
+            "symbol": symbol.toString()
         })
+    }
+}
+
+function checkAnswer(){
+
+    let lhs = items.dataListModel.lhs
+    let rhs = items.dataListModel.rhs
+    let symbol = items.dataListModel.symbol
+
+    for(let i = 0; i < items.dataListModel.count; ++i){
+       if(lhs < rhs && symbol != "<" || lhs > rhs && symbol != ">" || lhs === rhs && symbol != "=")
+            items.bonus.bad('flower');
+        else
+            items.bonus.good('flower');
     }
 }
 

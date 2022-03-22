@@ -45,6 +45,7 @@ ActivityBase {
             property int selected: -1
             property double spacing: 50
             property double size: 100
+            property string answer: ""
         }
 
         onStart: { Activity.start(items) }
@@ -69,7 +70,7 @@ ActivityBase {
                 Repeater {
                     model: dataListModel
                     delegate: GCText {
-                        text: lhs + ".." + rhs
+                        text: lhs + symbol + rhs
                         fontSize: largeSize
                         color: "white"
                     }
@@ -147,6 +148,10 @@ ActivityBase {
                         border.color: "#F2F2F2"
                         border.width: 4
                     }
+                    onClicked: {
+                            dataListModel.get(items.selected).symbol = "<"
+                            items.answer = "<"
+                    }
                 }
 
                 BarButton {
@@ -160,6 +165,10 @@ ActivityBase {
                         color: "#00FFFFFF"
                         border.color: "#F2F2F2"
                         border.width: 4
+                    }
+                    onClicked: {
+                            dataListModel.get(items.selected).symbol = "="
+                            items.answer = "="
                     }
                 }
 
@@ -175,6 +184,10 @@ ActivityBase {
                         border.color: "#F2F2F2"
                         border.width: 4
                     }
+                    onClicked: {
+                            dataListModel.get(items.selected).symbol = ">"
+                            items.answer = ">"
+                    }
                 }
             }
         }
@@ -188,32 +201,46 @@ ActivityBase {
                 spacing: items.spacing
                 GCText {
                     id:lhs
-                    //anchors.right: inputArea.left
                     color: "#FFFFFF"
+                    anchors.right: inputArea.left
                     fontSize: largeSize
-                    text: (dataListModel.get(items.selected).lhs).toString()
+                    text: (dataListModel.get(items.selected).lhs).toString()+"  "
                 }
 
                 Rectangle {
                         id: inputArea
+                        anchors.horizontalCenter: parent.horizontalCenter
                         height: items.size
                         width: items.size
                         radius: 10
                         color: "#E8E8E8"
+                          GCText {
+                            anchors.fill:parent
+                            color: "#000000"
+                            text: items.answer
+                        }
                 }
 
                 GCText {
                     id:rhs
-                    //anchors.right: inputArea.right
+                    anchors.left: inputArea.right
                     color: "#FFFFFF"
                     fontSize: largeSize
-                    text: (dataListModel.get(items.selected).rhs).toString()
+                    text: "  "+(dataListModel.get(items.selected).rhs).toString()
                 }
             }
         }
 
-
-
+        BarButton {
+            id: okButton
+            anchors.top: layoutArea.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
+            sourceSize.height: size*10
+            onClicked: {
+                        Activity.checkAnswer();
+            }
+        }
 
         DialogHelp {
             id: dialogHelp
