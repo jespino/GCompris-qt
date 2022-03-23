@@ -43,16 +43,25 @@ function initLevel() {
 
 function checkAnswer(){
 
-    let lhs = items.dataListModel.lhs
-    let rhs = items.dataListModel.rhs
-    let symbol = items.dataListModel.symbol
+    let flag = true
 
-    for(let i = 0; i < items.dataListModel.count; ++i){
-       if(lhs < rhs && symbol != "<" || lhs > rhs && symbol != ">" || lhs === rhs && symbol != "=")
-            items.bonus.bad('flower');
-        else
-            items.bonus.good('flower');
+    for(let i = 0; i < items.dataListModel.count; ++i) {
+
+        let lhs = items.dataListModel.get(i).lhs
+        let rhs = items.dataListModel.get(i).rhs
+        let symbol = items.dataListModel.get(i).symbol
+
+       if(lhs < rhs && symbol !== "<" || lhs > rhs && symbol !== ">" || lhs === rhs && symbol !== "=") {
+           flag = false
+            break;
+       }
     }
+
+    if(flag === false)
+        items.bonus.bad('flower');
+    else
+        items.bonus.good('flower');
+
 }
 
 function nextLevel() {
