@@ -51,10 +51,15 @@ ActivityBase {
         onStart: { Activity.start(items) }
         onStop: { Activity.stop() }
 
-        GCText {
-            anchors.centerIn: parent
-            text: ""
-            fontSize: largeSize
+        Item {
+            id: layoutArea
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                bottom: bar.top
+                bottomMargin: bar.height * 0.2
+            }
         }
 
         ListModel {
@@ -63,35 +68,43 @@ ActivityBase {
 
         Item {
             id: numList
-            height: parent.height*0.5
-            width: parent.width
-            Column {
-                anchors.centerIn: parent
-                spacing: 5
-                Repeater {
-                    model: dataListModel
-                    delegate:
-                        Rectangle {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            height: items.size
-                            width: items.size
-                            radius: 10
-                            color: "#E8E8E8"
+            height: layoutArea.height*0.5
+            width: layoutArea.width
+
+            Flickable {
+                height: parent.height
+                width: parent.width
+                contentHeight: numListContent.implicitHeight
+                clip: true
+                Column {
+                    id: numListContent
+                    anchors.centerIn: parent
+                    spacing: 5
+                    Repeater {
+                        model: dataListModel
+                        delegate:
                             Rectangle {
-                                id: insideFill
-                                width: parent.width - anchors.margins
-                                height: parent.height - anchors.margins
-                                anchors.verticalCenter: parent.verticalCenter
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                anchors.margins: parent.height/4
-                                radius: 20
-                                color: "orange"
-                                GCText {
-                                    anchors.centerIn: parent
-                                    color: "#FFFFFF"
-                                    text: lhs + symbol + rhs
-                                    fontSize: largeSize
-                                }
+                                height: items.size
+                                width: items.size
+                                radius: 10
+                                color: "#E8E8E8"
+                                Rectangle {
+                                    id: insideFill
+                                    width: parent.width - anchors.margins
+                                    height: parent.height - anchors.margins
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    anchors.margins: parent.height/4
+                                    radius: 20
+                                    color: "orange"
+                                    GCText {
+                                        anchors.centerIn: parent
+                                        color: "#FFFFFF"
+                                        text: lhs + symbol + rhs
+                                        fontSize: largeSize
+                                    }
+                            }
                         }
                     }
                 }
@@ -100,17 +113,16 @@ ActivityBase {
 
         Item {
             id: upDownButtonSet
-            height: parent.height*0.1
-            width: parent.width
+            height: layoutArea.height*0.1
+            width: layoutArea.width
             anchors.top: numList.bottom
             Row {
                 spacing: items.spacing
                 anchors.centerIn: parent
-
                 BarButton {
                     id: upButton
                     source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-                    sourceSize.width: items.size
+                    sourceSize.height: parent.height
                     rotation: -90
                     Rectangle {
                         anchors.fill: parent
@@ -129,7 +141,7 @@ ActivityBase {
                 BarButton {
                     id: downButton
                     source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-                    sourceSize.width: items.size
+                    sourceSize.height: parent.height
                     rotation: +90
                     Rectangle {
                         anchors.fill: parent
@@ -149,9 +161,9 @@ ActivityBase {
 
         Item {
             id: buttonSet
-            height: parent.height*0.2
-            width: parent.width
-            anchors.bottom: bar.top
+            height: layoutArea.height*0.2
+            width: layoutArea.width
+            anchors.top: selectedItem.bottom
             Row {
                 spacing: items.spacing
                 anchors.centerIn: parent
@@ -166,8 +178,8 @@ ActivityBase {
                     Rectangle {
                             anchors.fill: parent
                             radius: width * 0.5
-                            color: "#ADD8E6"
-                            border.color: "#000000"
+                            color: "#6495ED"
+                            border.color: "#FFFFFF"
                             border.width: 4
                     }
                     GCText {
@@ -188,8 +200,8 @@ ActivityBase {
                     Rectangle {
                             anchors.fill: parent
                             radius: width * 0.5
-                            color: "#ADD8E6"
-                            border.color: "#000000"
+                            color: "#6495ED"
+                            border.color: "#FFFFFF"
                             border.width: 4
                     }
                     GCText {
@@ -211,8 +223,8 @@ ActivityBase {
                     Rectangle {
                             anchors.fill: parent
                             radius: width * 0.5
-                            color: "#ADD8E6"
-                            border.color: "#000000"
+                            color: "#6495ED"
+                            border.color: "#FFFFFF"
                             border.width: 4
                     }
                     GCText {
@@ -226,23 +238,22 @@ ActivityBase {
         }
 
         Item {
-            height: parent.height*0.2
+            id: selectedItem
+            height: layoutArea.height*0.1
+            width: layoutArea.width
             anchors.top: upDownButtonSet.bottom
-            anchors.bottom: buttonSet.top
-            anchors.horizontalCenter: parent.horizontalCenter
             Row {
+                anchors.horizontalCenter: parent.horizontalCenter
                 spacing: items.spacing
                 GCText {
                     id:lhs
                     color: "#FFFFFF"
-                    anchors.right: inputArea.left
                     fontSize: largeSize
-                    text: (dataListModel.get(items.selected).lhs).toString()+"  "
+                    text: (items.selected === -1) ? "" : (dataListModel.get(items.selected).lhs).toString()+"  "
                 }
 
                 Rectangle {
                         id: inputArea
-                        anchors.horizontalCenter: parent.horizontalCenter
                         height: items.size
                         width: items.size
                         radius: 10
@@ -257,10 +268,9 @@ ActivityBase {
 
                 GCText {
                     id:rhs
-                    anchors.left: inputArea.right
                     color: "#FFFFFF"
                     fontSize: largeSize
-                    text: "  "+(dataListModel.get(items.selected).rhs).toString()
+                    text: (items.selected === -1) ? "" : "  "+(dataListModel.get(items.selected).rhs).toString()
                 }
             }
         }
@@ -283,17 +293,6 @@ ActivityBase {
         DialogHelp {
             id: dialogHelp
             onClose: home()
-        }
-
-        Item {
-            id: layoutArea
-            anchors {
-                top: topPanel.bottom
-                left: parent.left
-                right: parent.right
-                bottom: bar.top
-                bottomMargin: bar.height * 0.2
-            }
         }
 
         Bar {

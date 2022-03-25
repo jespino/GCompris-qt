@@ -15,7 +15,6 @@ var items
 
 function start(items_) {
     items = items_
-    console.log(JSON.stringify(items.levels));
     currentLevel = 0
     initLevel()
 }
