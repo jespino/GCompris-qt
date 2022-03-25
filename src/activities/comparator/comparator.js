@@ -32,7 +32,7 @@ function initLevel() {
     for(let i = 0; i < count; ++i) {
         let lhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
         let rhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
-        let symbol = "......."
+        let symbol = "         "
         items.dataListModel.append({
             "lhs": lhs.toString(),
             "rhs": rhs.toString(),
@@ -51,7 +51,7 @@ function checkAnswer(){
         let rhs = items.dataListModel.get(i).rhs
         let symbol = items.dataListModel.get(i).symbol
 
-       if(lhs < rhs && symbol !== "<" || lhs > rhs && symbol !== ">" || lhs === rhs && symbol !== "=") {
+       if(lhs < rhs && symbol !== "    <    " || lhs > rhs && symbol !== "    >    " || lhs === rhs && symbol !== "    =    ") {
            flag = false
             break;
        }

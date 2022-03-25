@@ -67,12 +67,32 @@ ActivityBase {
             width: parent.width
             Column {
                 anchors.centerIn: parent
+                spacing: 5
                 Repeater {
                     model: dataListModel
-                    delegate: GCText {
-                        text: lhs + symbol + rhs
-                        fontSize: largeSize
-                        color: "white"
+                    delegate:
+                        Rectangle {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            height: items.size
+                            width: items.size
+                            radius: 10
+                            color: "#E8E8E8"
+                            Rectangle {
+                                id: insideFill
+                                width: parent.width - anchors.margins
+                                height: parent.height - anchors.margins
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.margins: parent.height/4
+                                radius: 20
+                                color: "orange"
+                                GCText {
+                                    anchors.centerIn: parent
+                                    color: "#FFFFFF"
+                                    text: lhs + symbol + rhs
+                                    fontSize: largeSize
+                                }
+                        }
                     }
                 }
             }
@@ -136,57 +156,70 @@ ActivityBase {
                 spacing: items.spacing
                 anchors.centerIn: parent
 
-                BarButton {
+                GCButton {
                     id: lessThan
-                    source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-                    sourceSize.width: items.size
-                    rotation: -90
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: "#00FFFFFF"
-                        border.color: "#F2F2F2"
-                        border.width: 4
+                    text: qsTr("Save")
+                    onClicked:{
+                        dataListModel.get(items.selected).symbol = "    <    "
+                        items.answer = ">"
                     }
-                    onClicked: {
-                            dataListModel.get(items.selected).symbol = "<"
-                            items.answer = "<"
+                    Rectangle {
+                            anchors.fill: parent
+                            radius: width * 0.5
+                            color: "#ADD8E6"
+                            border.color: "#000000"
+                            border.width: 4
+                    }
+                    GCText {
+                        anchors.centerIn: parent
+                        text: qsTr("<")
+                        fontSize: largeSize
+                        color: "#FFFFFF"
                     }
                 }
 
-                BarButton {
+                GCButton {
                     id: equal
-                    source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-                    sourceSize.width: items.size
-                    rotation: +90
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: "#00FFFFFF"
-                        border.color: "#F2F2F2"
-                        border.width: 4
+                    width: items.size
+                    onClicked:{
+                    dataListModel.get(items.selected).symbol = "    =    "
+                                items.answer = "="
                     }
-                    onClicked: {
-                            dataListModel.get(items.selected).symbol = "="
-                            items.answer = "="
+                    Rectangle {
+                            anchors.fill: parent
+                            radius: width * 0.5
+                            color: "#ADD8E6"
+                            border.color: "#000000"
+                            border.width: 4
+                    }
+                    GCText {
+                        anchors.centerIn: parent
+                        text: qsTr("=")
+                        fontSize: largeSize
+                        color: "#FFFFFF"
                     }
                 }
 
-                BarButton {
+
+               GCButton {
                     id: greaterThan
-                    source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
-                    sourceSize.width: items.size
-                    rotation: +180
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: "#00FFFFFF"
-                        border.color: "#F2F2F2"
-                        border.width: 4
-                    }
+                    width: items.size
                     onClicked: {
-                            dataListModel.get(items.selected).symbol = ">"
-                            items.answer = ">"
+                                dataListModel.get(items.selected).symbol = "    >    "
+                                items.answer = ">"
+                    }
+                    Rectangle {
+                            anchors.fill: parent
+                            radius: width * 0.5
+                            color: "#ADD8E6"
+                            border.color: "#000000"
+                            border.width: 4
+                    }
+                    GCText {
+                            anchors.centerIn: parent
+                            text: qsTr(">")
+                            fontSize: largeSize
+                            color: "#FFFFFF"
                     }
                 }
             }
@@ -215,9 +248,10 @@ ActivityBase {
                         radius: 10
                         color: "#E8E8E8"
                           GCText {
-                            anchors.fill:parent
+                            anchors.centerIn: parent
                             color: "#000000"
                             text: items.answer
+                            fontSize: largeSize
                         }
                 }
 
@@ -233,10 +267,14 @@ ActivityBase {
 
         BarButton {
             id: okButton
-            anchors.top: layoutArea.top
-            anchors.horizontalCenter: parent.horizontalCenter
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
-            sourceSize.height: size*10
+            height: items.size
+            width: items.size
+            anchors {
+            right: parent.right
+            rightMargin: 20
+            bottom: bar.top
+            }
             onClicked: {
                         Activity.checkAnswer();
             }
