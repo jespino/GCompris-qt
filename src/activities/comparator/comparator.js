@@ -7,10 +7,10 @@
  *   SPDX-License-Identifier: GPL-3.0-or-later
  */
 .pragma library
-.import QtQuick 2.9 as Quick
+.import QtQuick 2.12 as Quick
 
 var currentLevel = 0
-var numberOfLevel = 4
+var numberOfLevel = 2
 var items
 
 function start(items_) {
@@ -25,24 +25,25 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1
     items.dataListModel.clear()
+    items.selected = -1
+    items.step = 0
     var minValue = items.levels[currentLevel].minValue  //reading the minValue
     var maxValue = items.levels[currentLevel].maxValue
     var count = items.levels[currentLevel].count
     for(let i = 0; i < count; ++i) {
         let lhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
         let rhs = Math.floor(Math.random() * (maxValue - minValue)) + minValue
-        let symbol = "         "
         items.dataListModel.append({
             "lhs": lhs.toString(),
             "rhs": rhs.toString(),
-            "symbol": symbol.toString()
+            "symbol": ""
         })
     }
 }
 
 function checkAnswer(){
 
-    let flag = true
+    var evaluate = true
 
     for(let i = 0; i < items.dataListModel.count; ++i) {
 
@@ -50,16 +51,16 @@ function checkAnswer(){
         let rhs = items.dataListModel.get(i).rhs
         let symbol = items.dataListModel.get(i).symbol
 
-       if(lhs < rhs && symbol !== "    <    " || lhs > rhs && symbol !== "    >    " || lhs === rhs && symbol !== "    =    ") {
-           flag = false
+       if(lhs < rhs && symbol !== "<" || lhs > rhs && symbol !== ">" || lhs === rhs && symbol !== "=") {
+           evaluate = false
             break;
        }
     }
 
-    if(flag === false)
-        items.bonus.bad('flower');
-    else
+    if(evaluate)
         items.bonus.good('flower');
+    else
+        items.bonus.bad('flower');
 
 }
 

@@ -6,8 +6,9 @@
  *   Aastha Chauhan <aastha.chauhan01@gmail.com>
  *   SPDX-License-Identifier: GPL-3.0-or-later
  */
-import QtQuick 2.9
-import QtQuick.Controls 2.15
+import QtQuick 2.12
+import GCompris 1.0
+import QtQuick.Controls 2.12
 
 import "../../core"
 import "comparator.js" as Activity
@@ -40,12 +41,13 @@ ActivityBase {
             property alias background: background
             property alias bar: bar
             property alias bonus: bonus
-            property var levels: activity.datasetLoader.data
+            readonly property var levels: activity.datasetLoader.data
             property alias dataListModel: dataListModel
             property int selected: -1
             property double spacing: 50
             property double size: 100
-            property string answer: ""
+            property int step: 0
+
         }
 
         onStart: { Activity.start(items) }
@@ -83,27 +85,33 @@ ActivityBase {
                     Repeater {
                         model: dataListModel
                         delegate:
+                        Row {
+                            spacing: items.spacing
+                            height: items.size
+                            GCText {
+                                color: "#FFFFFF"
+                                text: lhs
+                                fontSize: largeSize
+                            }
                             Rectangle {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                height: items.size
-                                width: items.size
+                                height: parent.height
+                                width: parent.height
                                 radius: 10
-                                color: "#E8E8E8"
-                                Rectangle {
-                                    id: insideFill
-                                    width: parent.width - anchors.margins
-                                    height: parent.height - anchors.margins
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    anchors.margins: parent.height/4
-                                    radius: 20
-                                    color: "orange"
-                                    GCText {
-                                        anchors.centerIn: parent
-                                        color: "#FFFFFF"
-                                        text: lhs + symbol + rhs
-                                        fontSize: largeSize
-                                    }
+                                color: "orange"
+                                border.width : 20
+                                border.color: "#E8E8E8"
+                                GCText {
+                                    color: "#000000"
+                                    text: symbol
+                                    anchors.fill : parent
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                            }
+                            GCText {
+                                color: "#FFFFFF"
+                                text: rhs
+                                fontSize: largeSize
                             }
                         }
                     }
@@ -116,6 +124,7 @@ ActivityBase {
             height: layoutArea.height*0.1
             width: layoutArea.width
             anchors.top: numList.bottom
+            anchors.topMargin: 20*ApplicationInfo.ratio
             Row {
                 spacing: items.spacing
                 anchors.centerIn: parent
@@ -133,8 +142,9 @@ ActivityBase {
                         opacity: 0.2
                     }
                     onClicked: {
-                        if (items.selected > 0 )
+                        if (items.selected > -1 )
                             items.selected --
+                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                     }
                 }
 
@@ -154,37 +164,92 @@ ActivityBase {
                     onClicked: {
                         if (items.selected < (dataListModel.count - 1))
                             items.selected ++
+                        items.step = dataListModel.get(items.selected).symbol === "" ? 0 : 1
+
                     }
                 }
             }
         }
 
-        Item {
-            id: buttonSet
-            height: layoutArea.height*0.2
+       Item {
+            id: selectedArea
+            height: layoutArea.height*0.1
             width: layoutArea.width
-            anchors.top: selectedItem.bottom
+            anchors.top: upDownButtonSet.bottom
+            anchors.topMargin: 20*ApplicationInfo.ratio
+
             Row {
                 spacing: items.spacing
-                anchors.centerIn: parent
+                height: parent.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                GCText {
+                    id:lhs
+                    color: "#FFFFFF"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    height: parent.height
+                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).lhs.toString()
+                }
 
+                Rectangle {
+                        id: inputArea
+                        height: parent.height
+                        width: parent.height
+                        radius: 10
+                        color: "#E8E8E8"
+                        visible: items.selected !== -1
+                        GCText {
+                            anchors.centerIn: parent
+                            color: "#000000"
+                            text: (items.step === 1 && items.selected !== -1) ? dataListModel.get(items.selected).symbol : ""
+                            anchors.fill : parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                }
+
+                GCText {
+                    id:rhs
+                    color: "#FFFFFF"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    height: parent.height
+                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rhs.toString()
+                }
+            }
+        }
+
+        Item {
+            height: layoutArea.height*0.1
+            width: layoutArea.width
+            anchors.bottom: bar.top
+            anchors.bottomMargin: 30*ApplicationInfo.ratio
+            Row {
+                height: parent.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: items.size
                 GCButton {
                     id: lessThan
-                    text: qsTr("Save")
-                    onClicked:{
-                        dataListModel.get(items.selected).symbol = "    <    "
-                        items.answer = ">"
+                    height: parent.height
+                    width: parent.height
+                    onClicked: {
+                        items.step = 0
+                        dataListModel.get(items.selected).symbol = "<"
+                        items.step = 1
                     }
                     Rectangle {
-                            anchors.fill: parent
-                            radius: width * 0.5
-                            color: "#6495ED"
-                            border.color: "#FFFFFF"
-                            border.width: 4
+                        anchors.fill: parent
+                        radius: width * 0.5
+                        color: "#6495ED"
+                        border.color: "#FFFFFF"
+                        border.width: 4
+
                     }
                     GCText {
                         anchors.centerIn: parent
-                        text: qsTr("<")
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        text:"<"
                         fontSize: largeSize
                         color: "#FFFFFF"
                     }
@@ -192,85 +257,55 @@ ActivityBase {
 
                 GCButton {
                     id: equal
-                    width: items.size
+                    height: parent.height
+                    width: parent.height
                     onClicked:{
-                    dataListModel.get(items.selected).symbol = "    =    "
-                                items.answer = "="
+                        items.step = 0
+                        dataListModel.get(items.selected).symbol = "="
+                        items.step = 1
                     }
                     Rectangle {
-                            anchors.fill: parent
-                            radius: width * 0.5
-                            color: "#6495ED"
-                            border.color: "#FFFFFF"
-                            border.width: 4
+                        anchors.fill: parent
+                        radius: width * 0.5
+                        color: "#6495ED"
+                        border.color: "#FFFFFF"
+                        border.width: 4
                     }
                     GCText {
                         anchors.centerIn: parent
-                        text: qsTr("=")
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        text: "="
                         fontSize: largeSize
                         color: "#FFFFFF"
                     }
                 }
 
 
-               GCButton {
+                GCButton {
                     id: greaterThan
-                    width: items.size
+                    height: parent.height
+                    width: parent.height
                     onClicked: {
-                                dataListModel.get(items.selected).symbol = "    >    "
-                                items.answer = ">"
+                        items.step = 0
+                        dataListModel.get(items.selected).symbol = ">"
+                        items.step = 1
                     }
                     Rectangle {
-                            anchors.fill: parent
-                            radius: width * 0.5
-                            color: "#6495ED"
-                            border.color: "#FFFFFF"
-                            border.width: 4
+                        anchors.fill: parent
+                        radius: width * 0.5
+                        color: "#6495ED"
+                        border.color: "#FFFFFF"
+                        border.width: 4
                     }
                     GCText {
-                            anchors.centerIn: parent
-                            text: qsTr(">")
-                            fontSize: largeSize
-                            color: "#FFFFFF"
+                        anchors.centerIn: parent
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        text: ">"
+                        fontSize: largeSize
+                        color: "#FFFFFF"
                     }
-                }
-            }
-        }
-
-        Item {
-            id: selectedItem
-            height: layoutArea.height*0.1
-            width: layoutArea.width
-            anchors.top: upDownButtonSet.bottom
-            Row {
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: items.spacing
-                GCText {
-                    id:lhs
-                    color: "#FFFFFF"
-                    fontSize: largeSize
-                    text: (items.selected === -1) ? "" : (dataListModel.get(items.selected).lhs).toString()+"  "
-                }
-
-                Rectangle {
-                        id: inputArea
-                        height: items.size
-                        width: items.size
-                        radius: 10
-                        color: "#E8E8E8"
-                          GCText {
-                            anchors.centerIn: parent
-                            color: "#000000"
-                            text: items.answer
-                            fontSize: largeSize
-                        }
-                }
-
-                GCText {
-                    id:rhs
-                    color: "#FFFFFF"
-                    fontSize: largeSize
-                    text: (items.selected === -1) ? "" : "  "+(dataListModel.get(items.selected).rhs).toString()
                 }
             }
         }
@@ -281,12 +316,12 @@ ActivityBase {
             height: items.size
             width: items.size
             anchors {
-            right: parent.right
-            rightMargin: 20
-            bottom: bar.top
+                right: parent.right
+                rightMargin: 20
+                bottom: bar.top
             }
             onClicked: {
-                        Activity.checkAnswer();
+                Activity.checkAnswer();
             }
         }
 
