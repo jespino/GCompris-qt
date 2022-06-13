@@ -11,8 +11,8 @@ align4_2players
 alphabet-sequence
 analog_electricity
 baby_keyboard
-baby_mouse
 babymatch
+baby_mouse
 babyshapes
 baby_tangram
 baby_wordprocessor
@@ -171,6 +171,7 @@ sudoku
 superbrain
 tangram
 target
+tens_complement
 tic_tac_toe
 tic_tac_toe_2players
 traffic
