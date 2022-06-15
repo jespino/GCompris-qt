@@ -22,6 +22,14 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1
+    var cardArray = new Array()
+    var cardsToDisplay = 6
+    var card = {
+        "value": "?"
+    }
+    for(var i = 0; i < cardsToDisplay; i++) {
+        items.cardListModel.append(card)
+    }
 }
 
 function nextLevel() {
