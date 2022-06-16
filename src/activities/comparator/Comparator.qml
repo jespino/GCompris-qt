@@ -67,7 +67,54 @@ ActivityBase {
         ListModel {
             id: dataListModel
         }
+            Item {
+            id: numList_plainText
+            height: layoutArea.height*0.5
+            width: layoutArea.width
 
+            Flickable {
+                height: parent.height
+                width: parent.width
+                contentHeight: numListContent_plainText.implicitHeight
+                clip: true
+                Column {
+                    id: numListContent_plainText
+                    spacing: 5
+                    Repeater {
+                        model: dataListModel
+                        delegate:
+                        Row {
+                            spacing: items.spacing
+                            height: items.size
+                            GCText {
+                                color: "#FFFFFF"
+                                text: lhs
+                                fontSize: largeSize
+                            }
+                            Rectangle {
+                                height: parent.height
+                                width: parent.height
+                                opacity: 0
+                                border.width : 20
+                                border.color: "#E8E8E8"
+                                GCText {
+                                    color: "#000000"
+                                    text: symbol
+                                    anchors.fill : parent
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                            }
+                            GCText {
+                                color: "#FFFFFF"
+                                text: rhs
+                                fontSize: largeSize
+                            }
+                        }
+                    }
+                }
+            }
+        }
         Item {
             id: numList
             height: layoutArea.height*0.5

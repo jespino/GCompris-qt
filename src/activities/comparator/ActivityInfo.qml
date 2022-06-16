@@ -14,7 +14,7 @@ ActivityInfo {
   icon: "comparator/comparator.svg"
   author: "Aastha Chauhan &lt;aastha.chauhan01@gmail.com&gt;"
   //: Activity title
-  title: qstr("Comparator activity")
+  title: qsTr("Comparator activity")
   //: Help title
   description: ""
   //intro: "put here in comment the text for the intro voice"
