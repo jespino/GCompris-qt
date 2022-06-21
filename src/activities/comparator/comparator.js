@@ -37,7 +37,8 @@ function initLevel() {
             "lhs": lhs.toString(),
             "rhs": rhs.toString(),
             "symbol": "",
-            "symbol_plainText" : "....."
+            "symbol_plainText" : ".....",
+            "currentlySelected" : "0"
         })
     }
 }

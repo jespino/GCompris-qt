@@ -104,6 +104,7 @@ ActivityBase {
             id: charList
             height: layoutArea.height*0.5
             width: layoutArea.width
+            anchors.right: layoutArea.right
 
             Flickable {
                 height: parent.height
@@ -112,7 +113,7 @@ ActivityBase {
                 clip: true
                 Column {
                     id: charListContent
-                    anchors.centerIn: parent
+                    anchors.right: parent.right
                     spacing: 5
                     Repeater {
                         model: dataListModel
@@ -121,9 +122,9 @@ ActivityBase {
                             spacing: items.spacing
                             height: items.size
                             GCText {
-                                color: "#FFFFFF"
+                                color: currentlySelected === "1" ? "red" : "#FFFFFF"
                                 text: lhs
-                                fontSize: largeSize
+                                fontSize: currentlySelected === "1" ? largeSize : largeSize
                             }
                             Rectangle {
                                 height: parent.height
@@ -141,9 +142,9 @@ ActivityBase {
                                 }
                             }
                             GCText {
-                                color: "#FFFFFF"
+                                color: currentlySelected === "1" ? "red" : "#FFFFFF"
                                 text: rhs
-                                fontSize: largeSize
+                                fontSize: currentlySelected === "1" ? largeSize : largeSize
                             }
                         }
                     }
@@ -157,9 +158,10 @@ ActivityBase {
             width: layoutArea.width
             anchors.top: charList.bottom
             anchors.topMargin: 20*ApplicationInfo.ratio
+            anchors.right: layoutArea.right
             Row {
                 spacing: items.spacing
-                anchors.centerIn: parent
+                anchors.right: parent.right
                 BarButton {
                     id: upButton
                     source: "qrc:/gcompris/src/activities/path_encoding/resource/arrow.svg"
@@ -174,8 +176,11 @@ ActivityBase {
                         opacity: 0.2
                     }
                     onClicked: {
-                        if (items.selected > -1 )
+                        if (items.selected > -1 ){
+                            dataListModel.get(items.selected).currentlySelected = "0"
                             items.selected --
+                            dataListModel.get(items.selected).currentlySelected = "1"
+                        }
                         items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                     }
                 }
@@ -194,8 +199,11 @@ ActivityBase {
                         opacity: 0.2
                     }
                     onClicked: {
-                        if (items.selected < (dataListModel.count - 1))
+                        if (items.selected < (dataListModel.count - 1)){
+                            if(items.selected > -1 ) dataListModel.get(items.selected).currentlySelected = "0"
                             items.selected ++
+                            dataListModel.get(items.selected).currentlySelected = "1"
+                        }
                         items.step = dataListModel.get(items.selected).symbol === "" ? 0 : 1
 
                     }
