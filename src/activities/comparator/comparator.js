@@ -36,7 +36,8 @@ function initLevel() {
         items.dataListModel.append({
             "lhs": lhs.toString(),
             "rhs": rhs.toString(),
-            "symbol": ""
+            "symbol": "",
+            "symbol_plainText" : "....."
         })
     }
 }

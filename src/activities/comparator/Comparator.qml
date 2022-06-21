@@ -91,19 +91,10 @@ ActivityBase {
                                 text: lhs
                                 fontSize: largeSize
                             }
-                            Rectangle {
-                                height: parent.height
-                                width: parent.height
-                                opacity: 0
-                                border.width : 20
-                                border.color: "#E8E8E8"
-                                GCText {
-                                    color: "#000000"
-                                    text: symbol
-                                    anchors.fill : parent
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                }
+                            GCText {
+                                color: "#FFFFFF"
+                                text: symbol_plainText
+                                fontSize: largeSize
                             }
                             GCText {
                                 color: "#FFFFFF"
@@ -282,6 +273,7 @@ ActivityBase {
                     onClicked: {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "<"
+                        dataListModel.get(items.selected).symbol_plainText = "  <  "
                         items.step = 1
                     }
                     Rectangle {
@@ -309,6 +301,7 @@ ActivityBase {
                     onClicked:{
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "="
+                        dataListModel.get(items.selected).symbol_plainText = "  =  "
                         items.step = 1
                     }
                     Rectangle {
@@ -336,6 +329,7 @@ ActivityBase {
                     onClicked: {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = ">"
+                        dataListModel.get(items.selected).symbol_plainText = "  >  "
                         items.step = 1
                     }
                     Rectangle {
