@@ -67,57 +67,51 @@ ActivityBase {
         ListModel {
             id: dataListModel
         }
-            Item {
-            id: numList_plainText
+
+        Item {
+            id: charList_plainText
             height: layoutArea.height*0.5
             width: layoutArea.width
-
-            Flickable {
-                height: parent.height
-                width: parent.width
-                contentHeight: numListContent_plainText.implicitHeight
-                clip: true
-                Column {
-                    id: numListContent_plainText
-                    spacing: 5
-                    Repeater {
-                        model: dataListModel
-                        delegate:
-                        Row {
-                            spacing: items.spacing
-                            height: items.size
-                            GCText {
-                                color: "#FFFFFF"
-                                text: lhs
-                                fontSize: largeSize
-                            }
-                            GCText {
-                                color: "#FFFFFF"
-                                text: symbol_plainText
-                                fontSize: largeSize
-                            }
-                            GCText {
-                                color: "#FFFFFF"
-                                text: rhs
-                                fontSize: largeSize
-                            }
+            Column {
+                id: charListContent_plainText
+                spacing: 5
+                Repeater {
+                    model: dataListModel
+                    delegate:
+                    Row {
+                        spacing: items.spacing
+                        height: items.size
+                        GCText {
+                            color: "#FFFFFF"
+                            text: lhs
+                            fontSize: largeSize
+                        }
+                        GCText {
+                            color: "#FFFFFF"
+                            text: symbol_plainText
+                            fontSize: largeSize
+                        }
+                        GCText {
+                            color: "#FFFFFF"
+                            text: rhs
+                            fontSize: largeSize
                         }
                     }
                 }
             }
         }
         Item {
-            id: numList
+            id: charList
             height: layoutArea.height*0.5
             width: layoutArea.width
 
             Flickable {
                 height: parent.height
                 width: parent.width
-                contentHeight: numListContent.implicitHeight
+                contentHeight: charListContent.implicitHeight
                 clip: true
                 Column {
-                    id: numListContent
+                    id: charListContent
                     anchors.centerIn: parent
                     spacing: 5
                     Repeater {
@@ -161,7 +155,7 @@ ActivityBase {
             id: upDownButtonSet
             height: layoutArea.height*0.1
             width: layoutArea.width
-            anchors.top: numList.bottom
+            anchors.top: charList.bottom
             anchors.topMargin: 20*ApplicationInfo.ratio
             Row {
                 spacing: items.spacing
