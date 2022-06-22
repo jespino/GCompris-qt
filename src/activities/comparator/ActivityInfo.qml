@@ -26,6 +26,6 @@ ActivityInfo {
   manual: ""
   credit: ""
   section: "fun"
-  createdInVersion: 20300
+  createdInVersion:30000
   levels: "1"
 }
