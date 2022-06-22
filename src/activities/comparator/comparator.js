@@ -63,7 +63,6 @@ function checkAnswer(){
         items.bonus.good('flower');
     else
         items.bonus.bad('flower');
-
 }
 
 function nextLevel() {

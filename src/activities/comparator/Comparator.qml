@@ -297,7 +297,7 @@ ActivityBase {
                 }
 
                 GCButton {
-                    id: equal
+                    id: equalSign
                     height: parent.height
                     width: parent.height
                     onClicked:{
@@ -322,7 +322,6 @@ ActivityBase {
                         color: "#FFFFFF"
                     }
                 }
-
 
                 GCButton {
                     id: greaterThan
