@@ -83,17 +83,17 @@ ActivityBase {
                         height: items.size
                         GCText {
                             color: "#FFFFFF"
-                            text: lhs
+                            text: leftHandSide
                             fontSize: largeSize
                         }
                         GCText {
                             color: "#FFFFFF"
-                            text: symbol_plainText
+                            text: symbolPlainText
                             fontSize: largeSize
                         }
                         GCText {
                             color: "#FFFFFF"
-                            text: rhs
+                            text: rightHandSide
                             fontSize: largeSize
                         }
                     }
@@ -123,7 +123,7 @@ ActivityBase {
                             height: items.size
                             GCText {
                                 color: currentlySelected === "1" ? "red" : "#FFFFFF"
-                                text: lhs
+                                text: leftHandSide
                                 fontSize: currentlySelected === "1" ? largeSize : largeSize
                             }
                             Rectangle {
@@ -143,7 +143,7 @@ ActivityBase {
                             }
                             GCText {
                                 color: currentlySelected === "1" ? "red" : "#FFFFFF"
-                                text: rhs
+                                text: rightHandSide
                                 fontSize: currentlySelected === "1" ? largeSize : largeSize
                             }
                         }
@@ -223,12 +223,12 @@ ActivityBase {
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 GCText {
-                    id:lhs
+                    id:leftHandSide
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     height: parent.height
-                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).lhs.toString()
+                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).leftHandSide.toString()
                 }
 
                 Rectangle {
@@ -249,12 +249,12 @@ ActivityBase {
                 }
 
                 GCText {
-                    id:rhs
+                    id:rightHandSide
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     height: parent.height
-                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rhs.toString()
+                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rightHandSide.toString()
                 }
             }
         }
@@ -275,7 +275,7 @@ ActivityBase {
                     onClicked: {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "<"
-                        dataListModel.get(items.selected).symbol_plainText = "  <  "
+                        dataListModel.get(items.selected).symbolPlainText = "  <  "
                         items.step = 1
                     }
                     Rectangle {
@@ -303,7 +303,7 @@ ActivityBase {
                     onClicked:{
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "="
-                        dataListModel.get(items.selected).symbol_plainText = "  =  "
+                        dataListModel.get(items.selected).symbolPlainText = "  =  "
                         items.step = 1
                     }
                     Rectangle {
@@ -331,7 +331,7 @@ ActivityBase {
                     onClicked: {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = ">"
-                        dataListModel.get(items.selected).symbol_plainText = "  >  "
+                        dataListModel.get(items.selected).symbolPlainText = "  >  "
                         items.step = 1
                     }
                     Rectangle {
