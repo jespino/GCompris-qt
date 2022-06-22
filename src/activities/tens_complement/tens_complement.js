@@ -10,6 +10,7 @@
 var currentLevel = 0
 var numberOfLevel = 4
 var items
+var numArray = new Array()
 
 function start(items_) {
     items = items_
@@ -24,10 +25,11 @@ function initLevel() {
     items.bar.level = currentLevel + 1
     var cardArray = new Array()
     var cardsToDisplay = 6
-    var card = {
-        "value": "?"
-    }
     for(var i = 0; i < cardsToDisplay; i++) {
+        var card = {
+            "value": i.toString(),
+            "visibility": true
+        }
         items.cardListModel.append(card)
     }
 }
@@ -44,4 +46,9 @@ function previousLevel() {
         currentLevel = numberOfLevel - 1
     }
     initLevel();
+}
+
+function updateVisibility(textValue) {
+    console.log(textValue)
+    items.cardListModel.setProperty(textValue,"visibility",false)
 }

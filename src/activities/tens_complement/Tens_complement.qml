@@ -71,7 +71,6 @@ ActivityBase {
             border.color: "black"
             radius: 30
 
-
             GridView {
                 id: container
                 height: parent.height
@@ -87,55 +86,43 @@ ActivityBase {
             }
         }
 
-        Rectangle {
-            id: ansBoxTop
+        AnswerContainer {
+            id: answerContainerTop
             parent: layoutArea
             height: numberContainer.height * 0.5
             width: numberContainer.width * 1.2
-            color: "#95F2F8"
             anchors {
                 top: layoutArea.top
-                topMargin: ansBoxTop.height * 0.3
                 left: numberContainer.right
-                leftMargin: ansBoxTop.height * 0.5
+                topMargin: answerContainerTop.height * 0.3
+                leftMargin: answerContainerTop.height * 0.5
             }
-            border.width: 2
-            border.color: "black"
-            radius: 30
         }
 
-        Rectangle {
-            id: ansBoxMiddle
+        AnswerContainer {
+            id: answerContainerMiddle
             parent: layoutArea
-            height: ansBoxTop.height
-            width: ansBoxTop.width
-            color: "#95F2F8"
+            height: answerContainerTop.height
+            width: answerContainerTop.width
             anchors {
-                top: ansBoxTop.bottom
-                topMargin: ansBoxTop.height * 0.2
+                top: answerContainerTop.bottom
                 left: numberContainer.right
-                leftMargin: ansBoxTop.height * 0.5
+                topMargin: answerContainerTop.height * 0.3
+                leftMargin: answerContainerTop.height * 0.5
             }
-            border.width: 2
-            border.color: "black"
-            radius: 30
         }
 
-        Rectangle {
-            id: ansBoxBottom
+        AnswerContainer {
+            id: answerContainerBottom
             parent: layoutArea
-            height: ansBoxTop.height
-            width: ansBoxTop.width
-            color: "#95F2F8"
+            height: answerContainerTop.height
+            width: answerContainerTop.width
             anchors {
-                top: ansBoxMiddle.bottom
-                topMargin: ansBoxTop.height * 0.2
+                top: answerContainerMiddle.bottom
                 left: numberContainer.right
-                leftMargin: ansBoxTop.height * 0.5
+                topMargin: answerContainerTop.height * 0.3
+                leftMargin: answerContainerTop.height * 0.5
             }
-            border.width: 2
-            border.color: "black"
-            radius: 30
         }
 
         DialogHelp {
