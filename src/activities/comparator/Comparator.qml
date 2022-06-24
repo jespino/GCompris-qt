@@ -69,11 +69,11 @@ ActivityBase {
         }
 
         Item {
-            id: charList_plainText
+            id: charListPlainText
             height: layoutArea.height*0.5
             width: layoutArea.width
             Column {
-                id: charListContent_plainText
+                id: charListContentPlainText
                 spacing: 5
                 Repeater {
                     model: dataListModel
@@ -260,6 +260,7 @@ ActivityBase {
         }
 
         Item {
+            id: symbolSelectionRow
             height: layoutArea.height*0.1
             width: layoutArea.width
             anchors.bottom: bar.top
@@ -357,6 +358,7 @@ ActivityBase {
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
             height: items.size
             width: items.size
+            visible:
             anchors {
                 right: parent.right
                 rightMargin: 20
