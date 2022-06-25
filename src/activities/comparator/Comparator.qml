@@ -284,8 +284,9 @@ ActivityBase {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "<"
                         dataListModel.get(items.selected).symbolPlainText = "  <  "
+                        dataListModel.get(items.selected).visited ++
                         //increment the numOfRowsSelected by 1 if symbol has been selected for the row
-                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 0 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
+                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 1 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
                         items.step = 1
                     }
                     Rectangle {
@@ -314,8 +315,9 @@ ActivityBase {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "="
                         dataListModel.get(items.selected).symbolPlainText = "  =  "
+                        dataListModel.get(items.selected).visited ++
                         //increment the numOfRowsSelected by 1 if symbol has been selected for the row
-                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 0 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
+                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 1 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
                         items.step = 1
                     }
                     Rectangle {
@@ -343,8 +345,9 @@ ActivityBase {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = ">"
                         dataListModel.get(items.selected).symbolPlainText = "  >  "
+                        dataListModel.get(items.selected).visited ++
                         //increment the numOfRowsSelected by 1 if symbol has been selected for the row
-                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 0 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
+                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 1 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
                         items.step = 1
                     }
                     Rectangle {
