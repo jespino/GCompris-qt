@@ -38,7 +38,7 @@ function initLevel() {
             "rightHandSide": rightHandSide.toString(),
             "symbol": "",
             "symbolPlainText" : ".....",
-            "currentlySelected" : "0"
+            "currentlySelected" : false
         })
     }
 }

@@ -69,11 +69,11 @@ ActivityBase {
         }
 
         Item {
-            id: charListPlainText
-            height: layoutArea.height*0.5
+            id: wholeExerciceDisplay
+            height: layoutArea.height * 0.5
             width: layoutArea.width
             Column {
-                id: charListContentPlainText
+                id: wholeExerciceDisplayContent
                 spacing: 5
                 Repeater {
                     model: dataListModel
@@ -82,16 +82,19 @@ ActivityBase {
                         spacing: items.spacing
                         height: items.size
                         GCText {
+                            id: leftHandSideCharDisplayPlainText
                             color: "#FFFFFF"
                             text: leftHandSide
                             fontSize: largeSize
                         }
                         GCText {
+                            id : mathSymbolDisplayPlainText
                             color: "#FFFFFF"
                             text: symbolPlainText
                             fontSize: largeSize
                         }
                         GCText {
+                            id: rightHandSideCharDisplayPlainText
                             color: "#FFFFFF"
                             text: rightHandSide
                             fontSize: largeSize
@@ -102,7 +105,7 @@ ActivityBase {
         }
         Item {
             id: charList
-            height: layoutArea.height*0.5
+            height: layoutArea.height * 0.5
             width: layoutArea.width
             anchors.right: layoutArea.right
 
@@ -122,11 +125,13 @@ ActivityBase {
                             spacing: items.spacing
                             height: items.size
                             GCText {
-                                color: currentlySelected === "1" ? "red" : "#FFFFFF"
+                                id: leftHandSideCharDisplay
+                                color: currentlySelected === true ? "red" : "#FFFFFF"
                                 text: leftHandSide
-                                fontSize: currentlySelected === "1" ? largeSize : largeSize
+                                fontSize: currentlySelected === true ? largeSize : largeSize
                             }
                             Rectangle {
+                                id: mathSymbolDisplay
                                 height: parent.height
                                 width: parent.height
                                 radius: 10
@@ -142,9 +147,10 @@ ActivityBase {
                                 }
                             }
                             GCText {
-                                color: currentlySelected === "1" ? "red" : "#FFFFFF"
+                                id: rightHandSideCharDisplay
+                                color: currentlySelected === true ? "red" : "#FFFFFF"
                                 text: rightHandSide
-                                fontSize: currentlySelected === "1" ? largeSize : largeSize
+                                fontSize: currentlySelected === true ? largeSize : largeSize
                             }
                         }
                     }
@@ -154,10 +160,10 @@ ActivityBase {
 
         Item {
             id: upDownButtonSet
-            height: layoutArea.height*0.1
+            height: layoutArea.height * 0.1
             width: layoutArea.width
             anchors.top: charList.bottom
-            anchors.topMargin: 20*ApplicationInfo.ratio
+            anchors.topMargin: 20 * ApplicationInfo.ratio
             anchors.right: layoutArea.right
             Row {
                 spacing: items.spacing
@@ -177,9 +183,9 @@ ActivityBase {
                     }
                     onClicked: {
                         if (items.selected > -1 ){
-                            dataListModel.get(items.selected).currentlySelected = "0"
+                            dataListModel.get(items.selected).currentlySelected = false
                             items.selected --
-                            dataListModel.get(items.selected).currentlySelected = "1"
+                            dataListModel.get(items.selected).currentlySelected = true
                         }
                         items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                     }
@@ -200,9 +206,9 @@ ActivityBase {
                     }
                     onClicked: {
                         if (items.selected < (dataListModel.count - 1)){
-                            if(items.selected > -1 ) dataListModel.get(items.selected).currentlySelected = "0"
+                            if(items.selected > -1 ) dataListModel.get(items.selected).currentlySelected = false
                             items.selected ++
-                            dataListModel.get(items.selected).currentlySelected = "1"
+                            dataListModel.get(items.selected).currentlySelected = true
                         }
                         items.step = dataListModel.get(items.selected).symbol === "" ? 0 : 1
 
@@ -213,17 +219,17 @@ ActivityBase {
 
        Item {
             id: selectedArea
-            height: layoutArea.height*0.1
+            height: layoutArea.height * 0.1
             width: layoutArea.width
             anchors.top: upDownButtonSet.bottom
-            anchors.topMargin: 20*ApplicationInfo.ratio
+            anchors.topMargin: 20 * ApplicationInfo.ratio
 
             Row {
                 spacing: items.spacing
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 GCText {
-                    id:leftHandSide
+                    id:leftHandSideHighlightDisplay
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
@@ -232,7 +238,7 @@ ActivityBase {
                 }
 
                 Rectangle {
-                        id: inputArea
+                        id: inputAreaHighlightDisplay
                         height: parent.height
                         width: parent.height
                         radius: 10
@@ -249,7 +255,7 @@ ActivityBase {
                 }
 
                 GCText {
-                    id:rightHandSide
+                    id:rightHandSideHighlightDisplay
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
@@ -261,16 +267,16 @@ ActivityBase {
 
         Item {
             id: symbolSelectionRow
-            height: layoutArea.height*0.1
+            height: layoutArea.height * 0.1
             width: layoutArea.width
             anchors.bottom: bar.top
-            anchors.bottomMargin: 30*ApplicationInfo.ratio
+            anchors.bottomMargin: 30 * ApplicationInfo.ratio
             Row {
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: items.size
                 GCButton {
-                    id: lessThan
+                    id: lessThanSign
                     height: parent.height
                     width: parent.height
                     onClicked: {
@@ -291,7 +297,7 @@ ActivityBase {
                         anchors.centerIn: parent
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
-                        text:"<"
+                        text: "<"
                         fontSize: largeSize
                         color: "#FFFFFF"
                     }
@@ -325,7 +331,7 @@ ActivityBase {
                 }
 
                 GCButton {
-                    id: greaterThan
+                    id: greaterThanSign
                     height: parent.height
                     width: parent.height
                     onClicked: {
@@ -358,7 +364,6 @@ ActivityBase {
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
             height: items.size
             width: items.size
-            visible:
             anchors {
                 right: parent.right
                 rightMargin: 20
