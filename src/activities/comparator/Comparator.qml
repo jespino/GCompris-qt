@@ -47,6 +47,7 @@ ActivityBase {
             property double spacing: 50
             property double size: 100
             property int step: 0
+            property int numOfRowsSelected: 0
 
         }
 
@@ -283,6 +284,8 @@ ActivityBase {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "<"
                         dataListModel.get(items.selected).symbolPlainText = "  <  "
+                        //increment the numOfRowsSelected by 1 if symbol has been selected for the row
+                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 0 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
                         items.step = 1
                     }
                     Rectangle {
@@ -311,6 +314,8 @@ ActivityBase {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = "="
                         dataListModel.get(items.selected).symbolPlainText = "  =  "
+                        //increment the numOfRowsSelected by 1 if symbol has been selected for the row
+                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 0 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
                         items.step = 1
                     }
                     Rectangle {
@@ -338,6 +343,8 @@ ActivityBase {
                         items.step = 0
                         dataListModel.get(items.selected).symbol = ">"
                         dataListModel.get(items.selected).symbolPlainText = "  >  "
+                        //increment the numOfRowsSelected by 1 if symbol has been selected for the row
+                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 0 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
                         items.step = 1
                     }
                     Rectangle {
@@ -364,6 +371,7 @@ ActivityBase {
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
             height: items.size
             width: items.size
+            visible: items.numOfRowsSelected == dataListModel.count ? true : false
             anchors {
                 right: parent.right
                 rightMargin: 20

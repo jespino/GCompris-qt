@@ -38,7 +38,9 @@ function initLevel() {
             "rightHandSide": rightHandSide.toString(),
             "symbol": "",
             "symbolPlainText" : ".....",
-            "currentlySelected" : false
+            "currentlySelected" : false,
+            //adding a counter to check if all rows have been visited or not
+            "visited" : 0
         })
     }
 }
