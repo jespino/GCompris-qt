@@ -371,7 +371,7 @@ ActivityBase {
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
             height: items.size
             width: items.size
-            visible: items.numOfRowsSelected == dataListModel.count ? true : false
+            visible: items.numOfRowsSelected == dataListModel.count
             anchors {
                 right: parent.right
                 rightMargin: 20
