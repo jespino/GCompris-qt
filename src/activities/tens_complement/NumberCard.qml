@@ -13,7 +13,7 @@ import "tens_complement.js" as Activity
 import "qrc:/gcompris/src/core/core.js" as Core
 
 Item {
-    id: numberCard
+    id: cardNumber
     visible: visibility
     Rectangle {
         id: numberRectangle

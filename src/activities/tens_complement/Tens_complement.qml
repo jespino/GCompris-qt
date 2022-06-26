@@ -38,6 +38,8 @@ ActivityBase {
             property alias bar: bar
             property alias bonus: bonus
             property alias cardListModel: cardListModel
+            property alias holderListModel: holderListModel
+            readonly property var levels: activity.datasetLoader.data
         }
 
         onStart: { Activity.start(items) }
@@ -56,7 +58,7 @@ ActivityBase {
             id: cardListModel
         }
 
-        property double cardSize: Core.fitItems(numberContainer.width,numberContainer.height,6)
+        property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
 
         Rectangle {
             id: numberContainer
@@ -86,42 +88,54 @@ ActivityBase {
             }
         }
 
-        AnswerContainer {
-            id: answerContainerTop
-            parent: layoutArea
-            height: numberContainer.height * 0.5
-            width: numberContainer.width * 1.2
-            anchors {
-                top: layoutArea.top
-                left: numberContainer.right
-                topMargin: answerContainerTop.height * 0.3
-                leftMargin: answerContainerTop.height * 0.5
-            }
+        ListModel {
+            id: holderListModel
         }
 
-        AnswerContainer {
-            id: answerContainerMiddle
+        Rectangle {
+            id: answerHolderArea
             parent: layoutArea
-            height: answerContainerTop.height
-            width: answerContainerTop.width
             anchors {
-                top: answerContainerTop.bottom
                 left: numberContainer.right
-                topMargin: answerContainerTop.height * 0.3
-                leftMargin: answerContainerTop.height * 0.5
+                top: parent.top
+                bottom: parent.bottom
+                right: parent.right
             }
-        }
 
-        AnswerContainer {
-            id: answerContainerBottom
-            parent: layoutArea
-            height: answerContainerTop.height
-            width: answerContainerTop.width
-            anchors {
-                top: answerContainerMiddle.bottom
-                left: numberContainer.right
-                topMargin: answerContainerTop.height * 0.3
-                leftMargin: answerContainerTop.height * 0.5
+            Rectangle {
+                id: answerHolder
+                height: cardSize * 4
+                width: parent.width * 0.6
+                anchors.centerIn: parent
+
+                ListView {
+                height: parent.height
+                width: parent.width
+                anchors.centerIn: parent
+                model: holderListModel
+                delegate: AnswerContainer {
+                    height: cardSize
+                    width: parent.width
+                    }
+                }
+            }
+            BarButton {
+                id: okButton
+                z: 2
+                source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
+                anchors {
+                    right: answerHolder.right
+                    bottom: parent.bottom
+                    }
+                height: cardSize
+                width: cardSize
+            }
+
+            Rectangle {
+                id: realoadButton
+                height: 100
+                width: 100
+                color: "red"
             }
         }
 
