@@ -4,7 +4,6 @@
  *
  * Authors:
  *   Aastha Chauhan <aastha.chauhan01@gmail.com>
- *   Harsh Kumar <hadron43@yahoo.com>
  *
  *   SPDX-License-Identifier: GPL-3.0-or-later
  */
