@@ -130,6 +130,10 @@ ActivityBase {
                                 color: currentlySelected === true ? "red" : "#FFFFFF"
                                 text: leftHandSide
                                 fontSize: currentlySelected === true ? largeSize : largeSize
+                                MouseArea{
+                                    anchors.fill: parent
+                                    onClicked: parent.font.bold =! parent.font.bold
+                                }
                             }
                             Rectangle {
                                 id: mathSymbolDisplay
@@ -145,6 +149,10 @@ ActivityBase {
                                     anchors.fill : parent
                                     horizontalAlignment: Text.AlignHCenter
                                     verticalAlignment: Text.AlignVCenter
+                                    MouseArea{
+                                        anchors.fill: parent
+                                        onClicked: parent.font.bold =! parent.font.bold
+                                    }
                                 }
                             }
                             GCText {
@@ -152,6 +160,10 @@ ActivityBase {
                                 color: currentlySelected === true ? "red" : "#FFFFFF"
                                 text: rightHandSide
                                 fontSize: currentlySelected === true ? largeSize : largeSize
+                                 MouseArea{
+                                        anchors.fill: parent
+                                        onClicked: parent.font.bold =! parent.font.bold
+                                    }
                             }
                         }
                     }
