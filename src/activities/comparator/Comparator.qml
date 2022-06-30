@@ -8,6 +8,7 @@
  */
 import QtQuick 2.12
 import GCompris 1.0
+import QtQml.Models 2.1
 import QtQuick.Controls 2.12
 
 import "../../core"
@@ -125,6 +126,7 @@ ActivityBase {
                         Row {
                             spacing: items.spacing
                             height: items.size
+                            property int index: DelegateModel.itemsIndex
                             GCText {
                                 id: leftHandSideCharDisplay
                                 color: currentlySelected === true ? "red" : "#FFFFFF"
@@ -132,7 +134,10 @@ ActivityBase {
                                 fontSize: currentlySelected === true ? largeSize : largeSize
                                 MouseArea{
                                     anchors.fill: parent
-                                    onClicked: parent.font.bold =! parent.font.bold
+                                    onClicked: {
+                                        parent.font.bold =! parent.font.bold
+                                        console.log('item ', index, ' clicked' )
+                                    }
                                 }
                             }
                             Rectangle {
