@@ -129,14 +129,19 @@ ActivityBase {
                             property int index: DelegateModel.itemsIndex
                             GCText {
                                 id: leftHandSideCharDisplay
-                                color: currentlySelected === true ? "red" : "#FFFFFF"
+                                color: currentlySelected === true ? "orange" : "#FFFFFF"
+                                font.bold : currentlySelected === true ? true : false
                                 text: leftHandSide
                                 fontSize: currentlySelected === true ? largeSize : largeSize
                                 MouseArea{
                                     anchors.fill: parent
                                     onClicked: {
-                                        parent.font.bold =! parent.font.bold
-                                        console.log('item ', index, ' clicked' )
+                                        if (items.selected > -1 ) {
+                                        dataListModel.get(items.selected).currentlySelected = false
+                                        items.selected = index
+                                        dataListModel.get(items.selected).currentlySelected = true
+                                        }
+                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                     }
                                 }
                             }
@@ -156,19 +161,34 @@ ActivityBase {
                                     verticalAlignment: Text.AlignVCenter
                                     MouseArea{
                                         anchors.fill: parent
-                                        onClicked: parent.font.bold =! parent.font.bold
+                                        onClicked: {
+                                            if (items.selected > -1 ) {
+                                            dataListModel.get(items.selected).currentlySelected = false
+                                            items.selected = index
+                                            dataListModel.get(items.selected).currentlySelected = true
+                                            }
+                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                        }
                                     }
                                 }
                             }
                             GCText {
                                 id: rightHandSideCharDisplay
-                                color: currentlySelected === true ? "red" : "#FFFFFF"
+                                color: currentlySelected === true ? "orange" : "#FFFFFF"
+                                font.bold : currentlySelected === true ? true : false
                                 text: rightHandSide
                                 fontSize: currentlySelected === true ? largeSize : largeSize
                                  MouseArea{
-                                        anchors.fill: parent
-                                        onClicked: parent.font.bold =! parent.font.bold
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        if (items.selected > -1 ) {
+                                        dataListModel.get(items.selected).currentlySelected = false
+                                        items.selected = index
+                                        dataListModel.get(items.selected).currentlySelected = true
+                                        }
+                                    items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                     }
+                                }
                             }
                         }
                     }
