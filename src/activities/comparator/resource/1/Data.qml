@@ -17,6 +17,11 @@ Data {
     data: [
         {
             minValue: 1,
+            maxValue: 6,
+            count: 4
+        },
+        {
+            minValue: 5,
             maxValue: 9,
             count: 4
         }

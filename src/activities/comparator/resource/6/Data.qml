@@ -11,18 +11,18 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("Digits from 1 to 19.")
-    difficulty: 2
+    objective: qsTr("Digits from 1 to 1000000000.")
+    difficulty: 3
 
     data: [
         {
             minValue: 1,
-            maxValue: 9,
+            maxValue: 5000000000,
             count: 4
         },
         {
-            minValue: 11,
-            maxValue: 19,
+            minValue: 5000000001,
+            maxValue: 1000000000,
             count: 4
         }
     ]
