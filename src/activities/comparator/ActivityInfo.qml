@@ -10,7 +10,7 @@ import GCompris 1.0
 
 ActivityInfo {
   name: "comparator/Comparator.qml"
-  difficulty: 1
+  difficulty: 2
   icon: "comparator/comparator.svg"
   author: "Aastha Chauhan &lt;aastha.chauhan01@gmail.com&gt;"
   //: Activity title
@@ -27,5 +27,5 @@ ActivityInfo {
   credit: ""
   section: "fun"
   createdInVersion:30000
-  levels: "1"
+  levels: "1,2"
 }

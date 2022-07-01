@@ -105,6 +105,7 @@ ActivityBase {
                 }
             }
         }
+
         Item {
             id: charList
             height: layoutArea.height * 0.5
@@ -185,9 +186,8 @@ ActivityBase {
                                         dataListModel.get(items.selected).currentlySelected = false
                                         items.selected = index
                                         dataListModel.get(items.selected).currentlySelected = true
-                                        }
-                                    items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                     }
+                                    items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                 }
                             }
                         }
@@ -195,6 +195,7 @@ ActivityBase {
                 }
             }
         }
+    }
 
         Item {
             id: upDownButtonSet
