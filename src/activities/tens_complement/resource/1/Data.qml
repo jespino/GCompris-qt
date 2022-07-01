@@ -10,7 +10,16 @@ Data {
     difficulty: 1
     data: [
         {
-            "numberVal": [1, 8, 9, 2, 6, 4]
+            "value": [
+                {
+                    "numberValue": [1, 3, 9],
+                    "questionValue": [7, 1, 9]
+                },
+                {
+                    "numberValue": [7, 2, 5],
+                    "questionValue": [8, 5, 3]
+                }
+            ]
         }
     ]
 }

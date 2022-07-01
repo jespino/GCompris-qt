@@ -127,15 +127,38 @@ ActivityBase {
                     right: answerHolder.right
                     bottom: parent.bottom
                     }
-                height: cardSize
-                width: cardSize
+                height: cardSize * 0.8
+                width: cardSize * 0.8
             }
 
-            Rectangle {
-                id: realoadButton
-                height: 100
-                width: 100
-                color: "red"
+            ClickButton {
+                id: reloadButton
+                height: cardSize * 0.5
+                width: cardSize
+                anchors.bottom: parent.bottom
+                anchors.left: answerHolder.left
+                textValue: "RELOAD"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("reload pressed")
+                    }
+                }
+            }
+
+            ClickButton {
+                id: nextButton
+                height: cardSize * 0.5
+                width: cardSize
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: answerHolder.horizontalCenter
+                textValue: "NEXT"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        console.log("next pressed")
+                    }
+                }
             }
         }
 

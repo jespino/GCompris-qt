@@ -1,4 +1,4 @@
-/* GCompris - NumberCard.qml
+/* GCompris - AnswerContainer.qml
  *
  * SPDX-FileCopyrightText: 2022 Samarth Raj <mailforsamarth@gmail.com>
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -29,7 +29,7 @@ Item {
         Rectangle {
             id: firstPlaceHolder
             height: parent.height
-            width: Math.min(firstPlaceHolder.height,parent.width/4)
+            width: Math.min(firstPlaceHolder.height, parent.width/4)
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
@@ -39,7 +39,7 @@ Item {
             radius: parent.radius
 
             GCText {
-                id: textValueFirst
+                id: firstTextValue
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
@@ -53,10 +53,10 @@ Item {
                 onClicked: {
                     var arr = Activity.numArray
                     if(arr.length > 0) {
-                        textValueFirst.text = arr[arr.length - 1]
+                        firstTextValue.text = arr[arr.length - 1]
                     }
                     arr.length = 0
-                    Activity.updateVisibility(textValueFirst.text)
+                    Activity.updateVisibility(firstTextValue.text)
                 }
             }
         }
@@ -87,7 +87,7 @@ Item {
             radius: parent.radius
 
             GCText {
-                id: textValueSecond
+                id: secondTextValue
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
@@ -101,10 +101,10 @@ Item {
                 onClicked: {
                     var arr = Activity.numArray
                     if(arr.length > 0) {
-                        textValueSecond.text = arr[arr.length - 1]
+                        secondTextValue.text = arr[arr.length - 1]
                     }
                     arr.length = 0
-                    Activity.updateVisibility(textValueSecond.text)
+                    Activity.updateVisibility(secondTextValue.text)
                 }
             }
         }

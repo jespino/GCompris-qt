@@ -11,7 +11,7 @@ ActivityInfo {
   icon: "tens_complement/tens_complement.svg"
   author: "Samarth Raj &lt;mailforsamarth@gmail.com&gt;"
   //: Activity title
-  title: "Ten's Complement"
+  title: qsTr("Ten's Complement")
   //: Help title
   description: ""
   //intro: "put here in comment the text for the intro voice"

@@ -8,7 +8,7 @@
 .import QtQuick 2.12 as Quick
 
 var currentLevel = 0
-var numberOfLevel = 4
+var numberOfLevel = 3
 var items
 var numArray = new Array()
 var datasets
@@ -26,10 +26,10 @@ function initLevel() {
     items.bar.level = currentLevel + 1
     datasets = items.levels
     var cardArray = new Array()
-    var cardsToDisplay = 6
+    var cardsToDisplay = datasets[currentLevel].value[0].numberValue.length
     for(var count = 0; count < cardsToDisplay; count++) {
         var card = {
-            "value": datasets[0].numberVal[count].toString(),
+            "value": datasets[currentLevel].value[0].numberValue[count].toString(),
             "visibility": true
         }
         items.cardListModel.append(card)
