@@ -46,7 +46,7 @@ ActivityBase {
             property alias dataListModel: dataListModel
             property int selected: -1
             property double spacing: 50
-            property double size: 100
+            property double size: 90
             property int step: 0
             property int numOfRowsSelected: 0
 
@@ -69,98 +69,58 @@ ActivityBase {
         ListModel {
             id: dataListModel
         }
-
-        Item {
+       Item {
             id: wholeExerciceDisplay
-            height: layoutArea.height * 0.5
-            width: layoutArea.width
-            Column {
-                id: wholeExerciceDisplayContent
-                spacing: 5
-                Repeater {
-                    model: dataListModel
-                    delegate:
-                    Row {
-                        spacing: items.spacing
-                        height: items.size
-                        GCText {
-                            id: leftHandSideCharDisplayPlainText
-                            color: "#FFFFFF"
-                            text: leftHandSide
-                            fontSize: largeSize
-                        }
-                        GCText {
-                            id : mathSymbolDisplayPlainText
-                            color: "#FFFFFF"
-                            text: symbolPlainText
-                            fontSize: largeSize
-                        }
-                        GCText {
-                            id: rightHandSideCharDisplayPlainText
-                            color: "#FFFFFF"
-                            text: rightHandSide
-                            fontSize: largeSize
-                        }
-                    }
-                }
-            }
-        }
-
-        Item {
-            id: charList
-            height: layoutArea.height * 0.5
-            width: layoutArea.width
-            anchors.right: layoutArea.right
-
-            Flickable {
-                height: parent.height
-                width: parent.width
-                contentHeight: charListContent.implicitHeight
-                clip: true
+            width: layoutArea.width * 0.5
+            height: parent.height * 0.5
+            anchors.left: layoutArea.left
                 Column {
-                    id: charListContent
-                    anchors.right: parent.right
+                    id: wholeExerciceDisplayContent
                     spacing: 5
+                    anchors.right: parent
+                    width: parent.width
                     Repeater {
-                        model: dataListModel
-                        delegate:
-                        Row {
-                            spacing: items.spacing
-                            height: items.size
-                            property int index: DelegateModel.itemsIndex
-                            GCText {
-                                id: leftHandSideCharDisplay
-                                color: currentlySelected === true ? "orange" : "#FFFFFF"
-                                font.bold : currentlySelected === true ? true : false
-                                text: leftHandSide
-                                fontSize: currentlySelected === true ? largeSize : largeSize
-                                MouseArea{
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        if (items.selected > -1 ) {
-                                        dataListModel.get(items.selected).currentlySelected = false
-                                        items.selected = index
-                                        dataListModel.get(items.selected).currentlySelected = true
+                            model: dataListModel
+                            delegate:
+                            Item {
+                                height: items.size
+                                width: parent.width
+                                property int index: DelegateModel.itemsIndex
+                                Rectangle {
+                                    id: mathSymbolDisplay
+                                    height: items.size
+                                    width: items.size
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    color: "transparent"
+                                    GCText {
+                                        color: "white"
+                                        text:symbolPlainText
+                                        fontSize: LargeSize
+                                        anchors.fill : parent
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                if (items.selected > -1 ) {
+                                                dataListModel.get(items.selected).currentlySelected = false
+                                                items.selected = index
+                                                dataListModel.get(items.selected).currentlySelected = true
+                                                }
+                                            items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                            }
                                         }
-                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                     }
                                 }
-                            }
-                            Rectangle {
-                                id: mathSymbolDisplay
-                                height: parent.height
-                                width: parent.height
-                                radius: 10
-                                color: "orange"
-                                border.width : 20
-                                border.color: "#E8E8E8"
+
                                 GCText {
-                                    color: "#000000"
-                                    text: symbol
-                                    anchors.fill : parent
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                    MouseArea{
+                                    id: rightHandSideCharDisplay
+                                    anchors.left: mathSymbolDisplay.right
+                                    anchors.leftMargin: items.size
+                                    color: "white"
+                                    text: rightHandSide
+                                    fontSize: mediumSize
+                                        MouseArea{
                                         anchors.fill: parent
                                         onClicked: {
                                             if (items.selected > -1 ) {
@@ -172,30 +132,121 @@ ActivityBase {
                                         }
                                     }
                                 }
-                            }
-                            GCText {
-                                id: rightHandSideCharDisplay
-                                color: currentlySelected === true ? "orange" : "#FFFFFF"
-                                font.bold : currentlySelected === true ? true : false
-                                text: rightHandSide
-                                fontSize: currentlySelected === true ? largeSize : largeSize
-                                 MouseArea{
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        if (items.selected > -1 ) {
-                                        dataListModel.get(items.selected).currentlySelected = false
-                                        items.selected = index
-                                        dataListModel.get(items.selected).currentlySelected = true
+                                GCText {
+                                    id: leftHandSideCharDisplay
+                                    color: "#FFFFFF"
+                                    anchors.right: mathSymbolDisplay.left
+                                    anchors.rightMargin: items.size
+                                    text: leftHandSide
+                                    fontSize: mediumSize
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            if (items.selected > -1 ) {
+                                            dataListModel.get(items.selected).currentlySelected = false
+                                            items.selected = index
+                                            dataListModel.get(items.selected).currentlySelected = true
+                                            }
+                                            items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                        }
                                     }
-                                    items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                 }
                             }
                         }
                     }
                 }
-            }
-        }
-    }
+
+       Item {
+            id: charList
+            width: layoutArea.width * 0.5
+            height: parent.height * 0.5
+            anchors.right: layoutArea.right
+                Column {
+                    id: charListContent
+                    spacing: 5
+                    anchors.right: parent
+                    width: parent.width
+                    Repeater {
+                            model: dataListModel
+                            delegate:
+                            Item {
+                                height: items.size
+                                width: parent.width
+                                property int index: DelegateModel.itemsIndex
+                                Rectangle {
+                                    id: mathSymbolDisplay
+                                    height: items.size
+                                    width: items.size
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    radius: 10
+                                    color: "orange"
+                                    border.width : 20
+                                    border.color: "#E8E8E8"
+                                    GCText {
+                                        color: "#FFFFFF"
+                                        text: symbol
+                                        font.bold: true
+                                        anchors.fill : parent
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                if (items.selected > -1 ) {
+                                                dataListModel.get(items.selected).currentlySelected = false
+                                                items.selected = index
+                                                dataListModel.get(items.selected).currentlySelected = true
+                                                }
+                                            items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                            }
+                                        }
+                                    }
+                                }
+
+                                GCText {
+                                    id: rightHandSideCharDisplay
+                                    anchors.left: mathSymbolDisplay.right
+                                    anchors.leftMargin: items.size
+                                    color: currentlySelected === true ? "orange" : "white"
+                                    font.bold : currentlySelected === true ? true : false
+                                    text: rightHandSide
+                                    fontSize: mediumSize
+                                        MouseArea{
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            if (items.selected > -1 ) {
+                                            dataListModel.get(items.selected).currentlySelected = false
+                                            items.selected = index
+                                            dataListModel.get(items.selected).currentlySelected = true
+                                            }
+                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                        }
+                                    }
+                                }
+                                GCText {
+                                    id: leftHandSideCharDisplay
+                                    color: currentlySelected === true ? "orange" : "#FFFFFF"
+                                    font.bold : currentlySelected === true ? true : false
+                                    anchors.right: mathSymbolDisplay.left
+                                    anchors.rightMargin: items.size
+                                    text: leftHandSide
+                                    fontSize: mediumSize
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            if (items.selected > -1 ) {
+                                            dataListModel.get(items.selected).currentlySelected = false
+                                            items.selected = index
+                                            dataListModel.get(items.selected).currentlySelected = true
+                                            }
+                                            items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
         Item {
             id: upDownButtonSet
@@ -257,21 +308,19 @@ ActivityBase {
         }
 
        Item {
-            id: selectedArea
+            id: selectedAnswerArea
             height: layoutArea.height * 0.1
             width: layoutArea.width
-            anchors.top: upDownButtonSet.bottom
+            anchors.bottom: symbolSelectionRow.top
+            anchors.bottomMargin: items.size
             anchors.topMargin: 20 * ApplicationInfo.ratio
-
-            Row {
-                spacing: items.spacing
-                height: parent.height
-                anchors.horizontalCenter: parent.horizontalCenter
                 GCText {
                     id:leftHandSideHighlightDisplay
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
+                    anchors.right: inputAreaHighlightDisplay.left
+                    anchors.rightMargin: items.size
                     height: parent.height
                     text: (items.selected === -1) ? "" : dataListModel.get(items.selected).leftHandSide.toString()
                 }
@@ -280,6 +329,7 @@ ActivityBase {
                         id: inputAreaHighlightDisplay
                         height: parent.height
                         width: parent.height
+                        anchors.horizontalCenter: parent.horizontalCenter
                         radius: 10
                         color: "#E8E8E8"
                         visible: items.selected !== -1
@@ -298,10 +348,11 @@ ActivityBase {
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
+                    anchors.left: inputAreaHighlightDisplay.right
+                    anchors.leftMargin: items.size
                     height: parent.height
                     text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rightHandSide.toString()
                 }
-            }
         }
 
         Item {
