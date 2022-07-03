@@ -115,7 +115,7 @@ ActivityBase {
                 model: holderListModel
                 delegate: AnswerContainer {
                     height: cardSize
-                    width: parent.width
+                    width: answerHolder.width
                     }
                 }
             }
@@ -141,7 +141,7 @@ ActivityBase {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        console.log("reload pressed")
+                        Activity.initLevel()
                     }
                 }
             }
@@ -156,9 +156,28 @@ ActivityBase {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        console.log("next pressed")
+                        Activity.nextSubLevel()
                     }
                 }
+            }
+        }
+
+        DialogChooseLevel {
+            id: dialogActivityConfig
+            currentActivity: activity.activityInfo
+
+            onSaveData: {
+                levelFolder = dialogActivityConfig.chosenLevels
+                currentActivity.currentLevels = dialogActivityConfig.chosenLevels
+                ApplicationSettings.setCurrentLevels(currentActivity.name, dialogActivityConfig.chosenLevels)
+                // restart activity on saving
+                background.start()
+            }
+            onClose: {
+                home()
+            }
+            onStartActivity: {
+                background.start()
             }
         }
 
@@ -169,13 +188,16 @@ ActivityBase {
 
         Bar {
             id: bar
-            content: BarEnumContent { value: help | home | level }
+            content: BarEnumContent { value: help | home | level | activityConfig }
             onHelpClicked: {
                 displayDialog(dialogHelp)
             }
             onPreviousLevelClicked: Activity.previousLevel()
             onNextLevelClicked: Activity.nextLevel()
             onHomeClicked: activity.home()
+            onActivityConfigClicked: {
+                displayDialog(dialogActivityConfig)
+            }
         }
 
         Bonus {

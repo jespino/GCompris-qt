@@ -15,7 +15,7 @@ Item {
         height: parent.height
         width: parent.width
         color: "#95F2F8"
-        border.width: givenWidth
+        border.width: 2
         border.color: "black"
         radius: 30
         anchors {
@@ -91,7 +91,7 @@ Item {
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
-                text: "?"
+                text: questionValue
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }

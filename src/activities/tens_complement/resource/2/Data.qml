@@ -12,11 +12,11 @@ Data {
         {
             "value": [
                 {
-                    "numberValue": [1, 3, 6],
+                    "numberValue": [1, 3, 7, 1, 9, 2],
                     "questionValue": [7, 9, 4]
                 },
                 {
-                    "numberValue": [7, 2, 5],
+                    "numberValue": [7, 2, 5, 8, 6, 4],
                     "questionValue": [8, 5, 3]
                 }
             ]

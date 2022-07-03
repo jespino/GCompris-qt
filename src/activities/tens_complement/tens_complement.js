@@ -9,6 +9,9 @@
 
 var currentLevel = 0
 var numberOfLevel = 3
+var currentSubLevel = 0
+var numberOfSubLevel = 2
+var cardsToDisplay
 var items
 var numArray = new Array()
 var datasets
@@ -24,27 +27,40 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1
-    datasets = items.levels
+    datasets = items.levels[currentLevel]
     var cardArray = new Array()
-    var cardsToDisplay = datasets[currentLevel].value[0].numberValue.length
+    cardsToDisplay = datasets.value[currentSubLevel].numberValue.length
+    items.cardListModel.clear()
+    items.holderListModel.clear()
     for(var count = 0; count < cardsToDisplay; count++) {
         var card = {
-            "value": datasets[currentLevel].value[0].numberValue[count].toString(),
+            "value": datasets.value[currentSubLevel].numberValue[count].toString(),
             "visibility": true
         }
         items.cardListModel.append(card)
     }
-    for(var count = 0; count < 3; count++) {
-        var test = {
-            "givenWidth": 2
+    var questionCardToDisplay = datasets.value[currentSubLevel].questionValue.length
+    for(var count = 0; count < questionCardToDisplay; count++) {
+        var questionCard = {
+            "questionValue": datasets.value[currentSubLevel].questionValue[count].toString()
         }
-        items.holderListModel.append(test)
+        items.holderListModel.append(questionCard)
     }
+    console.log("-----------------------")
+    console.log(items.levels.length)
 }
 
 function nextLevel() {
     if(numberOfLevel <= ++currentLevel) {
         currentLevel = 0
+    }
+    initLevel();
+}
+
+function nextSubLevel() {
+    if(numberOfSubLevel <= ++currentSubLevel) {
+        currentSubLevel = 0
+        nextLevel()
     }
     initLevel();
 }
@@ -57,9 +73,9 @@ function previousLevel() {
 }
 
 function updateVisibility(textValue) {
-    for(var i = 0; i < datasets[0].numberVal.length; i++) {
-        if(textValue == datasets[0].numberVal[i]) {
-            items.cardListModel.setProperty(i, "visibility", false)
+    for(var index = 0; index < cardsToDisplay; index++) {
+        if(textValue == datasets.value[currentSubLevel].numberValue[index]) {
+            items.cardListModel.setProperty(index, "visibility", false)
         }
     }
 }
