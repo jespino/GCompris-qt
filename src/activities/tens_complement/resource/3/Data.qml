@@ -6,20 +6,21 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("10's complement of a given number")
+    objective: qsTr("pairs of 10's complement")
     difficulty: 1
     data: [
         {
             "value": [
                 {
-                    "numberValue": [1, 3, 7, 4, 9, 2],
-                    "questionValue": [6, 9, 7]
+                    "numberValue": [1, 4, 8, 2, 6, 9],
+                    "questionValue": ["?", "?" ,"?"]
                 },
                 {
-                    "numberValue": [7, 2, 5, 8, 6, 4],
-                    "questionValue": [8, 5, 3]
+                    "numberValue": [7, 5, 5, 8, 6, 4],
+                    "questionValue": ["?", "?" ,"?"]
                 }
             ]
         }
     ]
 }
+

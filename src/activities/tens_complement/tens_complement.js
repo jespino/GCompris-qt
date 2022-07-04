@@ -8,9 +8,9 @@
 .import QtQuick 2.12 as Quick
 
 var currentLevel = 0
-var numberOfLevel = 3
+var numberOfLevel
 var currentSubLevel = 0
-var numberOfSubLevel = 2
+var numberOfSubLevel
 var cardsToDisplay
 var items
 var numArray = new Array()
@@ -28,6 +28,8 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1
     datasets = items.levels[currentLevel]
+    numberOfLevel = items.levels.length
+    numberOfSubLevel = datasets.value.length
     var cardArray = new Array()
     cardsToDisplay = datasets.value[currentSubLevel].numberValue.length
     items.cardListModel.clear()
@@ -46,8 +48,6 @@ function initLevel() {
         }
         items.holderListModel.append(questionCard)
     }
-    console.log("-----------------------")
-    console.log(items.levels.length)
 }
 
 function nextLevel() {

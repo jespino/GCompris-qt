@@ -119,6 +119,7 @@ ActivityBase {
                     }
                 }
             }
+
             BarButton {
                 id: okButton
                 z: 2
@@ -129,36 +130,35 @@ ActivityBase {
                     }
                 height: cardSize * 0.8
                 width: cardSize * 0.8
+                onClicked: {
+                    console.log("okay")
+                }
             }
 
-            ClickButton {
+            BarButton {
                 id: reloadButton
-                height: cardSize * 0.5
-                width: cardSize
-                anchors.bottom: parent.bottom
-                anchors.left: answerHolder.left
-                textValue: "RELOAD"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        Activity.initLevel()
+                z: 2
+                source: "qrc:/gcompris/src/core/resource/bar_reload.svg"
+                anchors {
+                    left: answerHolder.left
+                    bottom: parent.bottom
                     }
-                }
+                height: cardSize * 0.8
+                width: cardSize * 0.8
+                onClicked: Activity.initLevel()
             }
 
-            ClickButton {
+            BarButton {
                 id: nextButton
-                height: cardSize * 0.5
-                width: cardSize
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: answerHolder.horizontalCenter
-                textValue: "NEXT"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        Activity.nextSubLevel()
+                z: 2
+                source: "qrc:/gcompris/src/core/resource/bar_next.svg"
+                anchors {
+                    horizontalCenter: answerHolder.horizontalCenter
+                    bottom: parent.bottom
                     }
-                }
+                height: cardSize * 0.8
+                width: cardSize * 0.8
+                onClicked: Activity.nextSubLevel()
             }
         }
 
