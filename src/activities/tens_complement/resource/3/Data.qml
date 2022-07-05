@@ -16,7 +16,7 @@ Data {
                     "questionValue": ["?", "?" ,"?"]
                 },
                 {
-                    "numberValue": [7, 5, 5, 8, 6, 4],
+                    "numberValue": [7, 9, 1, 3, 6, 4],
                     "questionValue": ["?", "?" ,"?"]
                 }
             ]

@@ -130,9 +130,7 @@ ActivityBase {
                     }
                 height: cardSize * 0.8
                 width: cardSize * 0.8
-                onClicked: {
-                    console.log("okay")
-                }
+                onClicked: Activity.checkAnswer()
             }
 
             BarButton {

@@ -10,6 +10,7 @@ import "tens_complement.js" as Activity
 
 Item {
     id: answerContainer
+    property int rowNumber: rowIndex
     Rectangle {
         id: answerRectangle
         height: parent.height
@@ -28,6 +29,7 @@ Item {
 
         Rectangle {
             id: firstPlaceHolder
+            property int columnNumber: 1
             height: parent.height
             width: Math.min(firstPlaceHolder.height, parent.width/4)
             anchors.top: parent.top
@@ -57,6 +59,7 @@ Item {
                     }
                     arr.length = 0
                     Activity.updateVisibility(firstTextValue.text)
+                    Activity.updateAnswerArray(rowNumber, parent.columnNumber, firstTextValue.text)
                 }
             }
         }
@@ -75,6 +78,7 @@ Item {
 
         Rectangle {
             id: secondPlaceHolder
+            property int columnNumber: 2
             height: firstPlaceHolder.height
             width: firstPlaceHolder.width
             anchors {
@@ -105,6 +109,7 @@ Item {
                     }
                     arr.length = 0
                     Activity.updateVisibility(secondTextValue.text)
+                    Activity.updateAnswerArray(rowNumber, parent.columnNumber, secondTextValue.text)
                 }
             }
         }
