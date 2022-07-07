@@ -132,32 +132,6 @@ ActivityBase {
                 width: cardSize * 0.8
                 onClicked: Activity.checkAnswer()
             }
-
-            BarButton {
-                id: reloadButton
-                z: 2
-                source: "qrc:/gcompris/src/core/resource/bar_reload.svg"
-                anchors {
-                    left: answerHolder.left
-                    bottom: parent.bottom
-                    }
-                height: cardSize * 0.8
-                width: cardSize * 0.8
-                onClicked: Activity.initLevel()
-            }
-
-            BarButton {
-                id: nextButton
-                z: 2
-                source: "qrc:/gcompris/src/core/resource/bar_next.svg"
-                anchors {
-                    horizontalCenter: answerHolder.horizontalCenter
-                    bottom: parent.bottom
-                    }
-                height: cardSize * 0.8
-                width: cardSize * 0.8
-                onClicked: Activity.nextSubLevel()
-            }
         }
 
         DialogChooseLevel {
@@ -186,13 +160,14 @@ ActivityBase {
 
         Bar {
             id: bar
-            content: BarEnumContent { value: help | home | level | activityConfig }
+            content: BarEnumContent { value: help | home | level | reload | activityConfig }
             onHelpClicked: {
                 displayDialog(dialogHelp)
             }
             onPreviousLevelClicked: Activity.previousLevel()
             onNextLevelClicked: Activity.nextLevel()
             onHomeClicked: activity.home()
+            onReloadClicked: Activity.initLevel()
             onActivityConfigClicked: {
                 displayDialog(dialogActivityConfig)
             }

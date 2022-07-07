@@ -6,6 +6,7 @@
 import QtQuick 2.12
 
 import "../../core"
+import "../tens_complement/"
 import "tens_complement_2.js" as Activity
 
 ActivityBase {
@@ -33,6 +34,8 @@ ActivityBase {
             property alias background: background
             property alias bar: bar
             property alias bonus: bonus
+            property alias cardListModel: cardListModel
+            property alias symbolListMode: symbolListMode
         }
 
         onStart: { Activity.start(items) }
@@ -47,6 +50,14 @@ ActivityBase {
             anchors.right: parent.right
         }
 
+        ListModel {
+            id: cardListModel
+        }
+
+        ListModel {
+            id: symbolListMode
+        }
+
         Rectangle {
             id: containerHolder
             parent: layoutArea
@@ -54,6 +65,33 @@ ActivityBase {
             width: layoutArea.width * 0.4
             color: "pink"
             anchors.centerIn: parent
+
+            ListView {
+                height: parent.height
+                width: parent.width
+                anchors.fill: parent
+                anchors.leftMargin: 20
+                spacing: 50
+                orientation: ListView.Horizontal
+                anchors.centerIn: parent
+                model: cardListModel
+                delegate: NumberCard {
+                    height: 100
+                    width: 100
+                }
+            }
+            ListView {
+                height: parent.height
+                width: parent.width
+                spacing: 148
+                orientation: ListView.Horizontal
+                anchors.centerIn: parent
+                model: symbolListMode
+                delegate: SymbolCard {
+                    height: 100
+                    width: 0
+                }
+            }
         }
 
         DialogHelp {

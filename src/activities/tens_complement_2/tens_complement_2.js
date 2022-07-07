@@ -22,6 +22,19 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1
+    var arr = ["(", "+", ")+(", "+", ")="]
+    for(var i=0;i<arr.length;i++) {
+        var card = {
+            "symbolValue": arr[i]
+        }
+        items.symbolListMode.append(card)
+    }
+    for(var i=0;i<5;i++) {
+        var card = {
+            "visibility": true
+        }
+        items.cardListModel.append(card)
+    }
 }
 
 function nextLevel() {
