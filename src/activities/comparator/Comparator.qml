@@ -8,7 +8,7 @@
  */
 import QtQuick 2.12
 import GCompris 1.0
-import QtQml.Models 2.1
+import QtQml.Models 2.12
 import QtQuick.Controls 2.12
 
 import "../../core"
@@ -69,7 +69,7 @@ ActivityBase {
         ListModel {
             id: dataListModel
         }
-       Item {
+        Item {
             id: wholeExerciceDisplay
             width: layoutArea.width * 0.5
             height: parent.height * 0.5
@@ -103,9 +103,9 @@ ActivityBase {
                                             anchors.fill: parent
                                             onClicked: {
                                                 if (items.selected > -1 ) {
-                                                dataListModel.get(items.selected).currentlySelected = false
-                                                items.selected = index
-                                                dataListModel.get(items.selected).currentlySelected = true
+                                                    dataListModel.get(items.selected).currentlySelected = false
+                                                    items.selected = index
+                                                    dataListModel.get(items.selected).currentlySelected = true
                                                 }
                                             items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                             }
@@ -124,9 +124,9 @@ ActivityBase {
                                         anchors.fill: parent
                                         onClicked: {
                                             if (items.selected > -1 ) {
-                                            dataListModel.get(items.selected).currentlySelected = false
-                                            items.selected = index
-                                            dataListModel.get(items.selected).currentlySelected = true
+                                                dataListModel.get(items.selected).currentlySelected = false
+                                                items.selected = index
+                                                dataListModel.get(items.selected).currentlySelected = true
                                             }
                                         items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                         }
@@ -143,9 +143,9 @@ ActivityBase {
                                         anchors.fill: parent
                                         onClicked: {
                                             if (items.selected > -1 ) {
-                                            dataListModel.get(items.selected).currentlySelected = false
-                                            items.selected = index
-                                            dataListModel.get(items.selected).currentlySelected = true
+                                                dataListModel.get(items.selected).currentlySelected = false
+                                                items.selected = index
+                                                dataListModel.get(items.selected).currentlySelected = true
                                             }
                                             items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                         }
@@ -155,6 +155,7 @@ ActivityBase {
                         }
                     }
                 }
+
 
        Item {
             id: charList
@@ -193,9 +194,9 @@ ActivityBase {
                                             anchors.fill: parent
                                             onClicked: {
                                                 if (items.selected > -1 ) {
-                                                dataListModel.get(items.selected).currentlySelected = false
-                                                items.selected = index
-                                                dataListModel.get(items.selected).currentlySelected = true
+                                                    dataListModel.get(items.selected).currentlySelected = false
+                                                    items.selected = index
+                                                    dataListModel.get(items.selected).currentlySelected = true
                                                 }
                                             items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                             }
@@ -215,9 +216,9 @@ ActivityBase {
                                         anchors.fill: parent
                                         onClicked: {
                                             if (items.selected > -1 ) {
-                                            dataListModel.get(items.selected).currentlySelected = false
-                                            items.selected = index
-                                            dataListModel.get(items.selected).currentlySelected = true
+                                                dataListModel.get(items.selected).currentlySelected = false
+                                                items.selected = index
+                                                dataListModel.get(items.selected).currentlySelected = true
                                             }
                                         items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                         }
@@ -235,9 +236,9 @@ ActivityBase {
                                         anchors.fill: parent
                                         onClicked: {
                                             if (items.selected > -1 ) {
-                                            dataListModel.get(items.selected).currentlySelected = false
-                                            items.selected = index
-                                            dataListModel.get(items.selected).currentlySelected = true
+                                                dataListModel.get(items.selected).currentlySelected = false
+                                                items.selected = index
+                                                dataListModel.get(items.selected).currentlySelected = true
                                             }
                                             items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                         }
@@ -297,8 +298,8 @@ ActivityBase {
                     onClicked: {
                         if (items.selected < (dataListModel.count - 1)){
                             if(items.selected > -1 ) dataListModel.get(items.selected).currentlySelected = false
-                            items.selected ++
-                            dataListModel.get(items.selected).currentlySelected = true
+                                items.selected ++
+                                dataListModel.get(items.selected).currentlySelected = true
                         }
                         items.step = dataListModel.get(items.selected).symbol === "" ? 0 : 1
 

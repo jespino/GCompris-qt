@@ -56,7 +56,7 @@ function checkAnswer(){
         let rightHandSide = items.dataListModel.get(i).rightHandSide
         let symbol = items.dataListModel.get(i).symbol
 
-       if(leftHandSide < rightHandSide && symbol !== "<" || leftHandSide > rightHandSide && symbol !== ">" || leftHandSide === rightHandSide && symbol !== "=") {
+       if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
            evaluate = false
             break;
        }

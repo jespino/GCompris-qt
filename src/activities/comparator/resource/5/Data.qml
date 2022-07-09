@@ -21,7 +21,7 @@ Data {
             count: 4
         },
         {
-            minValue: 5000001,
+            minValue: 500001,
             maxValue: 1000000,
             count: 4
         }
