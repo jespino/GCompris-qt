@@ -25,7 +25,7 @@ ActivityInfo {
   //: Help manual
   manual: ""
   credit: ""
-  section: "fun"
+  section: "math numberation"
   createdInVersion:30000
   levels: "1,2,3,4,5,6"
 }

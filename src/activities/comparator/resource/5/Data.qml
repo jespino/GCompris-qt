@@ -17,7 +17,7 @@ Data {
     data: [
         {
             minValue: 1,
-            maxValue: 5000000,
+            maxValue: 500000,
             count: 4
         },
         {

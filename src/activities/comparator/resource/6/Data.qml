@@ -11,13 +11,13 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("Numbers from 1 to 1000000000.")
+    objective: qsTr("Numbers from 1 to 1 milliard.")
     difficulty: 3
 
     data: [
         {
             minValue: 1,
-            maxValue: 5000000000,
+            maxValue: 500000000,
             count: 4
         },
         {
