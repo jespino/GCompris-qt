@@ -31,9 +31,9 @@ function initLevel() {
     var minValue = items.levels[currentLevel].minValue  //reading the minValue
     var maxValue = items.levels[currentLevel].maxValue
     var count = items.levels[currentLevel].count
-    for(let i = 0; i < count; ++i) {
-        let leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
-        let rightHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+    for(var i = 0; i < count; ++i) {
+        var leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+        var rightHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
         items.dataListModel.append({
             "leftHandSide": leftHandSide.toString(),
             "rightHandSide": rightHandSide.toString(),
@@ -50,11 +50,11 @@ function checkAnswer(){
 
     var evaluate = true
 
-    for(let i = 0; i < items.dataListModel.count; ++i) {
+    for(var i = 0; i < items.dataListModel.count; ++i) {
 
-        let leftHandSide = items.dataListModel.get(i).leftHandSide
-        let rightHandSide = items.dataListModel.get(i).rightHandSide
-        let symbol = items.dataListModel.get(i).symbol
+        var leftHandSide = items.dataListModel.get(i).leftHandSide
+        var rightHandSide = items.dataListModel.get(i).rightHandSide
+        var symbol = items.dataListModel.get(i).symbol
 
        if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
            evaluate = false
