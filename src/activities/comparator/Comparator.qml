@@ -74,6 +74,12 @@ ActivityBase {
             width: layoutArea.width * 0.5
             height: parent.height * 0.5
             anchors.left: layoutArea.left
+            anchors.leftMargin: items.size
+            anchors.bottomMargin: items.size
+            Rectangle {
+                width: parent.width
+                height: parent.height
+                color: "#FFFFFF"
                 Column {
                     id: wholeExerciceDisplayContent
                     spacing: 5
@@ -93,7 +99,7 @@ ActivityBase {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     color: "transparent"
                                     GCText {
-                                        color: "white"
+                                        color: "#000000"
                                         text:symbolPlainText
                                         fontSize: LargeSize
                                         anchors.fill : parent
@@ -117,7 +123,8 @@ ActivityBase {
                                     id: rightHandSideCharDisplay
                                     anchors.left: mathSymbolDisplay.right
                                     anchors.leftMargin: items.size
-                                    color: "white"
+                                    color: currentlySelected === true ? "orange" : "#000000"
+                                    font.bold : currentlySelected === true ? true : false
                                     text: rightHandSide
                                     fontSize: mediumSize
                                         MouseArea{
@@ -134,12 +141,13 @@ ActivityBase {
                                 }
                                 GCText {
                                     id: leftHandSideCharDisplay
-                                    color: "#FFFFFF"
                                     anchors.right: mathSymbolDisplay.left
                                     anchors.rightMargin: items.size
+                                    color: currentlySelected === true ? "orange" : "#000000"
+                                    font.bold : currentlySelected === true ? true : false
                                     text: leftHandSide
                                     fontSize: mediumSize
-                                    MouseArea {
+                                        MouseArea{
                                         anchors.fill: parent
                                         onClicked: {
                                             if (items.selected > -1 ) {
@@ -147,7 +155,7 @@ ActivityBase {
                                                 items.selected = index
                                                 dataListModel.get(items.selected).currentlySelected = true
                                             }
-                                            items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                                         }
                                     }
                                 }
@@ -155,6 +163,7 @@ ActivityBase {
                         }
                     }
                 }
+            }
 
 
        Item {
