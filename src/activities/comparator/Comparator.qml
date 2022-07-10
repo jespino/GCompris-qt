@@ -34,7 +34,6 @@ ActivityBase {
             activity.start.connect(start)
             activity.stop.connect(stop)
         }
-
         // Add here the QML items you need to access in javascript
         QtObject {
             id: items
@@ -312,7 +311,6 @@ ActivityBase {
                             dataListModel.get(items.selected).currentlySelected = true
                         }
                         items.step = dataListModel.get(items.selected).symbol === "" ? 0 : 1
-
                     }
                 }
             }
