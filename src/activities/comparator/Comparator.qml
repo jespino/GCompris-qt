@@ -101,7 +101,7 @@ ActivityBase {
                                     GCText {
                                         color: "#000000"
                                         text:symbolPlainText
-                                        fontSize: LargeSize
+                                        fontSize: smallSize
                                         anchors.fill : parent
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
@@ -126,7 +126,7 @@ ActivityBase {
                                     color: currentlySelected === true ? "orange" : "#000000"
                                     font.bold : currentlySelected === true ? true : false
                                     text: rightHandSide
-                                    fontSize: mediumSize
+                                    fontSize: smallSize
                                         MouseArea{
                                         anchors.fill: parent
                                         onClicked: {
@@ -146,7 +146,7 @@ ActivityBase {
                                     color: currentlySelected === true ? "orange" : "#000000"
                                     font.bold : currentlySelected === true ? true : false
                                     text: leftHandSide
-                                    fontSize: mediumSize
+                                    fontSize: smallSize
                                         MouseArea{
                                         anchors.fill: parent
                                         onClicked: {

@@ -11,7 +11,7 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("Digits from 1 to 100.")
+    objective: qsTr("Numbers from 1 to 100.")
     difficulty: 2
 
     data: [
