@@ -91,7 +91,7 @@ ActivityBase {
                             Item {
                                 height: items.size
                                 width: parent.width
-                                property int index: DelegateModel.itemsIndex
+                                property int modelIndex: DelegateModel.itemsIndex
                                 Rectangle {
                                     id: mathSymbolDisplay
                                     height: items.size
@@ -108,12 +108,8 @@ ActivityBase {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                if (items.selected > -1 ) {
-                                                        dataListModel.get(items.selected).currentlySelected = false
-                                                        items.selected = index
-                                                        dataListModel.get(items.selected).currentlySelected = true
-                                                }
-                                            items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                                items.index = modelIndex
+                                                Activity.mouseAreaAction()
                                             }
                                         }
                                     }
@@ -130,12 +126,8 @@ ActivityBase {
                                         MouseArea{
                                         anchors.fill: parent
                                         onClicked: {
-                                            if (items.selected > -1 ) {
-                                                    dataListModel.get(items.selected).currentlySelected = false
-                                                    items.selected = index
-                                                    dataListModel.get(items.selected).currentlySelected = true
-                                            }
-                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                            items.index = modelIndex
+                                            Activity.mouseAreaAction()
                                         }
                                     }
                                 }
@@ -150,12 +142,8 @@ ActivityBase {
                                         MouseArea{
                                         anchors.fill: parent
                                         onClicked: {
-                                            if (items.selected > -1 ) {
-                                                    dataListModel.get(items.selected).currentlySelected = false
-                                                    items.selected = index
-                                                    dataListModel.get(items.selected).currentlySelected = true
-                                            }
-                                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                                                items.index = modelIndex
+                                                Activity.mouseAreaAction()
                                         }
                                     }
                                 }
