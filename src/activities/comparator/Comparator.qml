@@ -261,13 +261,7 @@ ActivityBase {
                         opacity: 0.2
                     }
                     onClicked: {
-                        if (items.selected > -1 ){
-                                dataListModel.get(items.selected).currentlySelected = false
-                                items.selected --
-                                dataListModel.get(items.selected).currentlySelected = true
-                        }
-                        //changes the value of items.step to 0 if no item is selected and symbol string is empty
-                        items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
+                        Activity.upAction()
                     }
                 }
 
@@ -285,13 +279,7 @@ ActivityBase {
                         opacity: 0.2
                     }
                     onClicked: {
-                        if (items.selected < (dataListModel.count - 1)){
-                            if(items.selected > -1 )
-                                dataListModel.get(items.selected).currentlySelected = false
-                            items.selected ++
-                            dataListModel.get(items.selected).currentlySelected = true
-                        }
-                        items.step = dataListModel.get(items.selected).symbol === "" ? 0 : 1
+                       Activity.downAction()
                     }
                 }
             }
@@ -507,6 +495,8 @@ ActivityBase {
             id: bonus
             Component.onCompleted: win.connect(Activity.nextLevel)
         }
+        Keys.onUpPressed: Activity.upAction()
+        Keys.onDownPressed:Activity.downAction()
     }
 
 }
