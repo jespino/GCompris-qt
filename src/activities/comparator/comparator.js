@@ -44,6 +44,7 @@ function initLevel() {
             "visited" : 0
         })
     }
+    downAction()
 }
 
 function checkAnswer(){
