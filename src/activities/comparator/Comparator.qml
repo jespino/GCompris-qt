@@ -44,8 +44,8 @@ ActivityBase {
             readonly property var levels: activity.datasetLoader.data
             property alias dataListModel: dataListModel
             property int selected: -1
-            property double spacing: 50
-            property double size: 90
+            property double spacingOfElement: 50
+            property double sizeOfElement: 90
             property int step: 0
             property int numOfRowsSelected: 0
             property int index: 0//charList.charListContent.charListContentRepeater.index2
@@ -74,8 +74,9 @@ ActivityBase {
             width: layoutArea.width * 0.5
             height: parent.height * 0.5
             anchors.left: layoutArea.left
-            anchors.leftMargin: items.size
-            anchors.bottomMargin: items.size
+            anchors.leftMargin: items.sizeOfElement
+            anchors.bottomMargin: items.sizeOfElement
+            anchors.right: charList.left
             Rectangle {
                 width: parent.width
                 height: parent.height
@@ -89,13 +90,13 @@ ActivityBase {
                             model: dataListModel
                             delegate:
                             Item {
-                                height: items.size
+                                height: items.sizeOfElement
                                 width: parent.width
                                 property int modelIndex: DelegateModel.itemsIndex
                                 Rectangle {
                                     id: mathSymbolDisplay
-                                    height: items.size
-                                    width: items.size
+                                    height: items.sizeOfElement
+                                    width: items.sizeOfElement
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     color: "transparent"
                                     GCText {
@@ -118,7 +119,7 @@ ActivityBase {
                                 GCText {
                                     id: rightHandSideCharDisplay
                                     anchors.left: mathSymbolDisplay.right
-                                    anchors.leftMargin: items.size
+                                    anchors.leftMargin: items.sizeOfElement
                                     color: currentlySelected === true ? "orange" : "#000000"
                                     font.bold : currentlySelected === true ? true : false
                                     text: rightHandSide
@@ -134,7 +135,7 @@ ActivityBase {
                                 GCText {
                                     id: leftHandSideCharDisplay
                                     anchors.right: mathSymbolDisplay.left
-                                    anchors.rightMargin: items.size
+                                    anchors.rightMargin: items.sizeOfElement
                                     color: currentlySelected === true ? "orange" : "#000000"
                                     font.bold : currentlySelected === true ? true : false
                                     text: leftHandSide
@@ -169,13 +170,13 @@ ActivityBase {
                             model: dataListModel
                             delegate:
                             Item {
-                                height: items.size
+                                height: items.sizeOfElement
                                 width: parent.width
                                 property int modelIndex: DelegateModel.itemsIndex
                                 Rectangle {
                                     id: mathSymbolDisplay
-                                    height: items.size
-                                    width: items.size
+                                    height: items.sizeOfElement
+                                    width: items.sizeOfElement
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     radius: 10
                                     color: "orange"
@@ -201,7 +202,7 @@ ActivityBase {
                                 GCText {
                                     id: rightHandSideCharDisplay
                                     anchors.left: mathSymbolDisplay.right
-                                    anchors.leftMargin: items.size
+                                    anchors.leftMargin: items.sizeOfElement
                                     color: currentlySelected === true ? "orange" : "white"
                                     font.bold : currentlySelected === true ? true : false
                                     text: rightHandSide
@@ -219,7 +220,7 @@ ActivityBase {
                                     color: currentlySelected === true ? "orange" : "#FFFFFF"
                                     font.bold : currentlySelected === true ? true : false
                                     anchors.right: mathSymbolDisplay.left
-                                    anchors.rightMargin: items.size
+                                    anchors.rightMargin: items.sizeOfElement
                                     text: leftHandSide
                                     fontSize: mediumSize
                                     MouseArea {
@@ -244,7 +245,7 @@ ActivityBase {
             anchors.right: layoutArea.right
             //visible: items.selected === -1 ? false : true
             Row {
-                spacing: items.spacing
+                spacing: items.spacingOfElement
                 anchors.right: parent.right
                 BarButton {
                     id: upButton
@@ -301,15 +302,16 @@ ActivityBase {
             height: layoutArea.height * 0.1
             width: layoutArea.width
             anchors.bottom: symbolSelectionRow.top
-            anchors.bottomMargin: items.size
-            anchors.topMargin: 20 * ApplicationInfo.ratio
+            anchors.bottomMargin: items.sizeOfElement
+            anchors.top: wholeExerciceDisplay.bottom
+            anchors.topMargin: items.size
                 GCText {
                     id:leftHandSideHighlightDisplay
                     color: "#FFFFFF"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     anchors.right: inputAreaHighlightDisplay.left
-                    anchors.rightMargin: items.size
+                    anchors.rightMargin: items.sizeOfElement
                     height: parent.height
                     text: (items.selected === -1) ? "" : dataListModel.get(items.selected).leftHandSide.toString()
                 }
@@ -338,7 +340,7 @@ ActivityBase {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     anchors.left: inputAreaHighlightDisplay.right
-                    anchors.leftMargin: items.size
+                    anchors.leftMargin: items.sizeOfElement
                     height: parent.height
                     text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rightHandSide.toString()
                 }
@@ -353,7 +355,7 @@ ActivityBase {
             Row {
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: items.size
+                spacing: items.sizeOfElement
                 GCButton {
                     id: lessThanSign
                     height: parent.height
@@ -450,8 +452,8 @@ ActivityBase {
         BarButton {
             id: okButton
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
-            height: items.size
-            width: items.size
+            height: items.sizeOfElement
+            width: items.sizeOfElement
             visible: items.numOfRowsSelected == dataListModel.count
             anchors {
                 right: parent.right
