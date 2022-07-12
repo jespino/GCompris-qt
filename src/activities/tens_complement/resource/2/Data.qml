@@ -6,7 +6,7 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("10's complement of a given number")
+    objective: qsTr("10's complement of a given number from 6 cards")
     difficulty: 1
     data: [
         {

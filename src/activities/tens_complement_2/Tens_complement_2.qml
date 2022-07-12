@@ -8,6 +8,7 @@ import QtQuick 2.12
 import "../../core"
 import "../tens_complement/"
 import "tens_complement_2.js" as Activity
+import "qrc:/gcompris/src/core/core.js" as Core
 
 ActivityBase {
     id: activity
@@ -66,30 +67,26 @@ ActivityBase {
             color: "pink"
             anchors.centerIn: parent
 
-            ListView {
+            Rectangle {
+                id: answerContainer
+                height: parent.height/4
+                width: parent.width
+                color: "#95F2F8"
+                border.color: "black"
+                border.width: 3
+                radius: 20
+                anchors.top: parent.top
+
+                ListView {
                 height: parent.height
                 width: parent.width
-                anchors.fill: parent
-                anchors.leftMargin: 20
-                spacing: 50
+                anchors.centerIn: parent.centerIn
                 orientation: ListView.Horizontal
-                anchors.centerIn: parent
                 model: cardListModel
-                delegate: NumberCard {
-                    height: 100
-                    width: 100
-                }
-            }
-            ListView {
-                height: parent.height
-                width: parent.width
-                spacing: 148
-                orientation: ListView.Horizontal
-                anchors.centerIn: parent
-                model: symbolListMode
-                delegate: SymbolCard {
-                    height: 100
-                    width: 0
+                delegate: Card {
+                        height: answerContainer.height
+                        width: containerHolder.width/13
+                    }
                 }
             }
         }

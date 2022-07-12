@@ -40,6 +40,7 @@ ActivityBase {
             property alias cardListModel: cardListModel
             property alias holderListModel: holderListModel
             readonly property var levels: activity.datasetLoader.data
+            property double crdsz: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
         onStart: { Activity.start(items) }
@@ -57,8 +58,6 @@ ActivityBase {
         ListModel {
             id: cardListModel
         }
-
-        property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
 
         Rectangle {
             id: numberContainer
@@ -78,12 +77,12 @@ ActivityBase {
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
-                cellHeight: cardSize
-                cellWidth: cardSize
+                cellHeight: items.crdsz
+                cellWidth: items.crdsz
                 model: cardListModel
                 delegate: NumberCard {
-                    height: cardSize
-                    width: cardSize
+                    height: items.crdsz
+                    width: items.crdsz
                 }
             }
         }
@@ -104,7 +103,7 @@ ActivityBase {
 
             Rectangle {
                 id: answerHolder
-                height: cardSize * 4
+                height: items.crdsz * 4
                 width: parent.width * 0.6
                 anchors.centerIn: parent
 
@@ -114,7 +113,7 @@ ActivityBase {
                 anchors.centerIn: parent
                 model: holderListModel
                 delegate: AnswerContainer {
-                    height: cardSize
+                    height: items.crdsz
                     width: answerHolder.width
                     }
                 }
@@ -128,8 +127,8 @@ ActivityBase {
                     right: answerHolder.right
                     bottom: parent.bottom
                     }
-                height: cardSize * 0.8
-                width: cardSize * 0.8
+                height: items.crdsz * 0.8
+                width: items.crdsz * 0.8
                 onClicked: Activity.checkAnswer()
             }
         }

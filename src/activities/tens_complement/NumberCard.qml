@@ -17,8 +17,8 @@ Item {
     visible: visibility
     Rectangle {
         id: numberRectangle
-        height: parent.height - border.width
-        width: parent.width - border.width
+        height: cardSize
+        width: cardSize
         color: "#FFFB9A"
         border.color: "black"
         border.width: 3
@@ -37,6 +37,9 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                Activity.updateSize()
+                numberRectangle.height = 150
+                numberRectangle.width = 150
                 numberRectangle.border.color = "red"
                 Activity.numArray.push(value)
             }

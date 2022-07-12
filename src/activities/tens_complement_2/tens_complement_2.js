@@ -10,6 +10,8 @@
 var currentLevel = 0
 var numberOfLevel = 4
 var items
+var valueArray = ["(",1, "+", 3, ")", "+","(", 9, "+", 7, ")", "=", 20]
+
 
 function start(items_) {
     items = items_
@@ -22,18 +24,23 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1
-    var arr = ["(", "+", ")+(", "+", ")="]
-    for(var i=0;i<arr.length;i++) {
-        var card = {
-            "symbolValue": arr[i]
+    for(var i=0;i<valueArray.length;i++) {
+        var numberCard = {
+            bgColor: "#FFFB9A",
+            borderColor: "black",
+            value: valueArray[i].toString()
         }
-        items.symbolListMode.append(card)
-    }
-    for(var i=0;i<5;i++) {
-        var card = {
-            "visibility": true
+        var symbolCard= {
+            "bgColor": "#95F2F8",
+            "borderColor": "#95F2F8",
+            "value": valueArray[i].toString()
         }
-        items.cardListModel.append(card)
+        if(i == 1 || i == 3 || i == 7 || i == 9 || i == 12) {
+            items.cardListModel.append(numberCard)
+        }
+        else {
+            items.cardListModel.append(symbolCard)
+        }
     }
 }
 

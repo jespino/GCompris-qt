@@ -13,9 +13,10 @@ var currentSubLevel = 0;
 var numberOfSubLevel;
 var cardsToDisplay;
 var items;
-var numArray = new Array();
+var numArray;
 var datasets;
 var answerArray = [];
+var cardSize;
 
 function start(items_) {
     items = items_;
@@ -32,24 +33,26 @@ function initLevel() {
     numberOfLevel = items.levels.length;
     numberOfSubLevel = datasets.value.length;
     var cardArray = new Array();
+    numArray = new Array();
     cardsToDisplay = datasets.value[currentSubLevel].numberValue.length;
     items.cardListModel.clear();
     items.holderListModel.clear();
-    for(var count = 0; count < cardsToDisplay; count++) {
+    for(var cardToDisplayIndex = 0; cardToDisplayIndex < cardsToDisplay; cardToDisplayIndex++) {
         var card = {
-            "value": datasets.value[currentSubLevel].numberValue[count].toString(),
-            "visibility": true
+            "value": datasets.value[currentSubLevel].numberValue[cardToDisplayIndex].toString(),
+            "visibility": true,
+            "cardSize": 100
         }
         items.cardListModel.append(card);
     }
     var questionCardToDisplay = datasets.value[currentSubLevel].questionValue.length;
     answerArray = [];
-    for(var count = 0; count < questionCardToDisplay; count++) {
+    for(var cardToDisplayIndex = 0; cardToDisplayIndex < questionCardToDisplay; cardToDisplayIndex++) {
         var questionCard = {
-            "questionValue": datasets.value[currentSubLevel].questionValue[count].toString(),
-            "rowIndex": count + 1
+            "questionValue": datasets.value[currentSubLevel].questionValue[cardToDisplayIndex].toString(),
+            "rowIndex": cardToDisplayIndex + 1
         }
-        answerArray.push(["?", datasets.value[currentSubLevel].questionValue[count].toString()]);
+        answerArray.push(["?", datasets.value[currentSubLevel].questionValue[cardToDisplayIndex].toString()]);
         items.holderListModel.append(questionCard);
     }
 }
@@ -74,6 +77,17 @@ function previousLevel() {
         currentLevel = numberOfLevel - 1;
     }
     initLevel();
+}
+
+function updateSize() {
+    for(var i=0;i<numArray.length;i++) {
+        for(var index = 0; index < cardsToDisplay; index++) {
+            if(numArray[i] == datasets.value[currentSubLevel].numberValue[index]) {
+                console.log(numArray[i] + " " + index)
+                items.cardListModel.setProperty(index, "cardSize", 100);
+            }
+        }
+    }
 }
 
 function updateVisibility(textValue) {
