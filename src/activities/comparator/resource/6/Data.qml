@@ -11,7 +11,7 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("Numbers from 1 to 1 milliard.")
+    objective: qsTr("Numbers from 1 to 1 billion.")
     difficulty: 3
 
     data: [
