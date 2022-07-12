@@ -84,7 +84,7 @@ ActivityBase {
                 Column {
                     id: wholeExerciceDisplayContent
                     spacing: 5
-                    anchors.right: parent
+                    anchors.right: parent.right
                     width: parent.width
                     Repeater {
                             model: dataListModel
@@ -163,7 +163,7 @@ ActivityBase {
                 Column {
                     id: charListContent
                     spacing: 5
-                    anchors.right: parent
+                    anchors.right: parent.right
                     width: parent.width
                     Repeater {
                             id: charListContentRepeater
