@@ -48,7 +48,8 @@ ActivityBase {
             property double sizeOfElement: 90
             property int step: 0
             property int numOfRowsSelected: 0
-            property int index: 0//charList.charListContent.charListContentRepeater.index2
+            property int index: 0
+            property int okClicked: 0
 
         }
 
@@ -496,7 +497,8 @@ ActivityBase {
             Component.onCompleted: win.connect(Activity.nextLevel)
         }
         Keys.onUpPressed: Activity.upAction()
-        Keys.onDownPressed:Activity.downAction()
+        Keys.onDownPressed: Activity.downAction()
+        Keys.onEnterPressed: okButton.clicked()
     }
 
 }

@@ -45,10 +45,11 @@ function initLevel() {
         })
     }
     downAction()
+    items.okClicked = 1
 }
 
 function checkAnswer(){
-
+    if(items.okClicked === 1) {
     var evaluate = true
 
     for(var i = 0; i < items.dataListModel.count; ++i) {
@@ -65,8 +66,11 @@ function checkAnswer(){
 
     if(evaluate)
         items.bonus.good('flower');
+
     else
         items.bonus.bad('flower');
+    items.okClicked = 0
+    }
 }
 
 function mouseAreaAction(){
