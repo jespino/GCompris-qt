@@ -28,7 +28,7 @@ function initLevel() {
     items.selected = -1
     items.step = 0
     items.numOfRowsSelected = 0
-    var minValue = items.levels[currentLevel].minValue  //reading the minValue
+    var minValue = items.levels[currentLevel].minValue
     var maxValue = items.levels[currentLevel].maxValue
     var count = items.levels[currentLevel].count
     for(var i = 0; i < count; ++i) {

@@ -34,7 +34,7 @@ ActivityBase {
             activity.start.connect(start)
             activity.stop.connect(stop)
         }
-        // Add here the QML items you need to access in javascript
+
         QtObject {
             id: items
             property Item main: activity.main
@@ -242,6 +242,7 @@ ActivityBase {
             anchors.top: charList.bottom
             anchors.topMargin: 20 * ApplicationInfo.ratio
             anchors.right: layoutArea.right
+            //visible: items.selected === -1 ? false : true
             Row {
                 spacing: items.spacing
                 anchors.right: parent.right
@@ -264,6 +265,7 @@ ActivityBase {
                                 items.selected --
                                 dataListModel.get(items.selected).currentlySelected = true
                         }
+                        //changes the value of items.step to 0 if no item is selected and symbol string is empty
                         items.step = dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
                     }
                 }
