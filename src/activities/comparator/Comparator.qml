@@ -156,54 +156,32 @@ ActivityBase {
                                     color: "orange"
                                     border.width : 20
                                     border.color: "#E8E8E8"
-                                    GCText {
-                                        color: "#FFFFFF"
+                                    ComparatorText {
+                                        color: "white"
                                         text: symbol
                                         font.bold: true
                                         anchors.fill : parent
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
-                                        MouseArea {
-                                            anchors.fill: parent
-                                            onClicked: {
-                                                items.index = modelIndex
-                                                Activity.mouseAreaAction()
-                                            }
-                                        }
                                     }
                                 }
 
-                                GCText {
+                                ComparatorText {
                                     id: rightHandSideCharDisplay
                                     anchors.left: mathSymbolDisplay.right
                                     anchors.leftMargin: items.sizeOfElement
-                                    color: currentlySelected === true ? "orange" : "white"
-                                    font.bold : currentlySelected === true ? true : false
                                     text: rightHandSide
                                     fontSize: mediumSize
-                                        MouseArea{
-                                        anchors.fill: parent
-                                        onClicked: {
-                                            items.index = modelIndex
-                                            Activity.mouseAreaAction()
-                                        }
-                                    }
+                                    color: currentlySelected === true ? "orange" : "white"
                                 }
-                                GCText {
+
+                                ComparatorText {
                                     id: leftHandSideCharDisplay
-                                    color: currentlySelected === true ? "orange" : "#FFFFFF"
-                                    font.bold : currentlySelected === true ? true : false
                                     anchors.right: mathSymbolDisplay.left
                                     anchors.rightMargin: items.sizeOfElement
                                     text: leftHandSide
                                     fontSize: mediumSize
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        onClicked: {
-                                            items.index = modelIndex
-                                            Activity.mouseAreaAction()
-                                    }
-                                }
+                                    color: currentlySelected === true ? "orange" : "white"
                             }
                         }
                     }
