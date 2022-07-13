@@ -44,12 +44,12 @@ ActivityBase {
             readonly property var levels: activity.datasetLoader.data
             property alias dataListModel: dataListModel
             property int selected: -1
-            property double spacingOfElement: 50
-            property double sizeOfElement: 90
+            property int spacingOfElement: 50
+            property int sizeOfElement: 90
             property int step: 0
             property int numOfRowsSelected: 0
             property int index: 0
-            property int okClicked: 0
+            property bool okClicked: false
 
         }
 
