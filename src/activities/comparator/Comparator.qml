@@ -401,7 +401,7 @@ ActivityBase {
                 bottom: bar.top
             }
             onClicked: {
-                Activity.checkAnswer();
+                Activity.checkAnswer()
             }
         }
 
@@ -447,9 +447,27 @@ ActivityBase {
             id: bonus
             Component.onCompleted: win.connect(Activity.nextLevel)
         }
-        Keys.onUpPressed: Activity.upAction()
-        Keys.onDownPressed: Activity.downAction()
-        Keys.onEnterPressed: okButton.clicked()
+
+        Keys.onPressed: {
+            if (event.key === Qt.Key_Less) {
+                lessThanSign.clicked()
+            }
+            if (event.key === Qt.Key_Equal) {
+                equalSign.clicked()
+            }
+            if (event.key === Qt.Key_Greater) {
+                greaterThanSign.clicked()
+            }
+            if (event.key === Qt.Key_Up) {
+                Activity.upAction()
+            }
+            if (event.key === Qt.Key_Down) {
+                Activity.downAction()
+            }
+            if (event.key === Qt.Key_Enter) {
+                okButton.clicked()
+            }
+        }
     }
 
 }

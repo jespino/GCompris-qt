@@ -50,6 +50,7 @@ function initLevel() {
 
 function checkAnswer(){
     if(items.okClicked === true) {
+
     var evaluate = true
 
     for(var i = 0; i < items.dataListModel.count; ++i) {
@@ -65,10 +66,13 @@ function checkAnswer(){
     }
 
     if(evaluate)
-        items.bonus.good('flower');
+
+        items.bonus.good('flower')
 
     else
-        items.bonus.bad('flower');
+
+        items.bonus.bad('flower')
+
     items.okClicked = false
     }
 }
