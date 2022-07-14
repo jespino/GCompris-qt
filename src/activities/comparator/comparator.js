@@ -91,12 +91,13 @@ function mouseAreaAction(){
     items.step = items.dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
 }
 function upAction(){
-    if (items.selected > -1 ){
+    if (items.selected > 0 ){
         items.dataListModel.get(items.selected).currentlySelected = false
         items.selected --
         items.dataListModel.get(items.selected).currentlySelected = true
     }
     items.step = items.dataListModel.get(items.selected).symbol === "" ? 0 : 1
+
 }
 function downAction(){
     if (items.selected < (items.dataListModel.count - 1)){
@@ -122,5 +123,5 @@ function previousLevel() {
     initLevel();
 }
 function clear(){
-    items.dataListModel.get(items.selected).symbol = ""
+    items.dataListModel.get(items.selected).symbol === ""
 }
