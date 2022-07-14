@@ -17,6 +17,8 @@ var numArray;
 var datasets;
 var answerArray = [];
 var cardSize;
+var selected = -1; // "-1" indicates no item selected
+var lastSelected = -1;
 
 function start(items_) {
     items = items_;
@@ -41,7 +43,8 @@ function initLevel() {
         var card = {
             "value": datasets.value[currentSubLevel].numberValue[cardToDisplayIndex].toString(),
             "visibility": true,
-            "cardSize": 100
+            "index": cardToDisplayIndex,
+            "cardSize": items.cardSize,
         }
         items.cardListModel.append(card);
     }
@@ -79,23 +82,39 @@ function previousLevel() {
     initLevel();
 }
 
+function updateToInitialSize() {
+    for(var i =0;i < cardsToDisplay; i++) {
+        items.cardListModel.setProperty(i, "cardSize", items.cardSize);
+    }
+    numArray.length = 0;
+}
+
 function updateSize() {
-    for(var i=0;i<numArray.length;i++) {
-        for(var index = 0; index < cardsToDisplay; index++) {
-            if(numArray[i] == datasets.value[currentSubLevel].numberValue[index]) {
-                console.log(numArray[i] + " " + index)
-                items.cardListModel.setProperty(index, "cardSize", 100);
-            }
-        }
+    if(selected != -1) {
+        items.cardListModel.setProperty(selected, "cardSize", items.cardSize  * 1.1);
     }
 }
 
-function updateVisibility(textValue) {
-    for(var index = 0; index < cardsToDisplay; index++) {
-        if(textValue == datasets.value[currentSubLevel].numberValue[index]) {
-            items.cardListModel.setProperty(index, "visibility", false);
+function reappearNumberCard(value) {
+    for(var i=0; i < cardsToDisplay; i++) {
+        if(value == datasets.value[currentSubLevel].numberValue[i]) {
+            items.cardListModel.setProperty(i, "visibility", true);
             break;
         }
+    }
+    for(var i=0; i < cardsToDisplay; i++) {
+        items.cardListModel.setProperty(i, "cardSize", items.cardSize);
+    }
+}
+
+function updateValue() {
+    return selected != -1 ? items.cardListModel.get(selected).value.toString() : "?";
+}
+
+function updateVisibility() {
+    if(selected != -1) {
+        items.cardListModel.setProperty(selected, "visibility", false);
+        selected = -1;
     }
 }
 
@@ -115,10 +134,5 @@ function checkAnswer() {
             break;
         }
     }
-    if(check) {
-        items.bonus.good("lion");
-    }
-    else {
-        items.bonus.bad("smiley");
-    }
+    check ? items.bonus.good("lion") : items.bonus.bad("smiley");
 }

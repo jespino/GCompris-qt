@@ -53,12 +53,11 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    var arr = Activity.numArray
-                    if(arr.length > 0) {
-                        firstTextValue.text = arr[arr.length - 1]
+                    if(firstTextValue.text != "?") {
+                        Activity.reappearNumberCard(firstTextValue.text)
                     }
-                    arr.length = 0
-                    Activity.updateVisibility(firstTextValue.text)
+                    firstTextValue.text = Activity.updateValue()
+                    Activity.updateVisibility()
                     Activity.updateAnswerArray(rowNumber, parent.columnNumber, firstTextValue.text)
                 }
             }
@@ -103,12 +102,11 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    var arr = Activity.numArray
-                    if(arr.length > 0) {
-                        secondTextValue.text = arr[arr.length - 1]
+                    if(secondTextValue.text != "?") {
+                        Activity.reappearNumberCard(secondTextValue.text)
                     }
-                    arr.length = 0
-                    Activity.updateVisibility(secondTextValue.text)
+                    secondTextValue.text = Activity.updateValue()
+                    Activity.updateVisibility()
                     Activity.updateAnswerArray(rowNumber, parent.columnNumber, secondTextValue.text)
                 }
             }

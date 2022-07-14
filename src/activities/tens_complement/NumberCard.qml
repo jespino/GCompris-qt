@@ -12,37 +12,33 @@ import "../../core"
 import "tens_complement.js" as Activity
 import "qrc:/gcompris/src/core/core.js" as Core
 
-Item {
-    id: cardNumber
+Rectangle {
+    id: numberRectangle
     visible: visibility
-    Rectangle {
-        id: numberRectangle
-        height: cardSize
-        width: cardSize
-        color: "#FFFB9A"
-        border.color: "black"
-        border.width: 3
-        radius: 15
+    height: cardSize * 0.9
+    width: cardSize * 0.9
+    color: "#FFFB9A"
+    border.color: "black"
+    border.width: 3
+    radius: 15
 
-        GCText {
-            width: parent.width
-            height: parent.height
-            anchors.centerIn: parent
-            color: "black"
-            text: value
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-        }
+    GCText {
+        width: parent.width
+        height: parent.height
+        anchors.centerIn: parent
+        color: "black"
+        text: value
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+    }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                Activity.updateSize()
-                numberRectangle.height = 150
-                numberRectangle.width = 150
-                numberRectangle.border.color = "red"
-                Activity.numArray.push(value)
-            }
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            Activity.updateToInitialSize()
+            Activity.selected = index
+            Activity.updateSize()
+            Activity.numArray.push(index)
         }
     }
 }

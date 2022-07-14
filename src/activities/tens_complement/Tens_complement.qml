@@ -40,7 +40,7 @@ ActivityBase {
             property alias cardListModel: cardListModel
             property alias holderListModel: holderListModel
             readonly property var levels: activity.datasetLoader.data
-            property double crdsz: Core.fitItems(numberContainer.width, numberContainer.height, 6)
+            property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
         onStart: { Activity.start(items) }
@@ -77,12 +77,10 @@ ActivityBase {
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
-                cellHeight: items.crdsz
-                cellWidth: items.crdsz
+                cellHeight: items.cardSize
+                cellWidth: items.cardSize
                 model: cardListModel
                 delegate: NumberCard {
-                    height: items.crdsz
-                    width: items.crdsz
                 }
             }
         }
@@ -103,7 +101,7 @@ ActivityBase {
 
             Rectangle {
                 id: answerHolder
-                height: items.crdsz * 4
+                height: items.cardSize * 4
                 width: parent.width * 0.6
                 anchors.centerIn: parent
 
@@ -113,7 +111,7 @@ ActivityBase {
                 anchors.centerIn: parent
                 model: holderListModel
                 delegate: AnswerContainer {
-                    height: items.crdsz
+                    height: items.cardSize
                     width: answerHolder.width
                     }
                 }
@@ -127,8 +125,8 @@ ActivityBase {
                     right: answerHolder.right
                     bottom: parent.bottom
                     }
-                height: items.crdsz * 0.8
-                width: items.crdsz * 0.8
+                height: items.cardSize * 0.8
+                width: items.cardSize * 0.8
                 onClicked: Activity.checkAnswer()
             }
         }
