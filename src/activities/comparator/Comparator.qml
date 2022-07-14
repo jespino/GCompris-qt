@@ -449,6 +449,7 @@ ActivityBase {
         }
 
         Keys.onPressed: {
+            event.accepted = true;
             if (event.key === Qt.Key_Less) {
                 lessThanSign.clicked()
             }
@@ -464,8 +465,11 @@ ActivityBase {
             if (event.key === Qt.Key_Down) {
                 Activity.downAction()
             }
-            if (event.key === Qt.Key_Enter) {
+            if (event.key === Qt.Key_Return) {
                 okButton.clicked()
+            }
+            if (event.key === Qt.Key_Backspace) {
+                Activity.clear()
             }
         }
     }
