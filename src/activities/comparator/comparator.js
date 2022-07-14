@@ -10,12 +10,13 @@
 .import QtQuick 2.12 as Quick
 
 var currentLevel = 0
-var numberOfLevel = 2
+var numberOfLevel
 var items
 
 function start(items_) {
     items = items_
     currentLevel = 0
+    numberOfLevel = items.levels.length
     initLevel()
 }
 
@@ -65,15 +66,19 @@ function checkAnswer(){
        }
     }
 
-    if(evaluate)
+    if(evaluate) {
 
         items.bonus.good('flower')
+            items.okClicked = false
+        }
 
-    else
+    else {
 
         items.bonus.bad('flower')
+        items.okClicked = true
 
-    items.okClicked = false
+        }
+
     }
 }
 
