@@ -44,8 +44,8 @@ ActivityBase {
             readonly property var levels: activity.datasetLoader.data
             property alias dataListModel: dataListModel
             property int selected: -1
-            property int spacingOfElement: 50
-            property int sizeOfElement: 90
+            property int spacingOfElement: 20 * ApplicationInfo.ratio
+            property int sizeOfElement: 36 * ApplicationInfo.ratio
             property int step: 0
             property int numOfRowsSelected: 0
             property int index: 0
@@ -147,6 +147,22 @@ ActivityBase {
                                 height: items.sizeOfElement
                                 width: parent.width
                                 property int modelIndex: DelegateModel.itemsIndex
+
+                                Rectangle {
+                                    width: items.sizeOfElement
+                                    height: parent.height
+                                    anchors.right: mathSymbolDisplay.left
+                                    anchors.rightMargin: items.sizeOfElement
+                                    anchors.left: parent.left
+                                    color: "pink"
+
+                                    ComparatorText {
+                                        id: leftHandSideCharDisplay
+                                        anchors.fill : parent
+                                        text: leftHandSide
+                                    }
+                                }
+
                                 Rectangle {
                                     id: mathSymbolDisplay
                                     height: items.sizeOfElement
@@ -166,24 +182,23 @@ ActivityBase {
                                     }
                                 }
 
-                                ComparatorText {
-                                    id: rightHandSideCharDisplay
+                                Rectangle {
+                                    width: items.sizeOfElement
+                                    height: parent.height
                                     anchors.left: mathSymbolDisplay.right
                                     anchors.leftMargin: items.sizeOfElement
-                                    text: rightHandSide
-                                    fontSize: mediumSize
-                                    color: currentlySelected === true ? "orange" : "white"
+                                    anchors.right: parent.right
+                                    color: "pink"
+
+                                    ComparatorText {
+                                        id: rightHandSideCharDisplay
+                                        anchors.fill : parent
+                                        text: rightHandSide
+                                    }
                                 }
 
-                                ComparatorText {
-                                    id: leftHandSideCharDisplay
-                                    anchors.right: mathSymbolDisplay.left
-                                    anchors.rightMargin: items.sizeOfElement
-                                    text: leftHandSide
-                                    fontSize: mediumSize
-                                    color: currentlySelected === true ? "orange" : "white"
+
                             }
-                        }
                     }
                 }
             }
