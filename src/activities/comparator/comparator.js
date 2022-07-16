@@ -123,5 +123,5 @@ function previousLevel() {
     initLevel();
 }
 function clear(){
-    items.dataListModel.get(items.selected).symbol === ""
+    items.dataListModel.get(items.selected).symbol = ""
 }
