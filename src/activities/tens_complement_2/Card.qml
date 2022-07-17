@@ -5,16 +5,18 @@
  */
 import QtQuick 2.12
 import "../../core"
+import "tens_complement_2.js" as Activity
 
 Item {
     Rectangle {
-    color: bgColor
-    height: parent.height * 0.8
-    width: parent.width
-    border.width: 2
-    border.color: borderColor
-    radius: 20
-    anchors.centerIn: parent
+        color: bgColor
+        height: parent.height * 0.8
+        width: parent.width * 0.9
+        border.width: 2
+        border.color: borderColor
+        radius: 20
+        anchors.centerIn: parent
+
 
         GCText {
             width: parent.width
@@ -22,8 +24,22 @@ Item {
             anchors.centerIn: parent
             color: "black"
             text: value
+            wrapMode: Text.WordWrap
+            fontSizeMode: Text.Fit
+            font.pointSize: parent.width + 1 // QFont::setPointSizeF: must be greater than 0.
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(type == 1 && numberCardPosition != 5) {
+                    parent.border.color = "red";
+                    Activity.numberArray.push(columnNumber);
+                    Activity.display();
+                }
+            }
         }
     }
 }

@@ -35,8 +35,9 @@ ActivityBase {
             property alias background: background
             property alias bar: bar
             property alias bonus: bonus
-            property alias cardListModel: cardListModel
-            property alias symbolListMode: symbolListMode
+            property alias firstCardListModel: firstCardListModel
+            property double cardHeight: firstCardListContainer.height
+            property double cardWidth: firstCardListContainer.width / 14
         }
 
         onStart: { Activity.start(items) }
@@ -52,42 +53,24 @@ ActivityBase {
         }
 
         ListModel {
-            id: cardListModel
-        }
-
-        ListModel {
-            id: symbolListMode
+            id: firstCardListModel
         }
 
         Rectangle {
             id: containerHolder
             parent: layoutArea
             height: layoutArea.height * 0.7
-            width: layoutArea.width * 0.4
+            width: layoutArea.width * 0.5
             color: "pink"
+            radius: 20
             anchors.centerIn: parent
 
-            Rectangle {
-                id: answerContainer
-                height: parent.height/4
+            CardContainer {
+                id: firstCardListContainer
+                height: parent.height/4;
                 width: parent.width
-                color: "#95F2F8"
-                border.color: "black"
-                border.width: 3
-                radius: 20
                 anchors.top: parent.top
-
-                ListView {
-                height: parent.height
-                width: parent.width
-                anchors.centerIn: parent.centerIn
-                orientation: ListView.Horizontal
-                model: cardListModel
-                delegate: Card {
-                        height: answerContainer.height
-                        width: containerHolder.width/13
-                    }
-                }
+                listmodel: firstCardListModel
             }
         }
 
