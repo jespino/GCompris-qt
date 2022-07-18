@@ -95,7 +95,22 @@ ActivityBase {
                                 width: parent.width
                                 property int modelIndex: DelegateModel.itemsIndex
                                 Rectangle {
-                                    id: mathSymbolDisplay
+                                    width: items.sizeOfElement
+                                    height: parent.height
+                                    anchors.right: mathSymbolDisplayText.left
+                                    anchors.rightMargin: items.sizeOfElement / (30 * ApplicationInfo.ratio)
+                                    anchors.left: parent.left
+                                    color: "transparent"
+                                    ComparatorText {
+                                        id: leftHandSideCharDisplay
+                                        anchors.fill : parent
+                                        text: leftHandSide
+                                        color: currentlySelected === true ? "orange" : "#000000"
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: mathSymbolDisplayText
                                     height: items.sizeOfElement
                                     width: items.sizeOfElement
                                     anchors.horizontalCenter: parent.horizontalCenter
@@ -109,18 +124,19 @@ ActivityBase {
                                     }
                                 }
 
-                                ComparatorText {
-                                    id: rightHandSideCharDisplay
-                                    anchors.left: mathSymbolDisplay.right
-                                    anchors.leftMargin: items.sizeOfElement
-                                    text: rightHandSide
-                                }
-
-                                ComparatorText {
-                                    id: leftHandSideCharDisplay
-                                    anchors.right: mathSymbolDisplay.left
-                                    anchors.rightMargin: items.sizeOfElement
-                                    text: leftHandSide
+                                Rectangle {
+                                    width: items.sizeOfElement
+                                    height: parent.height
+                                    anchors.left: mathSymbolDisplayText.right
+                                    anchors.leftMargin: items.sizeOfElement / (30 * ApplicationInfo.ratio)
+                                    anchors.right: parent.right
+                                    color: "transparent"
+                                    ComparatorText {
+                                        id: rightHandSideCharDisplay
+                                        anchors.fill : parent
+                                        text: rightHandSide
+                                        color: currentlySelected === true ? "orange" : "#000000"
+                                    }
                                 }
                             }
                         }
@@ -140,65 +156,65 @@ ActivityBase {
                     anchors.right: parent.right
                     width: parent.width
                     Repeater {
-                            id: charListContentRepeater
-                            model: dataListModel
-                            delegate:
-                            Item {
-                                height: items.sizeOfElement
-                                width: parent.width
-                                property int modelIndex: DelegateModel.itemsIndex
+                        id: charListContentRepeater
+                        model: dataListModel
+                        delegate:
+                        Item {
+                            height: items.sizeOfElement
+                            width: parent.width
+                            property int modelIndex: DelegateModel.itemsIndex
 
-                                Rectangle {
-                                    width: items.sizeOfElement
-                                    height: parent.height
-                                    anchors.right: mathSymbolDisplay.left
-                                    anchors.rightMargin: items.sizeOfElement
-                                    anchors.left: parent.left
-                                    color: "pink"
+                            Rectangle {
+                                width: items.sizeOfElement
+                                height: parent.height
+                                anchors.right: mathSymbolDisplay.left
+                                anchors.rightMargin: items.sizeOfElement / (30 * ApplicationInfo.ratio)
+                                anchors.left: parent.left
+                                color: "transparent"
 
-                                    ComparatorText {
-                                        id: leftHandSideCharDisplay
-                                        anchors.fill : parent
-                                        text: leftHandSide
-                                    }
+                                ComparatorText {
+                                    id: leftHandSideCharDisplay
+                                    anchors.fill : parent
+                                    text: leftHandSide
+                                    color: currentlySelected === true ? "orange" : "#FFFFFF"
                                 }
-
-                                Rectangle {
-                                    id: mathSymbolDisplay
-                                    height: items.sizeOfElement
-                                    width: items.sizeOfElement
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    radius: 10
-                                    color: "orange"
-                                    border.width : 20
-                                    border.color: "#E8E8E8"
-                                    ComparatorText {
-                                        color: "white"
-                                        text: symbol
-                                        font.bold: true
-                                        anchors.fill : parent
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                    }
-                                }
-
-                                Rectangle {
-                                    width: items.sizeOfElement
-                                    height: parent.height
-                                    anchors.left: mathSymbolDisplay.right
-                                    anchors.leftMargin: items.sizeOfElement
-                                    anchors.right: parent.right
-                                    color: "pink"
-
-                                    ComparatorText {
-                                        id: rightHandSideCharDisplay
-                                        anchors.fill : parent
-                                        text: rightHandSide
-                                    }
-                                }
-
-
                             }
+
+                            Rectangle {
+                                id: mathSymbolDisplay
+                                height: items.sizeOfElement
+                                width: items.sizeOfElement
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                radius: 10
+                                color: "orange"
+                                border.width : 20
+                                border.color: "#E8E8E8"
+                                ComparatorText {
+                                    color: "white"
+                                    text: symbol
+                                    font.bold: true
+                                    anchors.fill : parent
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                            }
+
+                            Rectangle {
+                                width: items.sizeOfElement
+                                height: parent.height
+                                anchors.left: mathSymbolDisplay.right
+                                anchors.leftMargin: items.sizeOfElement / (30 * ApplicationInfo.ratio)
+                                anchors.right: parent.right
+                                color: "transparent"
+
+                                ComparatorText {
+                                    id: rightHandSideCharDisplay
+                                    anchors.fill : parent
+                                    text: rightHandSide
+                                    color: currentlySelected === true ? "orange" : "#FFFFFF"
+                                }
+                            }
+                        }
                     }
                 }
             }

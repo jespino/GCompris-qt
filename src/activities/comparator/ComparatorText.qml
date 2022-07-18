@@ -15,12 +15,10 @@ import "../../core"
 import "comparator.js" as Activity
 
 GCText {
-    //fontSize: smallSize
-    color: currentlySelected === true ? "orange" : "#000000"
     font.bold : currentlySelected === true ? true : false
     verticalAlignment: Text.AlignVCenter
     horizontalAlignment: Text.AlignHCenter
-    fontSize: tinySize
+    fontSizeMode: Text.Fit
 
     MouseArea {
         anchors.fill: parent
