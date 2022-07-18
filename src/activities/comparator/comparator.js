@@ -32,18 +32,36 @@ function initLevel() {
     var minValue = items.levels[currentLevel].minValue
     var maxValue = items.levels[currentLevel].maxValue
     var count = items.levels[currentLevel].count
-    for(var i = 0; i < count; ++i) {
-        var leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
-        var rightHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
-        items.dataListModel.append({
-            "leftHandSide": leftHandSide.toString(),
-            "rightHandSide": rightHandSide.toString(),
-            "symbol": "",
-            "symbolPlainText" : ".....",
-            "currentlySelected" : false,
-            //adding a counter to check if all rows have been visited or not
-            "visited" : 0
-        })
+    if( random == true) {
+        for(var i = 0; i < count; ++i) {
+            var leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+            var rightHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+            items.dataListModel.append({
+                "leftHandSide": leftHandSide.toString(),
+                "rightHandSide": rightHandSide.toString(),
+                "symbol": "",
+                "symbolPlainText" : ".....",
+                "currentlySelected" : false,
+                //adding a counter to check if all rows have been visited or not
+                "visited" : 0
+            })
+        }
+    }
+    else {
+        count = items.levels[currentLevel].values.length
+        for(var i = 0; i < count; i++) {
+            var leftHandSide = values[i][0]
+            var rightHandSide = values[i][1]
+            items.dataListModel.append({
+                "leftHandSide": leftHandSide.toString(),
+                "rightHandSide": rightHandSide.toString(),
+                "symbol": "",
+                "symbolPlainText" : ".....",
+                "currentlySelected" : false,
+                //adding a counter to check if all rows have been visited or not
+                "visited" : 0
+            })
+        }
     }
     downAction()
     items.okClicked = true

@@ -11,20 +11,17 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("Numbers from 1 to 9.")
+    objective: qsTr("fixed")
     difficulty: 1
 
     data: [
         {
-            random: true,
-            minValue: 1,
-            maxValue: 6,
-            count: 4
+
+            values: [[1, 5] , [8, 2], [1, 4]]
         },
-        {   random: true,
-            minValue: 5,
-            maxValue: 9,
-            count: 4
+        {
+            values: [[1, 9] , [4, 2], [3, 4]]
         }
     ]
 }
+
