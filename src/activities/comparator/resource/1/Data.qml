@@ -21,7 +21,8 @@ Data {
             maxValue: 6,
             count: 4
         },
-        {   random: true,
+        {
+            random: true,
             minValue: 5,
             maxValue: 9,
             count: 4

@@ -16,11 +16,13 @@ Data {
 
     data: [
         {
+            random: true,
             minValue: 1,
             maxValue: 500000000,
             count: 4
         },
         {
+            random: true,
             minValue: 500000001,
             maxValue: 1000000000,
             count: 4

@@ -16,21 +16,25 @@ Data {
 
     data: [
         {
+            random: true,
             minValue: 1,
             maxValue: 9,
             count: 4
         },
         {
+            random: true,
             minValue: 10,
             maxValue: 19,
             count: 4
         },
         {
+            random: true,
             minValue: 20,
             maxValue: 50,
             count: 4
         },
         {
+            random: true,
             minValue: 51,
             maxValue: 100,
             count: 4
