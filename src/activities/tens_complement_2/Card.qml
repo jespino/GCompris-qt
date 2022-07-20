@@ -10,8 +10,8 @@ import "tens_complement_2.js" as Activity
 Item {
     Rectangle {
         color: bgColor
-        height: parent.height * 0.8
-        width: parent.width * 0.9
+        height: (selected) ? parent.height : parent.height * 0.8
+        width: (selected) ? parent.width : parent.width * 0.9
         border.width: 2
         border.color: borderColor
         radius: 20
@@ -35,9 +35,10 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if(type == 1 && numberCardPosition != 5) {
+                    Activity.resize(rowNumber-1, columnNumber-1);
                     parent.border.color = "red";
-                    Activity.numberArray.push(columnNumber);
-                    Activity.display();
+                    Activity.numberArray.push([columnNumber, rowNumber, numberCardPosition]);
+                    Activity.swapNumberCards();
                 }
             }
         }

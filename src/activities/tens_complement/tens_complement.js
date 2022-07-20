@@ -125,7 +125,7 @@ function updateAnswerArray(row, column, textValue) {
 function checkAnswer() {
     var check = true;
     for(var row = 0; row < answerArray.length; row++) {
-        let sum = 0;
+        var sum = 0;
         for(var column = 0; column < answerArray[row].length; column++) {
             sum += parseInt(answerArray[row][column]);
         }

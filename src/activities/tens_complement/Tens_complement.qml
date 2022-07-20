@@ -76,6 +76,7 @@ ActivityBase {
                 id: container
                 height: parent.height
                 width: parent.width
+                interactive: false
                 anchors.centerIn: parent
                 cellHeight: items.cardSize
                 cellWidth: items.cardSize
@@ -106,13 +107,14 @@ ActivityBase {
                 anchors.centerIn: parent
 
                 ListView {
-                height: parent.height
-                width: parent.width
-                anchors.centerIn: parent
-                model: holderListModel
-                delegate: AnswerContainer {
-                    height: items.cardSize
-                    width: answerHolder.width
+                    height: parent.height
+                    width: parent.width
+                    interactive: false
+                    anchors.centerIn: parent
+                    model: holderListModel
+                    delegate: AnswerContainer {
+                        height: items.cardSize
+                        width: answerHolder.width
                     }
                 }
             }

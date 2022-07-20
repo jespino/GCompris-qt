@@ -18,18 +18,11 @@ Rectangle {
     ListView {
         height: parent.height
         width: parent.width
-        anchors {
-            left: parent.left
-            right: parent.right
-            leftMargin: 5
-            rightMargin: 5
-            centerIn: parent
-        }
         orientation: ListView.Horizontal
         model: listmodel
         delegate: Card {
-                height: parent.height
-                width: cardContainer.width/14
-            }
+            height: parent.height
+            width: cardContainer.width/14
         }
+    }
 }
