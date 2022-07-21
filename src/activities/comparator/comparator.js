@@ -33,6 +33,7 @@ function initLevel() {
     var maxValue = items.levels[currentLevel].maxValue
     var count = items.levels[currentLevel].count
     //RandomDataset
+    console.log(items.levels[currentLevel].toString())
     if(items.levels[currentLevel].random) {
         for(var i = 0; i < count; ++i) {
             var leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
@@ -54,6 +55,8 @@ function initLevel() {
         for(var i = 0; i < count; i++) {
             var leftHandSide = items.levels[currentLevel].values[i][0]
             var rightHandSide = items.levels[currentLevel].values[i][1]
+            console.log(leftHandSide.toString())
+
             items.dataListModel.append({
                 "leftHandSide": leftHandSide.toString(),
                 "rightHandSide": rightHandSide.toString(),
