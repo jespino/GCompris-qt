@@ -27,5 +27,5 @@ ActivityInfo {
   credit: ""
   section: "math numberation"
   createdInVersion:30000
-  levels: "1,2,3,4,5,6,7,8"
+  levels: "1,2,3,4,5,6,7"
 }

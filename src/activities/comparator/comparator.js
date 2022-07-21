@@ -55,8 +55,6 @@ function initLevel() {
         for(var i = 0; i < count; i++) {
             var leftHandSide = items.levels[currentLevel].values[i][0]
             var rightHandSide = items.levels[currentLevel].values[i][1]
-            console.log(leftHandSide.toString())
-
             items.dataListModel.append({
                 "leftHandSide": leftHandSide.toString(),
                 "rightHandSide": rightHandSide.toString(),
