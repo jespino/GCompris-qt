@@ -153,8 +153,7 @@ ActivityBase {
             Flickable {
                 width: parent.width
                 height: parent.width
-               // contentHeight: charListContent.implicitHeight * 3
-               contentHeight: charContent.implicitHeight * 3 * ApplicationInfo.ratio
+                contentHeight: items.sizeOfElement * 3 * ApplicationInfo.ratio
                Column {
                     id: charListContent
                     spacing: 5
@@ -165,7 +164,7 @@ ActivityBase {
                         model: dataListModel
                         delegate:
                         Item {
-                            id: charContent
+                            id: charSingleRow
                             height: items.sizeOfElement
                             width: parent.width
                             property int modelIndex: DelegateModel.itemsIndex
