@@ -7,17 +7,18 @@
 .pragma library
 .import QtQuick 2.12 as Quick
 
-var currentLevel = 0
-var numberOfLevel = 3
-var items
+var currentLevel = 0;
+var numberOfLevel;
+var items;
 var displayArray = [
     ["(",null, "+", null, ")", "+","(", null, "+", null, ")", "=", null],
     ["(",null, "+", null, ")", "+","(", null, "+", null, ")", "+", null, "=", null],
     ["(",null, "+", null, ")", "+","(", null, "+", null, ")", "+", "(", null, "+", null, ")", "=", null]
-]
+];
 var numberArray;
 var valueArray;
 var answerArray = [];
+var datasets;
 
 
 function start(items_) {
@@ -32,16 +33,23 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1;
     var numberCardCounter = 1;
+    datasets = items.levels[currentLevel];
+    numberOfLevel = items.levels.length;
     numberArray = [];
-    valueArray = displayArray[0];
+    answerArray.length = 0;
+    valueArray = displayArray[currentLevel];
+    items.numberOfCards = valueArray.length;
+    items.firstCardListModel.clear();
+    items.secondCardListModel.clear();
+    items.thirdCardListModel.clear();
     var countForNumbersInDataset = 0;
     for(var i = 0; i < valueArray.length - 1; i++) {
         if(valueArray[i] == null) {
-            valueArray[i] = items.levels[0].value[0].numberValue[countForNumbersInDataset];
+            valueArray[i] = datasets.value[0].numberValue[countForNumbersInDataset];
             countForNumbersInDataset++;
         }
     }
-    valueArray[valueArray.length - 1] = items.levels[0].value[0].totalSum;
+    valueArray[valueArray.length - 1] = datasets.value[0].totalSum;
     for(var i = 0;i < valueArray.length; i++) {
         var numberCard = {
             "type": 1, // if the card is numberCard the value is 1 else 0.
@@ -51,7 +59,8 @@ function initLevel() {
             "rowNumber": 1,
             "columnNumber": i + 1,
             "selected": false,
-            "numberCardPosition": numberCardCounter
+            "numberCardPosition": numberCardCounter,
+            "totalNumberCards": datasets.value[0].numberValue.length + 1
         }
         var symbolCard= {
             "type": 0,
@@ -59,7 +68,7 @@ function initLevel() {
             "borderColor": "#95F2F8",
             "value": valueArray[i].toString()
         }
-        if(i == 1 || i == 3 || i == 7 || i == 9 || i == 12) {
+        if(i == 1 || i == 3 || i == 7 || i == 9 || i == 12 || i == 14) {
             items.firstCardListModel.append(numberCard);
             items.secondCardListModel.append(numberCard);
             items.thirdCardListModel.append(numberCard);
@@ -76,24 +85,24 @@ function initLevel() {
     for(var i = 0; i < valueArray.length; i++) {
         items.secondCardListModel.setProperty(i, "rowNumber", 2);
         if(valueArray[i] >= '1' && valueArray[i] <= '9') {
-            items.secondCardListModel.setProperty(i, "value", items.levels[0].value[1].numberValue[countForNumbersInDataset].toString());
+            items.secondCardListModel.setProperty(i, "value", datasets.value[1].numberValue[countForNumbersInDataset].toString());
             countForNumbersInDataset++;
         }
     }
-
+    items.secondCardListModel.setProperty(valueArray.length-1, "value", datasets.value[1].totalSum.toString());
     countForNumbersInDataset = 0;
     for(var i = 0; i < valueArray.length; i++) {
         items.thirdCardListModel.setProperty(i, "rowNumber", 3);
         if(valueArray[i] >= '1' && valueArray[i] <= '9') {
-            items.thirdCardListModel.setProperty(i, "value", items.levels[0].value[2].numberValue[countForNumbersInDataset].toString());
+            items.thirdCardListModel.setProperty(i, "value", datasets.value[2].numberValue[countForNumbersInDataset].toString());
             countForNumbersInDataset++;
         }
     }
-
-    for(var i = 0; i < items.levels[0].value.length; i++) {
+    items.thirdCardListModel.setProperty(valueArray.length-1, "value", datasets.value[2].totalSum.toString());
+    for(var i = 0; i < datasets.value.length; i++) {
         var tempArray = [];
-        for(var j = 0; j < items.levels[0].value[i].numberValue.length; j++) {
-            tempArray.push(items.levels[0].value[i].numberValue[j]);
+        for(var j = 0; j < datasets.value[i].numberValue.length; j++) {
+            tempArray.push(datasets.value[i].numberValue[j]);
         }
         answerArray.push(tempArray);
     }
@@ -177,6 +186,7 @@ function previousLevel() {
 }
 
 function checkAnswer() {
+    console.log(answerArray);
     var check = true;
     for(var row = 0; row < answerArray.length; row++) {
         for(var col = 1; col < answerArray[row].length; col+=2) {
@@ -186,5 +196,6 @@ function checkAnswer() {
             }
         }
     }
+
     check ? items.bonus.good("lion") : items.bonus.bad("smiley");
 }

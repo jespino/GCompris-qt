@@ -45,7 +45,7 @@ Item {
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
-                text: "?"
+                text: questionValue1
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -53,12 +53,14 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    if(firstTextValue.text != "?") {
-                        Activity.reappearNumberCard(firstTextValue.text)
+                    if(firstCardClickable) {
+                        if(firstTextValue.text != "?") {
+                            Activity.reappearNumberCard(firstTextValue.text)
+                        }
+                        firstTextValue.text = Activity.updateValue()
+                        Activity.updateVisibility()
+                        Activity.updateAnswerArray(rowNumber, parent.columnNumber, firstTextValue.text)
                     }
-                    firstTextValue.text = Activity.updateValue()
-                    Activity.updateVisibility()
-                    Activity.updateAnswerArray(rowNumber, parent.columnNumber, firstTextValue.text)
                 }
             }
         }
@@ -94,7 +96,7 @@ Item {
                 height: parent.height
                 width: parent.width
                 anchors.centerIn: parent
-                text: questionValue
+                text: questionValue2
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -102,12 +104,14 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    if(secondTextValue.text != "?") {
-                        Activity.reappearNumberCard(secondTextValue.text)
+                    if(secondCardClickable) {
+                        if(secondTextValue.text != "?") {
+                            Activity.reappearNumberCard(secondTextValue.text)
+                        }
+                        secondTextValue.text = Activity.updateValue()
+                        Activity.updateVisibility()
+                        Activity.updateAnswerArray(rowNumber, parent.columnNumber, secondTextValue.text)
                     }
-                    secondTextValue.text = Activity.updateValue()
-                    Activity.updateVisibility()
-                    Activity.updateAnswerArray(rowNumber, parent.columnNumber, secondTextValue.text)
                 }
             }
         }

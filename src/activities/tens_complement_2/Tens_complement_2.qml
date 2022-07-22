@@ -41,8 +41,7 @@ ActivityBase {
             property alias secondCardListModel: secondCardListModel
             property alias thirdCardListModel: thirdCardListModel
             readonly property var levels: activity.datasetLoader.data
-            property double cardHeight: firstCardListContainer.height
-            property double cardWidth: firstCardListContainer.width / 14
+            property int numberOfCards: 18
         }
 
         onStart: { Activity.start(items) }
@@ -84,6 +83,7 @@ ActivityBase {
                 width: parent.width
                 anchors.top: parent.top
                 listmodel: firstCardListModel
+                numberOfCards: items.numberOfCards
             }
 
             CardContainer {
@@ -93,6 +93,7 @@ ActivityBase {
                 anchors.top: firstCardListContainer.bottom
                 anchors.topMargin: firstCardListContainer.height / 3
                 listmodel: secondCardListModel
+                numberOfCards: items.numberOfCards
             }
 
             CardContainer {
@@ -102,6 +103,7 @@ ActivityBase {
                 anchors.top: secondCardListContainer.bottom
                 anchors.topMargin: firstCardListContainer.height / 3
                 listmodel: thirdCardListModel
+                numberOfCards: items.numberOfCards
             }
         }
 

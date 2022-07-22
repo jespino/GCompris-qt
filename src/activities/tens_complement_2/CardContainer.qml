@@ -14,15 +14,17 @@ Rectangle {
     border.width: 3
     radius: 20
     property ListModel listmodel
+    property int numberOfCards
 
     ListView {
         height: parent.height
         width: parent.width
+        interactive: false
         orientation: ListView.Horizontal
         model: listmodel
         delegate: Card {
-            height: parent.height
-            width: cardContainer.width/14
+            height: cardContainer.height
+            width: cardContainer.width / numberOfCards
         }
     }
 }

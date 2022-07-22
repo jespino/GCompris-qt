@@ -40,6 +40,7 @@ ActivityBase {
             property alias cardListModel: cardListModel
             property alias holderListModel: holderListModel
             readonly property var levels: activity.datasetLoader.data
+            property alias okButton: okButton
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
@@ -121,6 +122,7 @@ ActivityBase {
 
             BarButton {
                 id: okButton
+                visible: false
                 z: 2
                 source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
                 anchors {
@@ -174,7 +176,7 @@ ActivityBase {
 
         Bonus {
             id: bonus
-            Component.onCompleted: win.connect(Activity.nextLevel)
+            Component.onCompleted: win.connect(Activity.nextSubLevel)
         }
     }
 

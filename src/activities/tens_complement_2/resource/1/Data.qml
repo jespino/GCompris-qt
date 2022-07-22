@@ -6,7 +6,7 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("swapping tens complement among 4 numbers")
+    objective: qsTr("Swapping tens complement among 4 numbers")
     difficulty: 1
     data: [
         {

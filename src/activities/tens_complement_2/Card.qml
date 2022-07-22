@@ -34,9 +34,8 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(type == 1 && numberCardPosition != 5) {
+                if(type == 1 && numberCardPosition != totalNumberCards) {
                     Activity.resize(rowNumber-1, columnNumber-1);
-                    parent.border.color = "red";
                     Activity.numberArray.push([columnNumber, rowNumber, numberCardPosition]);
                     Activity.swapNumberCards();
                 }
