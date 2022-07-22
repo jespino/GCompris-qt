@@ -150,6 +150,10 @@ ActivityBase {
             width: layoutArea.width * 0.5
             height: parent.height * 0.5
             anchors.right: layoutArea.right
+            Flickable {
+                width: parent.width
+                height: parent.width
+                contentHeight: charListContent.implicitHeight
                 Column {
                     id: charListContent
                     spacing: 5
@@ -218,6 +222,7 @@ ActivityBase {
                     }
                 }
             }
+       }
 
         Item {
             id: upDownButtonSet
