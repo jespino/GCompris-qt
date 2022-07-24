@@ -70,6 +70,7 @@ ActivityBase {
         ListModel {
             id: dataListModel
         }
+
         Item {
             id: wholeExerciceDisplay
             width: layoutArea.width * 0.5
@@ -485,30 +486,39 @@ ActivityBase {
             Component.onCompleted: win.connect(Activity.nextLevel)
         }
 
-        Keys.onPressed: {
-            event.accepted = true;
-            if (event.key === Qt.Key_Less) {
-                lessThanSign.clicked()
-            }
-            if (event.key === Qt.Key_Equal) {
-                equalSign.clicked()
-            }
-            if (event.key === Qt.Key_Greater) {
-                greaterThanSign.clicked()
-            }
-            if (event.key === Qt.Key_Up) {
-                Activity.upAction()
-            }
-            if (event.key === Qt.Key_Down) {
-                Activity.downAction()
-            }
-            if (event.key === Qt.Key_Return) {
-                okButton.clicked()
-            }
-            if (event.key === Qt.Key_Backspace) {
-                Activity.clear()
+            Keys.onPressed: {
+                switch(event.key) {
+                case Qt.Key_Less :
+                    event.accepted = true
+                    lessThanSign.clicked()
+                    break;
+                case Qt.Key_Equal :
+                    event.accepted = true;
+                    equalSign.clicked()
+                    break;
+                case Qt.Key_Greater :
+                    event.accepted = true
+                    greaterThanSign.clicked()
+                    break;
+                case Qt.Key_Up :
+                    event.accepted = true;
+                    Activity.upAction()
+                    break;
+                case Qt.Key_Down :
+                    event.accepted = true;
+                    Activity.downAction()
+                    break;
+                case Qt.Key_Return :
+                    event.accepted = true;
+                    okButton.clicked()
+                    break;
+                case Qt.Key_Backspace :
+                    event.accepted = true;
+                    Activity.clear()
+                    break;
             }
         }
+
     }
 
 }
