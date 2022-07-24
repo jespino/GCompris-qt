@@ -108,7 +108,7 @@ function initLevel() {
 }
 
 function processKeyPress(text) {
-    if(items.remainingLife === 0 || items.bonus.isPlaying) {
+    if(items.remainingLife === 0 || items.goodIcon.visible) {
         return
     }
 
