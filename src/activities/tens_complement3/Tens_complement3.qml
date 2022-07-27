@@ -36,6 +36,10 @@ ActivityBase {
             property alias bar: bar
             property alias bonus: bonus
             property alias cardListModel: cardListModel
+            property alias questionListModel: questionListModel
+            property alias answerListModel: answerListModel
+            property alias questionListModel2: questionListModel2
+            property alias answerListModel2: answerListModel2
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
@@ -54,6 +58,7 @@ ActivityBase {
         ListModel {
             id: cardListModel
         }
+
         Rectangle {
             id: numberContainer
             parent: layoutArea
@@ -84,6 +89,22 @@ ActivityBase {
             }
         }
 
+        ListModel {
+            id: questionListModel
+        }
+
+        ListModel {
+            id: answerListModel
+        }
+
+        ListModel {
+            id: questionListModel2
+        }
+
+        ListModel {
+            id: answerListModel2
+        }
+
         Rectangle {
             id: activityArea
             parent: layoutArea
@@ -91,41 +112,51 @@ ActivityBase {
             width: parent.width * 0.65
             anchors.left: numberContainer.right
 
-            Rectangle {
+            ContainerBox {
                 id: topContainer
                 height: parent.height * 0.4
-                width: parent.width * 0.5
-                border.color: "black"
-                border.width: 3
-                radius: 15
+                width: parent.width * 0.7
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     top: parent.top
                     topMargin: 10
                 }
-                color: "#F0CB38"
+                questionListModel: questionListModel
+                answerListModel: answerListModel
             }
-            Rectangle {
+
+            ContainerBox {
                 id: bottomContainer
                 height: parent.height * 0.4
-                width: parent.width * 0.5
-                border.color: "black"
-                border.width: 3
-                radius: 15
+                width: parent.width * 0.7
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     top: topContainer.bottom
                     topMargin: 10
                 }
-                color: "#F0CB38"
+                questionListModel: questionListModel2
+                answerListModel: answerListModel2
             }
         }
 
-        Container {
-            parent: layoutArea
-            height: 100
-            width: 100
+        BarButton {
+            id: okButton
+            parent: activityArea
+            z: 2
+            source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: parent.bottom
+            }
+            sourceSize.height: 100
+            sourceSize.width: 100
+            height: sourceSize.height
+            width: sourceSize.width
+            onClicked: {
+                console.log("clicked")
+            }
         }
+
         DialogHelp {
             id: dialogHelp
             onClose: home()

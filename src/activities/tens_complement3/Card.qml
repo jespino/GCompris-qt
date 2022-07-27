@@ -11,8 +11,8 @@ Rectangle {
     visible: visibility
     height: cardSize * 0.9
     width: cardSize * 0.9
-    color: "#FFFB9A"
-    border.color: "black"
+    color: bgColor
+    border.color: borderColor
     border.width: 3
     radius: 15
 

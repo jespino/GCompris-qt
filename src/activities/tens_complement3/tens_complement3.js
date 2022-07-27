@@ -12,6 +12,8 @@ var numberOfLevel = 4;
 var items;
 var selected = -1;
 var numArray = [];
+var questionArrayValue = ["?", "+", "(", "?", ")", "=", "?"];
+var answerArrayValue = ["(", "?", "+", "?", ")", "+", "?", "=", "?"];
 
 function start(items_) {
     items = items_
@@ -30,8 +32,34 @@ function initLevel() {
             "visibility": true,
             "index": i,
             "cardSize": items.cardSize,
+            "bgColor": "#FFFB9A",
+            "borderColor": "black"
         }
         items.cardListModel.append(card);
+    }
+    for(var i = 0; i < questionArrayValue.length; i++) {
+        var card = {
+            "value": questionArrayValue[i].toString(),
+            "visibility": true,
+            "index": i,
+            "cardSize": 100,
+            "bgColor": questionArrayValue[i] == "?" ? "#FFFB9A" : "#88A2FE",
+            "borderColor": questionArrayValue[i] == "?" ? "black" : "#88A2FE"
+        }
+        items.questionListModel.append(card);
+        items.questionListModel2.append(card);
+    }
+    for(var i = 0; i < answerArrayValue.length; i++) {
+        var card = {
+            "value": answerArrayValue[i].toString(),
+            "visibility": true,
+            "index": i,
+            "cardSize": 100,
+            "bgColor": answerArrayValue[i] == "?" ? "#FFFB9A" : "#95F2F8",
+            "borderColor": answerArrayValue[i] == "?" ? "black" : "#95F2F8"
+        }
+        items.answerListModel.append(card);
+        items.answerListModel2.append(card);
     }
 }
 
