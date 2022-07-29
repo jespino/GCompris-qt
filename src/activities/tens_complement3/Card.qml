@@ -8,6 +8,7 @@ import "../../core"
 import "tens_complement3.js" as Activity
 
 Rectangle {
+    id: numberCard
     visible: visibility
     height: cardSize * 0.9
     width: cardSize * 0.9
@@ -17,11 +18,13 @@ Rectangle {
     radius: 15
 
     GCText {
+        id: numberText
         width: parent.width
         height: parent.height
         anchors.centerIn: parent
         color: "black"
         text: value
+        fontSizeMode: Text.Fit
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
@@ -29,10 +32,19 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            Activity.initialSize()
-            Activity.selected = index
-            Activity.updateSize()
-            Activity.numArray.push(index)
+            if(isNumberContainerCard) {
+                Activity.updateAllCadsToInitialSize()
+                Activity.selected = index
+                Activity.updateSize()
+                Activity.numArray.push(index)
+            }
+            if(isAnswerCard) {
+                if(numberText.text != "?") {
+                    Activity.reappearNumberCard(numberText.text)
+                }
+                numberText.text = Activity.swapNumberCard()
+                Activity.updateVisibility()
+            }
         }
     }
 }
