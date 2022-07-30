@@ -71,6 +71,39 @@ ActivityBase {
             id: dataListModel
         }
 
+        Keys.onPressed: {
+            switch(event.key) {
+            case Qt.Key_Less :
+                event.accepted = true
+                lessThanSign.clicked()
+                break;
+            case Qt.Key_Equal :
+                event.accepted = true;
+                equalSign.clicked()
+                break;
+            case Qt.Key_Greater :
+                event.accepted = true
+                greaterThanSign.clicked()
+                break;
+            case Qt.Key_Up :
+                event.accepted = true;
+                Activity.upAction()
+                break;
+            case Qt.Key_Down :
+                event.accepted = true;
+                Activity.downAction()
+                break;
+            case Qt.Key_Return :
+                event.accepted = true;
+                okButton.clicked()
+                break;
+            case Qt.Key_Backspace :
+                event.accepted = true;
+                Activity.clear()
+                break;
+        }
+    }
+
         Item {
             id: wholeExerciceDisplay
             width: layoutArea.width * 0.5
@@ -484,39 +517,6 @@ ActivityBase {
         Bonus {
             id: bonus
             Component.onCompleted: win.connect(Activity.nextLevel)
-        }
-
-            Keys.onPressed: {
-                switch(event.key) {
-                case Qt.Key_Less :
-                    event.accepted = true
-                    lessThanSign.clicked()
-                    break;
-                case Qt.Key_Equal :
-                    event.accepted = true;
-                    equalSign.clicked()
-                    break;
-                case Qt.Key_Greater :
-                    event.accepted = true
-                    greaterThanSign.clicked()
-                    break;
-                case Qt.Key_Up :
-                    event.accepted = true;
-                    Activity.upAction()
-                    break;
-                case Qt.Key_Down :
-                    event.accepted = true;
-                    Activity.downAction()
-                    break;
-                case Qt.Key_Return :
-                    event.accepted = true;
-                    okButton.clicked()
-                    break;
-                case Qt.Key_Backspace :
-                    event.accepted = true;
-                    Activity.clear()
-                    break;
-            }
         }
 
     }
