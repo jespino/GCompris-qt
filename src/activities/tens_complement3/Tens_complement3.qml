@@ -40,6 +40,8 @@ ActivityBase {
             property alias answerListModel: answerListModel
             property alias questionListModel2: questionListModel2
             property alias answerListModel2: answerListModel2
+            property alias score: score
+            property alias okButton: okButton
             readonly property var levels: activity.datasetLoader.data
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
@@ -140,22 +142,28 @@ ActivityBase {
             }
         }
 
+        Score {
+            id: score
+            parent: layoutArea
+            color: "#76F361"
+        }
+
         BarButton {
             id: okButton
+            visible: false
             parent: activityArea
-            z: 2
+            z: 10
             source: "qrc:/gcompris/src/core/resource/bar_ok.svg"
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 bottom: parent.bottom
             }
-            sourceSize.height: 100
-            sourceSize.width: 100
+            sourceSize.height: Math.min(layoutArea.height * 0.15, layoutArea.width * 0.15)
+            sourceSize.width: Math.min(layoutArea.height * 0.15, layoutArea.width * 0.15)
             height: sourceSize.height
             width: sourceSize.width
-            onClicked: {
-                console.log("clicked")
-            }
+            enabled: !bonus.isPlaying
+            onClicked: Activity.checkAnswer()
         }
 
         DialogHelp {
@@ -189,7 +197,7 @@ ActivityBase {
                 displayDialog(dialogHelp)
             }
             onPreviousLevelClicked: Activity.previousLevel()
-            onNextLevelClicked: Activity.nextLevel()
+            onNextLevelClicked: Activity.nextSubLevel()
             onHomeClicked: activity.home()
             onActivityConfigClicked: {
                 displayDialog(dialogActivityConfig)
@@ -198,7 +206,7 @@ ActivityBase {
 
         Bonus {
             id: bonus
-            Component.onCompleted: win.connect(Activity.nextLevel)
+            Component.onCompleted: win.connect(Activity.nextSubLevel)
         }
     }
 

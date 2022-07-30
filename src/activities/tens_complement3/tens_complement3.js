@@ -6,17 +6,21 @@
  */
 .pragma library
 .import QtQuick 2.12 as Quick
+.import "../../core/core.js" as Core
 
 var currentLevel = 0;
-var numberOfLevel = 4;
+var numberOfLevel = 1;
+var currentSubLevel = 0;
+var numberOfSubLevel;
 var items;
 var selected = -1;
 var numArray = [];
 var questionArrayValue = [null, "+", "(", null, ")", "=", null];
 var answerArrayValue = ["(", null, "+", null, ")", "+", null, "=", null];
+var indexOfNumberInAnswerArray = [1, 3, 6];
 var datasets;
-var answerCheck = [];
-var numberToSplit;
+var numberToSplit1;
+var numberToSplit2;
 
 function start(items_) {
     items = items_
@@ -30,9 +34,14 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1;
     datasets = items.levels[currentLevel];
+    items.score.currentSubLevel = currentSubLevel + 1;
+    items.score.numberOfSubLevels = datasets.value.length;
+    items.okButton.visible = false;
+    numberOfSubLevel = datasets.value.length;
+    clearAllListModels();
     for(var i = 0; i < 6; i++) {
         var card = {
-            "value": datasets.value[0].numberValue[i].toString(),
+            "value": datasets.value[currentSubLevel].numberValue[i].toString(),
             "visibility": true,
             "index": i,
             "cardSize": items.cardSize,
@@ -45,8 +54,8 @@ function initLevel() {
     }
     var indexCounter = 0;
     for(var i = 0; i < questionArrayValue.length; i++) {
-        if(questionArrayValue[i] == null) {
-            questionArrayValue[i] = datasets.value[0].questionValue[indexCounter].toString();
+        if(questionArrayValue[i] != "+" && questionArrayValue[i] != "(" && questionArrayValue[i] != ")" && questionArrayValue[i] != "=") {
+            questionArrayValue[i] = datasets.value[currentSubLevel].questionValue[indexCounter].toString();
             indexCounter++;
         }
     }
@@ -68,11 +77,19 @@ function initLevel() {
         items.questionListModel.append(card);
         items.questionListModel2.append(card);
     }
-    numberToSplit = questionArrayValue[3];
+    indexCounter = 0;
+    for(var i = 0; i < questionArrayValue.length; i++) {
+        if(questionArrayValue[i] != "+" && questionArrayValue[i] != "(" && questionArrayValue[i] != ")" && questionArrayValue[i] != "=") {
+            items.questionListModel2.setProperty(i, "value", datasets.value[currentSubLevel].questionValue2[indexCounter].toString());
+            indexCounter++;
+        }
+    }
+    numberToSplit1 = items.questionListModel.get(3).value.toString();
+    numberToSplit2 = items.questionListModel2.get(3).value.toString();
     indexCounter = 0;
     for(var i = 0; i < answerArrayValue.length; i++) {
-        if(answerArrayValue[i] == null) {
-            answerArrayValue[i] = datasets.value[0].answerValue[indexCounter].toString();
+        if(answerArrayValue[i] != "+" && answerArrayValue[i] != "(" && answerArrayValue[i] != ")" && answerArrayValue[i] != "=") {
+            answerArrayValue[i] = datasets.value[currentSubLevel].answerValue[indexCounter].toString();
             indexCounter++;
         }
     }
@@ -94,11 +111,26 @@ function initLevel() {
         items.answerListModel.append(card);
         items.answerListModel2.append(card);
     }
+    indexCounter = 0;
+    for(var i = 0; i < answerArrayValue.length; i++) {
+        if(answerArrayValue[i] != "+" && answerArrayValue[i] != "(" && answerArrayValue[i] != ")" && answerArrayValue[i] != "=") {
+            items.answerListModel2.setProperty(i, "value", datasets.value[currentSubLevel].answerValue2[indexCounter].toString());
+            indexCounter++;
+        }
+    }
 }
 
 function nextLevel() {
     if(numberOfLevel <= ++currentLevel) {
         currentLevel = 0
+    }
+    initLevel();
+}
+
+function nextSubLevel() {
+    if(numberOfSubLevel <= ++currentSubLevel) {
+        currentSubLevel = 0;
+        nextLevel();
     }
     initLevel();
 }
@@ -134,12 +166,50 @@ function updateVisibility() {
 }
 
 function reappearNumberCard(value) {
-    console.log(value);
-    for(var i = 0; i < datasets.value[0].numberValue.length; i++) {
-        if(value == datasets.value[0].numberValue[i]) {
+    for(var i = 0; i < datasets.value[currentSubLevel].numberValue.length; i++) {
+        if(value == datasets.value[currentSubLevel].numberValue[i] && items.cardListModel.get(i).visibility == false) {
             items.cardListModel.setProperty(i, "visibility", true);
             break;
         }
     }
     updateAllCadsToInitialSize()
+}
+
+function clearAllListModels() {
+    items.cardListModel.clear();
+    items.questionListModel.clear();
+    items.questionListModel2.clear();
+    items.answerListModel.clear();
+    items.answerListModel2.clear();
+}
+
+function showOkButton() {
+    var okButtonVisibility = true;
+    if(items.answerListModel.get(indexOfNumberInAnswerArray[1]).value == "?" || items.answerListModel.get(indexOfNumberInAnswerArray[2]).value == "?") {
+        okButtonVisibility = false
+    }
+    if(items.answerListModel2.get(indexOfNumberInAnswerArray[1]).value == "?" || items.answerListModel2.get(indexOfNumberInAnswerArray[2]).value == "?") {
+        okButtonVisibility = false
+    }
+    if(okButtonVisibility) {
+        items.okButton.visible = true;
+    }
+}
+
+function checkAnswer() {
+    var check = true;
+    // separately checking for answers in both (top and bottom) containers.
+    if(parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[0]).value) + parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[1]).value) != 10) {
+        check = false;
+    }
+    if(parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[1]).value) + parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[2]).value) != numberToSplit1) {
+        check = false;
+    }
+    if(parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[0]).value) + parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[1]).value) != 10) {
+        check = false;
+    }
+    if(parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[1]).value) + parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[2]).value) != numberToSplit2) {
+        check = false;
+    }
+    check ? items.bonus.good("flower") : items.bonus.bad("flower");
 }

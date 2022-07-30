@@ -42,8 +42,9 @@ Rectangle {
                 if(numberText.text != "?") {
                     Activity.reappearNumberCard(numberText.text)
                 }
-                numberText.text = Activity.swapNumberCard()
+                value = Activity.swapNumberCard()
                 Activity.updateVisibility()
+                Activity.showOkButton()
             }
         }
     }

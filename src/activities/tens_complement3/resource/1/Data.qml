@@ -12,13 +12,18 @@ Data {
         {
             "value": [
                 {
-                    "numberValue": [1, 3, 6, 7, 2, 9],
+                    "numberValue": [4, 3, 6, 7, 2, 3],
                     "questionValue": [7, 9, 13],
-                    "answerValue": [7, "?", "?", 13]
+                    "answerValue": [7, "?", "?", 13],
+                    "questionValue2": [6, 7, 13],
+                    "answerValue2": [6, "?", "?", 13]
                 },
                 {
-                    "numberValue": [7, 2, 5],
-                    "questionValue": [8, 5, 3],
+                    "numberValue": [5, 2, 4, 6, 1, 8],
+                    "questionValue": [4, 8, 12],
+                    "answerValue": [4, "?", "?", 12],
+                    "questionValue2": [5, 6, 11],
+                    "answerValue2": [5, "?", "?", 11]
                 }
             ]
         }
