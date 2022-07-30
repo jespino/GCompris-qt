@@ -143,6 +143,6 @@ function previousLevel() {
     }
     initLevel();
 }
-function clear(){
+function clearSymbol(){
     items.dataListModel.get(items.selected).symbol = ""
 }

@@ -99,7 +99,7 @@ ActivityBase {
                 break;
             case Qt.Key_Backspace :
                 event.accepted = true;
-                Activity.clear()
+                Activity.clearSymbol()
                 break;
         }
     }
@@ -335,14 +335,14 @@ ActivityBase {
                         radius: 10
                         color: "#E8E8E8"
                         visible: items.selected !== -1
-                        GCText {
-                            anchors.centerIn: parent
-                            color: "#000000"
-                            text: (items.step === 1 && items.selected !== -1) ? dataListModel.get(items.selected).symbol : ""
-                            anchors.fill : parent
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                            GCText {
+                                anchors.centerIn: parent
+                                color: "#000000"
+                                text: (items.step === 1 && items.selected !== -1) ? dataListModel.get(items.selected).symbol : ""
+                                anchors.fill : parent
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
                 }
 
                 GCText {
