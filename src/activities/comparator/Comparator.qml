@@ -50,6 +50,7 @@ ActivityBase {
             property int numOfRowsSelected: 0
             property int index: 0
             property bool okClicked: false
+            property bool wrongAnswer: false
 
         }
 
@@ -139,7 +140,10 @@ ActivityBase {
                                         id: leftHandSideCharDisplay
                                         anchors.fill : parent
                                         text: leftHandSide
-                                        color: currentlySelected === true ? "orange" : "#000000"
+                                        if(wrongAnswer == false)
+                                            color: currentlySelected === true ? "orange" : "#000000"
+                                        if(wrongAnswer == true && evaluate == false)
+                                            color: "red"
                                     }
                                 }
 
@@ -150,7 +154,10 @@ ActivityBase {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     color: "transparent"
                                     ComparatorText {
-                                        color: "black"
+                                        if(wrongAnswer == false)
+                                            color: "black"
+                                        if(wrongAnswer == true && evaluate == false)
+                                            color: "red"
                                         text:symbolPlainText
                                         anchors.fill : parent
                                         horizontalAlignment: Text.AlignHCenter
@@ -169,7 +176,10 @@ ActivityBase {
                                         id: rightHandSideCharDisplay
                                         anchors.fill : parent
                                         text: rightHandSide
-                                        color: currentlySelected === true ? "orange" : "#000000"
+                                        if(wrongAnswer == false)
+                                            color: currentlySelected === true ? "orange" : "#000000"
+                                        if(wrongAnswer == true && evaluate == false)
+                                            color: "red"
                                     }
                                 }
                             }

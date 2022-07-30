@@ -46,6 +46,7 @@ function initLevel() {
                 "currentlySelected" : false,
                 //adding a counter to check if all rows have been visited or not
                 "visited" : 0
+                "evaluate" : false
             })
         }
     }
@@ -63,6 +64,7 @@ function initLevel() {
                 "currentlySelected" : false,
                 //adding a counter to check if all rows have been visited or not
                 "visited" : 0
+                "evaluate" : false
             })
         }
     }
@@ -70,24 +72,20 @@ function initLevel() {
     items.okClicked = true
 }
 
-function checkAnswer(){
+function checkAnswer() {
     if(items.okClicked === true) {
 
-        var evaluate = true
+        var finalEvaluate = true
 
         for(var i = 0; i < items.dataListModel.count; ++i) {
 
-            var leftHandSide = items.dataListModel.get(i).leftHandSide
-            var rightHandSide = items.dataListModel.get(i).rightHandSide
-            var symbol = items.dataListModel.get(i).symbol
-
-        if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
-            evaluate = false
-                break;
-        }
+            if(! items.dataListModel.get(i).evaluate) {
+                finalEvaluate = false
+                    break;
+            }
         }
 
-        if(evaluate) {
+        if(finalEvaluate) {
 
             items.bonus.good('flower')
                 items.okClicked = false
@@ -96,11 +94,25 @@ function checkAnswer(){
         else {
 
             items.bonus.bad('flower')
+            items.wrongAnswer = true
             items.okClicked = true
 
             }
 
     }
+}
+
+function evaluateAnswer() {
+
+            var leftHandSide = items.dataListModel.get(items.selected).leftHandSide
+            var rightHandSide = items.dataListModel.get(items.selected).rightHandSide
+            var symbol = items.dataListModel.get(items.selected).symbol
+            var evaluate = items.dataListModel.get(items.selected).evaluate
+
+        if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
+            evaluate = false
+        }
+
 }
 
 function mouseAreaAction(){
@@ -113,19 +125,24 @@ function mouseAreaAction(){
 }
 function upAction(){
     if (items.selected > 0 ){
+        evaluateAnswer()
         items.dataListModel.get(items.selected).currentlySelected = false
         items.selected --
         items.dataListModel.get(items.selected).currentlySelected = true
+        evaluateAnswer()
     }
     items.step = items.dataListModel.get(items.selected).symbol === "" ? 0 : 1
 
 }
 function downAction(){
     if (items.selected < (items.dataListModel.count - 1)){
-        if(items.selected > -1 )
+        if(items.selected > -1 ) {
+            evaluateAnswer()
             items.dataListModel.get(items.selected).currentlySelected = false
+        }
         items.selected ++
         items.dataListModel.get(items.selected).currentlySelected = true
+        evaluateAnswer()
     }
     items.step = items.dataListModel.get(items.selected).symbol === "" ? 0 : 1
 }
@@ -145,4 +162,5 @@ function previousLevel() {
 }
 function clearSymbol(){
     items.dataListModel.get(items.selected).symbol = ""
+    items.dataListModel.get(items.selected).symbolPlainText = ""
 }
