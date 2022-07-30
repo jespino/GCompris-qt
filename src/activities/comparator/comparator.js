@@ -73,32 +73,32 @@ function initLevel() {
 function checkAnswer(){
     if(items.okClicked === true) {
 
-    var evaluate = true
+        var evaluate = true
 
-    for(var i = 0; i < items.dataListModel.count; ++i) {
+        for(var i = 0; i < items.dataListModel.count; ++i) {
 
-        var leftHandSide = items.dataListModel.get(i).leftHandSide
-        var rightHandSide = items.dataListModel.get(i).rightHandSide
-        var symbol = items.dataListModel.get(i).symbol
+            var leftHandSide = items.dataListModel.get(i).leftHandSide
+            var rightHandSide = items.dataListModel.get(i).rightHandSide
+            var symbol = items.dataListModel.get(i).symbol
 
-       if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
-           evaluate = false
-            break;
-       }
-    }
-
-    if(evaluate) {
-
-        items.bonus.good('flower')
-            items.okClicked = false
+        if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
+            evaluate = false
+                break;
+        }
         }
 
-    else {
+        if(evaluate) {
 
-        items.bonus.bad('flower')
-        items.okClicked = true
+            items.bonus.good('flower')
+                items.okClicked = false
+            }
 
-        }
+        else {
+
+            items.bonus.bad('flower')
+            items.okClicked = true
+
+            }
 
     }
 }
