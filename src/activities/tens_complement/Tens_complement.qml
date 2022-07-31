@@ -6,7 +6,6 @@
 import QtQuick 2.12
 import QtQml.Models 2.12
 import QtQuick.Controls 2.12
-
 import GCompris 1.0
 import "../../core"
 import "tens_complement.js" as Activity
@@ -41,6 +40,7 @@ ActivityBase {
             property alias holderListModel: holderListModel
             readonly property var levels: activity.datasetLoader.data
             property alias okButton: okButton
+            property alias score: score
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
@@ -129,10 +129,19 @@ ActivityBase {
                     right: answerHolder.right
                     bottom: parent.bottom
                     }
-                height: items.cardSize * 0.8
-                width: items.cardSize * 0.8
+                sourceSize.height: items.cardSize * 0.8
+                sourceSize.width: items.cardSize * 0.8
+                height: sourceSize.height
+                width: sourceSize.width
+                enabled: !bonus.isPlaying
                 onClicked: Activity.checkAnswer()
             }
+        }
+
+        Score {
+            id: score
+            parent: layoutArea
+            color: "#76F361"
         }
 
         DialogChooseLevel {

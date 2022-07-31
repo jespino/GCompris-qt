@@ -51,6 +51,10 @@ function initLevel() {
     }
     valueArray[valueArray.length - 1] = datasets.value[0].totalSum;
     for(var i = 0;i < valueArray.length; i++) {
+        var isNumber = true;
+        if(valueArray[i] == "+" || valueArray[i] == "(" || valueArray[i] == ")" || valueArray[i] == "=") {
+            isNumber = false;
+        }
         var numberCard = {
             "type": 1, // if the card is numberCard the value is 1 else 0.
             "bgColor": "#FFFB9A",
@@ -68,7 +72,7 @@ function initLevel() {
             "borderColor": "#95F2F8",
             "value": valueArray[i].toString()
         }
-        if(i == 1 || i == 3 || i == 7 || i == 9 || i == 12 || i == 14) {
+        if(isNumber) {
             items.firstCardListModel.append(numberCard);
             items.secondCardListModel.append(numberCard);
             items.thirdCardListModel.append(numberCard);
@@ -197,5 +201,5 @@ function checkAnswer() {
         }
     }
 
-    check ? items.bonus.good("lion") : items.bonus.bad("smiley");
+    check ? items.bonus.good("flower") : items.bonus.bad("flower");
 }

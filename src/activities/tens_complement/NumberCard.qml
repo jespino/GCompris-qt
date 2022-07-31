@@ -38,7 +38,6 @@ Rectangle {
             Activity.updateToInitialSize()
             Activity.selected = index
             Activity.updateSize()
-            Activity.numArray.push(index)
         }
     }
 }

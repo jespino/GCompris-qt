@@ -107,6 +107,12 @@ ActivityBase {
             }
         }
 
+        Score {
+            id: score
+            parent: layoutArea
+            color: "black"
+        }
+
         BarButton {
             id: okButton
             parent: layoutArea
@@ -118,6 +124,7 @@ ActivityBase {
                 horizontalCenter: layoutArea.horizontalCenter
                 bottom: parent.bottom
             }
+            enabled: !bonus.isPlaying
             onClicked: Activity.checkAnswer()
         }
 

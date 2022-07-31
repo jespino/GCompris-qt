@@ -14,13 +14,11 @@ var currentSubLevel = 0;
 var numberOfSubLevel;
 var cardsToDisplay;
 var items;
-var numArray;
 var datasets;
 var answerArray = [];
 var cardSize;
 var selected = -1; // "-1" indicates no item selected
 var lastSelected = -1;
-var randomDatasetArray = [];
 
 function start(items_) {
     items = items_;
@@ -33,32 +31,33 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1;
-    datasets = items.levels[currentLevel];
     numberOfLevel = items.levels.length;
-    numberOfSubLevel = datasets.value.length;
-    var cardArray = new Array();
-    numArray = new Array();
-    randomDatasetArray = [];
-    for(var i  = 0; i < datasets.value.length; i++) {
-        randomDatasetArray.push(i);
+    numberOfSubLevel = items.levels[currentLevel].value.length;
+    items.score.currentSubLevel = currentSubLevel + 1;
+    items.score.numberOfSubLevels = numberOfSubLevel;
+    items.okButton.visible = false;
+    var shuffledDatasetArray = [];
+    for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
+        shuffledDatasetArray.push(indexForShuffledArray);
     }
-    Core.shuffle(randomDatasetArray);
-    cardsToDisplay = datasets.value[randomDatasetArray[currentSubLevel]].numberValue.length;
+    Core.shuffle(shuffledDatasetArray);
+    datasets = items.levels[currentLevel].value[shuffledDatasetArray[currentSubLevel]];
+    cardsToDisplay = datasets.numberValue.length;
     items.cardListModel.clear();
     items.holderListModel.clear();
     for(var cardToDisplayIndex = 0; cardToDisplayIndex < cardsToDisplay; cardToDisplayIndex++) {
         var card = {
-            "value": datasets.value[randomDatasetArray[currentSubLevel]].numberValue[cardToDisplayIndex].toString(),
+            "value": datasets.numberValue[cardToDisplayIndex].toString(),
             "visibility": true,
             "index": cardToDisplayIndex,
             "cardSize": items.cardSize,
         }
         items.cardListModel.append(card);
     }
-    var questionCardToDisplay = datasets.value[randomDatasetArray[currentSubLevel]].questionValue.length;
+    var questionCardToDisplay = datasets.questionValue.length;
     answerArray = [];
     for(var cardToDisplayIndex = 0; cardToDisplayIndex < questionCardToDisplay; cardToDisplayIndex++) {
-        var toShuffleQuestionValue = ["?", datasets.value[randomDatasetArray[currentSubLevel]].questionValue[cardToDisplayIndex].toString()];
+        var toShuffleQuestionValue = ["?", datasets.questionValue[cardToDisplayIndex].toString()];
         Core.shuffle(toShuffleQuestionValue);
         var questionCard = {
             "questionValue1": toShuffleQuestionValue[0],
@@ -70,13 +69,13 @@ function initLevel() {
         answerArray.push([toShuffleQuestionValue[0], toShuffleQuestionValue[1]]);
         items.holderListModel.append(questionCard);
     }
-    items.okButton.visible = false;
 }
 
 function nextLevel() {
     if(numberOfLevel <= ++currentLevel) {
         currentLevel = 0;
     }
+    currentSubLevel = 0;
     initLevel();
 }
 
@@ -99,7 +98,6 @@ function updateToInitialSize() {
     for(var i = 0; i < cardsToDisplay; i++) {
         items.cardListModel.setProperty(i, "cardSize", items.cardSize);
     }
-    numArray.length = 0;
 }
 
 function updateSize() {
@@ -110,7 +108,7 @@ function updateSize() {
 
 function reappearNumberCard(value) {
     for(var i = 0; i < cardsToDisplay; i++) {
-        if(value == datasets.value[randomDatasetArray[currentSubLevel]].numberValue[i]) {
+        if(value == datasets.numberValue[i]) {
             items.cardListModel.setProperty(i, "visibility", true);
             break;
         }
@@ -163,5 +161,5 @@ function checkAnswer() {
             break;
         }
     }
-    check ? items.bonus.good("lion") : items.bonus.bad("smiley");
+    check ? items.bonus.good("flower") : items.bonus.bad("flower");
 }
