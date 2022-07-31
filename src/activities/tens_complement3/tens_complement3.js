@@ -33,15 +33,20 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1;
-    datasets = items.levels[currentLevel];
     items.score.currentSubLevel = currentSubLevel + 1;
-    items.score.numberOfSubLevels = datasets.value.length;
+    numberOfSubLevel = items.levels[currentLevel].value.length;
+    items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = false;
-    numberOfSubLevel = datasets.value.length;
+    var shuffledDatasetArray = [];
+    for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
+        shuffledDatasetArray.push(indexForShuffledArray);
+    }
+    Core.shuffle(shuffledDatasetArray);
+    datasets = items.levels[currentLevel].value[shuffledDatasetArray[currentSubLevel]];
     clearAllListModels();
     for(var i = 0; i < 6; i++) {
         var card = {
-            "value": datasets.value[currentSubLevel].numberValue[i].toString(),
+            "value": datasets.numberValue[i].toString(),
             "visibility": true,
             "index": i,
             "cardSize": items.cardSize,
@@ -55,7 +60,7 @@ function initLevel() {
     var indexCounter = 0;
     for(var i = 0; i < questionArrayValue.length; i++) {
         if(questionArrayValue[i] != "+" && questionArrayValue[i] != "(" && questionArrayValue[i] != ")" && questionArrayValue[i] != "=") {
-            questionArrayValue[i] = datasets.value[currentSubLevel].questionValue[indexCounter].toString();
+            questionArrayValue[i] = datasets.questionValue[indexCounter].toString();
             indexCounter++;
         }
     }
@@ -80,7 +85,7 @@ function initLevel() {
     indexCounter = 0;
     for(var i = 0; i < questionArrayValue.length; i++) {
         if(questionArrayValue[i] != "+" && questionArrayValue[i] != "(" && questionArrayValue[i] != ")" && questionArrayValue[i] != "=") {
-            items.questionListModel2.setProperty(i, "value", datasets.value[currentSubLevel].questionValue2[indexCounter].toString());
+            items.questionListModel2.setProperty(i, "value", datasets.questionValue2[indexCounter].toString());
             indexCounter++;
         }
     }
@@ -89,7 +94,7 @@ function initLevel() {
     indexCounter = 0;
     for(var i = 0; i < answerArrayValue.length; i++) {
         if(answerArrayValue[i] != "+" && answerArrayValue[i] != "(" && answerArrayValue[i] != ")" && answerArrayValue[i] != "=") {
-            answerArrayValue[i] = datasets.value[currentSubLevel].answerValue[indexCounter].toString();
+            answerArrayValue[i] = datasets.answerValue[indexCounter].toString();
             indexCounter++;
         }
     }
@@ -114,7 +119,7 @@ function initLevel() {
     indexCounter = 0;
     for(var i = 0; i < answerArrayValue.length; i++) {
         if(answerArrayValue[i] != "+" && answerArrayValue[i] != "(" && answerArrayValue[i] != ")" && answerArrayValue[i] != "=") {
-            items.answerListModel2.setProperty(i, "value", datasets.value[currentSubLevel].answerValue2[indexCounter].toString());
+            items.answerListModel2.setProperty(i, "value", datasets.answerValue2[indexCounter].toString());
             indexCounter++;
         }
     }
@@ -166,8 +171,8 @@ function updateVisibility() {
 }
 
 function reappearNumberCard(value) {
-    for(var i = 0; i < datasets.value[currentSubLevel].numberValue.length; i++) {
-        if(value == datasets.value[currentSubLevel].numberValue[i] && items.cardListModel.get(i).visibility == false) {
+    for(var i = 0; i < datasets.numberValue.length; i++) {
+        if(value == datasets.numberValue[i] && items.cardListModel.get(i).visibility == false) {
             items.cardListModel.setProperty(i, "visibility", true);
             break;
         }
