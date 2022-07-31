@@ -11,7 +11,7 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("fixed")
+    objective: qsTr("fixed dataset")
     difficulty: 1
 
     data: [

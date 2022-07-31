@@ -19,13 +19,13 @@ Data {
             random: true,
             minValue: 1,
             maxValue: 9,
-            count: 4
+            count: 5
         },
         {
             random: true,
             minValue: 11,
             maxValue: 19,
-            count: 4
+            count: 5
         }
     ]
 }
