@@ -45,7 +45,7 @@ function initLevel() {
                 "symbolPlainText" : ".....",
                 "currentlySelected" : false,
                 //adding a counter to check if all rows have been visited or not
-                "visited" : 0
+                "visited" : 0,
                 "evaluate" : false
             })
         }
@@ -62,9 +62,9 @@ function initLevel() {
                 "symbol": ".....",
                 "currentlySelected" : false,
                 //adding a counter to check if all rows have been visited or not
-                "visited" : 0
+                "visited" : 0,
                 "evaluate" : false
-            })evaluateAnswer()
+            })
         }
     }
     downAction()

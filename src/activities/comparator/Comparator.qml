@@ -109,10 +109,8 @@ ActivityBase {
             id: wholeExerciceDisplay
             width: layoutArea.width * 0.5
             height: parent.height * 0.5
-            anchors.left: layoutArea.left
-            anchors.leftMargin: items.sizeOfElement
-            anchors.bottomMargin: items.sizeOfElement
-            anchors.right: charList.left
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
             Rectangle {
                 width: parent.width
                 height: parent.height
@@ -140,10 +138,7 @@ ActivityBase {
                                         id: leftHandSideCharDisplay
                                         anchors.fill : parent
                                         text: leftHandSide
-                                        if(wrongAnswer == false)
-                                            color: currentlySelected === true ? "orange" : "#000000"
-                                        if(wrongAnswer == true && evaluate == false)
-                                            color: "red"
+                                        color: currentlySelected === true ? "orange" : "#000000"
                                     }
                                 }
 
@@ -154,10 +149,7 @@ ActivityBase {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     color: "transparent"
                                     ComparatorText {
-                                        if(wrongAnswer == false)
-                                            color: "black"
-                                        if(wrongAnswer == true && evaluate == false)
-                                            color: "red"
+                                        color: "black"
                                         text:" " + symbol + " "
                                         anchors.fill : parent
                                         horizontalAlignment: Text.AlignHCenter
@@ -176,10 +168,7 @@ ActivityBase {
                                         id: rightHandSideCharDisplay
                                         anchors.fill : parent
                                         text: rightHandSide
-                                        if(wrongAnswer == false)
-                                            color: currentlySelected === true ? "orange" : "#000000"
-                                        if(wrongAnswer == true && evaluate == false)
-                                            color: "red"
+                                        color: currentlySelected === true ? "orange" : "#000000"
                                     }
                                 }
                             }
@@ -188,86 +177,6 @@ ActivityBase {
                 }
             }
 
-
-       Item {
-            id: charList
-            width: layoutArea.width * 0.5
-            height: parent.height * 0.5
-            anchors.right: layoutArea.right
-            Flickable {
-                width: parent.width
-                height: parent.width
-                contentHeight: items.sizeOfElement * 3 * ApplicationInfo.ratio
-               Column {
-                    id: charListContent
-                    spacing: 5
-                    anchors.right: parent.right
-                    width: parent.width
-                    Repeater {
-                        id: charListContentRepeater
-                        model: dataListModel
-                        delegate:
-                        Item {
-                            id: charSingleRow
-                            height: items.sizeOfElement
-                            width: parent.width
-                            property int modelIndex: DelegateModel.itemsIndex
-
-                            Rectangle {
-                                width: items.sizeOfElement
-                                height: parent.height
-                                anchors.right: mathSymbolDisplay.left
-                                anchors.rightMargin: items.sizeOfElement / (30 * ApplicationInfo.ratio)
-                                anchors.left: parent.left
-                                color: "transparent"
-
-                                ComparatorText {
-                                    id: leftHandSideCharDisplay
-                                    anchors.fill : parent
-                                    text: leftHandSide
-                                    color: currentlySelected === true ? "orange" : "#FFFFFF"
-                                }
-                            }
-
-                            Rectangle {
-                                id: mathSymbolDisplay
-                                height: items.sizeOfElement
-                                width: items.sizeOfElement
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                radius: 10
-                                color: "orange"
-                                border.width : 20
-                                border.color: "#E8E8E8"
-                                ComparatorText {
-                                    color: "white"
-                                    text: symbol
-                                    font.bold: true
-                                    anchors.fill : parent
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                }
-                            }
-
-                            Rectangle {
-                                width: items.sizeOfElement
-                                height: parent.height
-                                anchors.left: mathSymbolDisplay.right
-                                anchors.leftMargin: items.sizeOfElement / (30 * ApplicationInfo.ratio)
-                                anchors.right: parent.right
-                                color: "transparent"
-
-                                ComparatorText {
-                                    id: rightHandSideCharDisplay
-                                    anchors.fill : parent
-                                    text: rightHandSide
-                                    color: currentlySelected === true ? "orange" : "#FFFFFF"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-       }
 
         Item {
             id: upDownButtonSet
