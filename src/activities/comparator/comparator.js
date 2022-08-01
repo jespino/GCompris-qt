@@ -31,42 +31,33 @@ function initLevel() {
     items.numOfRowsSelected = 0
     var minValue = items.levels[currentLevel].minValue
     var maxValue = items.levels[currentLevel].maxValue
-    var count = items.levels[currentLevel].count
-    //RandomDataset
-    console.log(items.levels[currentLevel].toString())
-    if(items.levels[currentLevel].random) {
+    var count = 0
+    var random = false
+    if(items.levels[currentLevel].random)
+        random = true
+     else
+         random = false
+     count = random  == true ? items.levels[currentLevel].count : items.levels[currentLevel].values.length
         for(var i = 0; i < count; ++i) {
-            var leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
-            var rightHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+            if(random) {
+                var leftHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+                var rightHandSide = Math.floor(Math.random() * (maxValue - minValue)) + minValue
+            }
+            else {
+                var leftHandSide = items.levels[currentLevel].values[i][0]
+                var rightHandSide = items.levels[currentLevel].values[i][1]
+            }
             items.dataListModel.append({
                 "leftHandSide": leftHandSide.toString(),
                 "rightHandSide": rightHandSide.toString(),
-                "symbol": "",
-                "symbolPlainText" : ".....",
+                "symbol": "....",
                 "currentlySelected" : false,
                 //adding a counter to check if all rows have been visited or not
                 "visited" : 0,
                 "evaluate" : true
             })
         }
-    }
-    //fixedDataset
-    else {
-        count = items.levels[currentLevel].values.length
-        for(var i = 0; i < count; i++) {
-            var leftHandSide = items.levels[currentLevel].values[i][0]
-            var rightHandSide = items.levels[currentLevel].values[i][1]
-            items.dataListModel.append({
-                "leftHandSide": leftHandSide.toString(),
-                "rightHandSide": rightHandSide.toString(),
-                "symbol": ".....",
-                "currentlySelected" : false,
-                //adding a counter to check if all rows have been visited or not
-                "visited" : 0,
-                "evaluate" : true
-            })
-        }
-    }
+
     downAction()
     items.okClicked = true
 }
@@ -110,7 +101,7 @@ function evaluateAnswer(leftHandSide, rightHandSide, symbol, selected) {
             items.dataListModel.get(selected).evaluate = true
 }
 
-function mouseAreaAction(){
+function mouseAreaAction() {
     if (items.selected > -1 ) {
         items.dataListModel.get(items.selected).currentlySelected = false
         items.selected = items.index
@@ -119,23 +110,25 @@ function mouseAreaAction(){
     items.step = items.dataListModel.get(items.selected).symbol === "" && items.selected !== -1 ? 0 : 1
 }
 
-function upAction(){
+function upAction() {
     if (items.selected > 0 ){
         evaluateAnswer(items.dataListModel.get(items.selected).leftHandSide, items.dataListModel.get(items.selected).rightHandSide, items.dataListModel.get(items.selected).symbol, items.selected)
-        console.log(items.dataListModel.get(items.selected).leftHandSide + " " + items.dataListModel.get(items.selected).evaluate)
+        console.log(items.dataListModel.get(items.selected).leftHandSide + " " + items.dataListModel.get(items.selected).evaluate + " " + "up1 ")
         items.dataListModel.get(items.selected).currentlySelected = false
         items.selected --
+        evaluateAnswer(items.dataListModel.get(items.selected).leftHandSide, items.dataListModel.get(items.selected).rightHandSide, items.dataListModel.get(items.selected).symbol, items.selected)
         items.dataListModel.get(items.selected).currentlySelected = true
         evaluateAnswer(items.dataListModel.get(items.selected).leftHandSide, items.dataListModel.get(items.selected).rightHandSide, items.dataListModel.get(items.selected).symbol, items.selected)
-        console.log(items.dataListModel.get(items.selected).leftHandSide + " " + items.dataListModel.get(items.selected).evaluate)
+        console.log(items.dataListModel.get(items.selected).leftHandSide + " " + items.dataListModel.get(items.selected).evaluate + " " + "up2 ")
     }
     items.step = items.dataListModel.get(items.selected).symbol === "" ? 0 : 1
 }
 
-function downAction(){
+function downAction() {
     if (items.selected < (items.dataListModel.count - 1)){
         if(items.selected > -1 ) {
             evaluateAnswer(items.dataListModel.get(items.selected).leftHandSide, items.dataListModel.get(items.selected).rightHandSide, items.dataListModel.get(items.selected).symbol, items.selected)
+            console.log(items.dataListModel.get(items.selected).leftHandSide + " " + items.dataListModel.get(items.selected).evaluate + " " + "down")
             items.dataListModel.get(items.selected).currentlySelected = false
         }
         items.selected ++
