@@ -286,91 +286,38 @@ ActivityBase {
                 height: parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: items.sizeOfElement
-                GCButton {
+                Symbol {
                     id: lessThanSign
-                    height: parent.height
-                    width: parent.height
                     onClicked: {
-                        items.step = 0
                         dataListModel.get(items.selected).symbol = "<"
                         dataListModel.get(items.selected).visited ++
-                        //increment the numOfRowsSelected by 1 if symbol has been selected for the row
-                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 1 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
-                        items.step = 1
-                    }
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: "#6495ED"
-                        border.color: "#FFFFFF"
-                        border.width: 4
-
                     }
                     GCText {
-                        anchors.centerIn: parent
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
                         text: "<"
-                        fontSize: largeSize
-                        color: "#FFFFFF"
                     }
                 }
 
-                GCButton {
+                Symbol {
                     id: equalSign
-                    height: parent.height
-                    width: parent.height
-                    onClicked:{
-                        items.step = 0
+                    onClicked: {
                         dataListModel.get(items.selected).symbol = "="
                         dataListModel.get(items.selected).visited ++
-                        //increment the numOfRowsSelected by 1 if symbol has been selected for the row
-                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 1 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
-                        items.step = 1
-                    }
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: "#6495ED"
-                        border.color: "#FFFFFF"
-                        border.width: 4
                     }
                     GCText {
-                        anchors.centerIn: parent
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
                         text: "="
-                        fontSize: largeSize
-                        color: "#FFFFFF"
                     }
                 }
 
-                GCButton {
+                Symbol {
                     id: greaterThanSign
                     height: parent.height
                     width: parent.height
                     onClicked: {
-                        items.step = 0
                         dataListModel.get(items.selected).symbol = ">"
                         dataListModel.get(items.selected).visited ++
-                        //increment the numOfRowsSelected by 1 if symbol has been selected for the row
-                        items.numOfRowsSelected = dataListModel.get(items.selected).visited == 1 ? items.numOfRowsSelected + 1 : items.numOfRowsSelected
-                        items.step = 1
-                    }
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: "#6495ED"
-                        border.color: "#FFFFFF"
-                        border.width: 4
                     }
                     GCText {
-                        anchors.centerIn: parent
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
                         text: ">"
-                        fontSize: largeSize
-                        color: "#FFFFFF"
                     }
                 }
             }
