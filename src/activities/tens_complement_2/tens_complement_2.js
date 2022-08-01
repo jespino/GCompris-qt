@@ -200,6 +200,5 @@ function checkAnswer() {
             }
         }
     }
-
     check ? items.bonus.good("flower") : items.bonus.bad("flower");
 }

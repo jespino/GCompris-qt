@@ -36,28 +36,28 @@ function initLevel() {
     items.score.currentSubLevel = currentSubLevel + 1;
     items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = false;
-    var shuffledDatasetArray = [];
+    datasets = items.levels[currentLevel];
+    var shuffledDataset = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
-        shuffledDatasetArray.push(indexForShuffledArray);
+        shuffledDataset.push(datasets.value[indexForShuffledArray]);
     }
-    Core.shuffle(shuffledDatasetArray);
-    datasets = items.levels[currentLevel].value[shuffledDatasetArray[currentSubLevel]];
-    cardsToDisplay = datasets.numberValue.length;
+    Core.shuffle(shuffledDataset);
+    cardsToDisplay = datasets.value[currentSubLevel].numberValue.length;
     items.cardListModel.clear();
     items.holderListModel.clear();
     for(var cardToDisplayIndex = 0; cardToDisplayIndex < cardsToDisplay; cardToDisplayIndex++) {
         var card = {
-            "value": datasets.numberValue[cardToDisplayIndex].toString(),
+            "value": shuffledDataset[currentSubLevel].numberValue[cardToDisplayIndex].toString(),
             "visibility": true,
             "index": cardToDisplayIndex,
             "cardSize": items.cardSize,
         }
         items.cardListModel.append(card);
     }
-    var questionCardToDisplay = datasets.questionValue.length;
+    var questionCardToDisplay = shuffledDataset[currentSubLevel].questionValue.length;
     answerArray = [];
     for(var cardToDisplayIndex = 0; cardToDisplayIndex < questionCardToDisplay; cardToDisplayIndex++) {
-        var toShuffleQuestionValue = ["?", datasets.questionValue[cardToDisplayIndex].toString()];
+        var toShuffleQuestionValue = ["?", shuffledDataset[currentSubLevel].questionValue[cardToDisplayIndex].toString()];
         Core.shuffle(toShuffleQuestionValue);
         var questionCard = {
             "questionValue1": toShuffleQuestionValue[0],
@@ -108,7 +108,7 @@ function updateSize() {
 
 function reappearNumberCard(value) {
     for(var i = 0; i < cardsToDisplay; i++) {
-        if(value == datasets.numberValue[i]) {
+        if(value == shuffledDataset[currentSubLevel].numberValue[i]) {
             items.cardListModel.setProperty(i, "visibility", true);
             break;
         }
