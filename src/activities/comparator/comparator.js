@@ -94,9 +94,15 @@ function checkAnswer() {
 
 function evaluateAnswer(leftHandSide, rightHandSide, symbol, selected) {
 
-        if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ) || ( leftHandSide > rightHandSide ) && ( symbol !== ">" ) || ( leftHandSide === rightHandSide ) && ( symbol !== "=")) {
+        if(( leftHandSide < rightHandSide ) && ( symbol !== "<" ))
             items.dataListModel.get(selected).evaluate = false
-        }
+
+        else if (( leftHandSide > rightHandSide ) && ( symbol !== ">" ))
+            items.dataListModel.get(selected).evaluate = false
+
+        else if(( leftHandSide === rightHandSide ) && ( symbol !== "=" ))
+            items.dataListModel.get(selected).evaluate = false
+
         else
             items.dataListModel.get(selected).evaluate = true
 }
