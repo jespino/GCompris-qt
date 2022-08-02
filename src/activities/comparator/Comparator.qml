@@ -235,45 +235,45 @@ ActivityBase {
             anchors.bottomMargin: items.sizeOfElement
             anchors.top: wholeExerciceDisplay.bottom
             anchors.topMargin: items.size
-                GCText {
-                    id:leftHandSideHighlightDisplay
-                    color: "#FFFFFF"
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.right: inputAreaHighlightDisplay.left
-                    anchors.rightMargin: items.sizeOfElement
-                    height: parent.height
-                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).leftHandSide.toString()
-                }
+            GCText {
+                id:leftHandSideHighlightDisplay
+                color: "#FFFFFF"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.right: inputAreaHighlightDisplay.left
+                anchors.rightMargin: items.sizeOfElement
+                height: parent.height
+                text: (items.selected === -1) ? "" : dataListModel.get(items.selected).leftHandSide.toString()
+            }
 
-                Rectangle {
-                        id: inputAreaHighlightDisplay
-                        height: parent.height
-                        width: parent.height
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        radius: 10
-                        color: "#E8E8E8"
-                        visible: items.selected !== -1
-                            GCText {
-                                anchors.centerIn: parent
-                                color: "#000000"
-                                text: (items.step === 1 && items.selected !== -1) ? dataListModel.get(items.selected).symbol : ""
-                                anchors.fill : parent
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                }
-
-                GCText {
-                    id:rightHandSideHighlightDisplay
-                    color: "#FFFFFF"
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.left: inputAreaHighlightDisplay.right
-                    anchors.leftMargin: items.sizeOfElement
+            Rectangle {
+                    id: inputAreaHighlightDisplay
                     height: parent.height
-                    text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rightHandSide.toString()
-                }
+                    width: parent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    radius: 10
+                    color: "#E8E8E8"
+                    visible: items.selected !== -1
+                        GCText {
+                            anchors.centerIn: parent
+                            color: "#000000"
+                            text: (items.step === 1 && items.selected !== -1) ? dataListModel.get(items.selected).symbol : ""
+                            anchors.fill : parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+            }
+
+            GCText {
+                id:rightHandSideHighlightDisplay
+                color: "#FFFFFF"
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.left: inputAreaHighlightDisplay.right
+                anchors.leftMargin: items.sizeOfElement
+                height: parent.height
+                text: (items.selected === -1) ? "" : dataListModel.get(items.selected).rightHandSide.toString()
+            }
         }
 
         Item {
