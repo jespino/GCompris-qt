@@ -1,4 +1,4 @@
- /* GCompris - Comparator.qml
+ /* GCompris - Symbol.qml
  *
  * SPDX-FileCopyrightText: 2022 Aastha Chauhan <aastha.chauhan01@gmail.com>
  *
