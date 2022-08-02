@@ -32,11 +32,8 @@ function initLevel() {
     var minValue = items.levels[currentLevel].minValue
     var maxValue = items.levels[currentLevel].maxValue
     var count = 0
-    var random = false
-    if(items.levels[currentLevel].random)
-        random = true
-     else
-         random = false
+    var random = items.levels[currentLevel].random
+
      count = random  == true ? items.levels[currentLevel].count : items.levels[currentLevel].values.length
         for(var i = 0; i < count; ++i) {
             if(random) {
