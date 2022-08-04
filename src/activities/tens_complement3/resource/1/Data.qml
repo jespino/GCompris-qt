@@ -13,17 +13,21 @@ Data {
             "value": [
                 {
                     "numberValue": [4, 3, 6, 7, 2, 3],
-                    "questionValue": [7, 9, 13],
-                    "answerValue": [7, "?", "?", 13],
+                    "questionValue": [7, 9, 16],
+                    "splitValue": [7, "?", "?", 16],
+                    "answerValue": [3, 6],
                     "questionValue2": [6, 7, 13],
-                    "answerValue2": [6, "?", "?", 13]
+                    "splitValue2": [6, "?", "?", 13],
+                    "answerValue2": [4, 3]
                 },
                 {
                     "numberValue": [5, 2, 4, 6, 1, 8],
                     "questionValue": [4, 8, 12],
-                    "answerValue": [4, "?", "?", 12],
+                    "splitValue": [4, "?", "?", 12],
+                    "answerValue": [6, 2],
                     "questionValue2": [5, 6, 11],
-                    "answerValue2": [5, "?", "?", 11]
+                    "splitValue2": [5, "?", "?", 11],
+                    "answerValue2": [5, 1]
                 }
             ]
         }

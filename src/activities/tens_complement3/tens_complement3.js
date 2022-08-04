@@ -18,6 +18,8 @@ var numArray = [];
 var questionArrayValue = [null, "+", "(", null, ")", "=", null];
 var answerArrayValue = ["(", null, "+", null, ")", "+", null, "=", null];
 var indexOfNumberInAnswerArray = [1, 3, 6];
+var selectedAnswerCardRow = -1;
+var selectedAnswerCardIndex = -1;
 var datasets;
 var numberToSplit1;
 var numberToSplit2;
@@ -49,6 +51,7 @@ function initLevel() {
             "value": datasets.numberValue[i].toString(),
             "visibility": true,
             "index": i,
+            "row": 1,
             "cardSize": items.cardSize,
             "bgColor": "#FFFB9A",
             "borderColor": "black",
@@ -73,6 +76,7 @@ function initLevel() {
             "value": questionArrayValue[i].toString(),
             "visibility": true,
             "index": i,
+            "row": 1,
             "cardSize": 100,
             "bgColor": isNumber ? "#FFFB9A" : "#88A2FE",
             "borderColor": isNumber ? "black" : "#88A2FE",
@@ -94,7 +98,7 @@ function initLevel() {
     indexCounter = 0;
     for(var i = 0; i < answerArrayValue.length; i++) {
         if(answerArrayValue[i] != "+" && answerArrayValue[i] != "(" && answerArrayValue[i] != ")" && answerArrayValue[i] != "=") {
-            answerArrayValue[i] = datasets.answerValue[indexCounter].toString();
+            answerArrayValue[i] = datasets.splitValue[indexCounter].toString();
             indexCounter++;
         }
     }
@@ -107,6 +111,7 @@ function initLevel() {
             "value": answerArrayValue[i].toString(),
             "visibility": true,
             "index": i,
+            "row": 1,
             "cardSize": 100,
             "bgColor": isNumber ? "#FFFB9A" : "#95F2F8",
             "borderColor": isNumber ? "black" : "#95F2F8",
@@ -119,7 +124,8 @@ function initLevel() {
     indexCounter = 0;
     for(var i = 0; i < answerArrayValue.length; i++) {
         if(answerArrayValue[i] != "+" && answerArrayValue[i] != "(" && answerArrayValue[i] != ")" && answerArrayValue[i] != "=") {
-            items.answerListModel2.setProperty(i, "value", datasets.answerValue2[indexCounter].toString());
+            items.answerListModel2.setProperty(i, "value", datasets.splitValue2[indexCounter].toString());
+            items.answerListModel2.setProperty(i, "row", 2);
             indexCounter++;
         }
     }
@@ -160,14 +166,24 @@ function updateSize() {
 }
 
 function swapNumberCard() {
-    return selected != -1 ? items.cardListModel.get(selected).value.toString() : "?";
-}
-
-function updateVisibility() {
-    if(selected != -1) {
-        items.cardListModel.setProperty(selected, "visibility", false);
-        selected = -1;
+    if(selected == -1) {
+        return "?";
     }
+    var swapped = false
+    if(selectedAnswerCardRow == 1 && items.cardListModel.get(selected).value == datasets.answerValue[Math.floor(selectedAnswerCardIndex / 4)]) {
+        swapped = true;
+    }
+    if(selectedAnswerCardRow == 2 && items.cardListModel.get(selected).value == datasets.answerValue2[Math.floor(selectedAnswerCardIndex / 4)]) {
+        swapped = true;
+    }
+    if(swapped) {
+        items.cardListModel.setProperty(selected, "visibility", false);
+        var tempSelected = selected;
+        selected = -1;
+        return items.cardListModel.get(tempSelected).value.toString();
+    }
+    playWrongClickSound();
+    return "?";
 }
 
 function reappearNumberCard(value) {
@@ -186,6 +202,10 @@ function clearAllListModels() {
     items.questionListModel2.clear();
     items.answerListModel.clear();
     items.answerListModel2.clear();
+}
+
+function playWrongClickSound() {
+    items.audioEffects.play('qrc:/gcompris/src/core/resource/sounds/crash.wav');
 }
 
 function showOkButton() {

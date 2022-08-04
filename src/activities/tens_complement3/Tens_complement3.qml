@@ -35,6 +35,7 @@ ActivityBase {
             property alias background: background
             property alias bar: bar
             property alias bonus: bonus
+            property GCSfx audioEffects: activity.audioEffects
             property alias cardListModel: cardListModel
             property alias questionListModel: questionListModel
             property alias answerListModel: answerListModel
@@ -171,37 +172,13 @@ ActivityBase {
             onClose: home()
         }
 
-        DialogChooseLevel {
-            id: dialogActivityConfig
-            currentActivity: activity.activityInfo
-
-            onSaveData: {
-                levelFolder = dialogActivityConfig.chosenLevels
-                currentActivity.currentLevels = dialogActivityConfig.chosenLevels
-                ApplicationSettings.setCurrentLevels(currentActivity.name, dialogActivityConfig.chosenLevels)
-                // restart activity on saving
-                background.start()
-            }
-            onClose: {
-                home()
-            }
-            onStartActivity: {
-                background.start()
-            }
-        }
-
         Bar {
             id: bar
-            content: BarEnumContent { value: help | home | level | activityConfig }
+            content: BarEnumContent { value: help | home | level }
             onHelpClicked: {
                 displayDialog(dialogHelp)
             }
-            onPreviousLevelClicked: Activity.previousLevel()
-            onNextLevelClicked: Activity.nextSubLevel()
             onHomeClicked: activity.home()
-            onActivityConfigClicked: {
-                displayDialog(dialogActivityConfig)
-            }
         }
 
         Bonus {

@@ -29,6 +29,21 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
     }
 
+    PropertyAnimation {
+        id: changeColorSuccess
+        target: numberCard
+        property: "color"
+        to: "#76F361"
+        duration: 300
+    }
+
+    SequentialAnimation {
+        id: changeColorFail
+        running: false
+        PropertyAnimation { target: numberCard; property: "color"; to: "red"; duration: 500}
+        PropertyAnimation { target: numberCard; property: "color"; to: bgColor; duration: 500}
+    }
+
     MouseArea {
         anchors.fill: parent
         onClicked: {
@@ -41,12 +56,16 @@ Rectangle {
             if(isAnswerCard) {
                 if(numberText.text != "?") {
                     Activity.reappearNumberCard(numberText.text)
+                    value = "?"
                 }
-                value = Activity.swapNumberCard()
-                Activity.updateVisibility()
-                Activity.showOkButton()
+                else {
+                    Activity.selectedAnswerCardRow = row
+                    Activity.selectedAnswerCardIndex = index
+                    value = Activity.swapNumberCard()
+                    value != "?" ? changeColorSuccess.running = true : changeColorFail.running = true
+                    Activity.showOkButton()
+                }
             }
         }
     }
 }
-
