@@ -28,6 +28,7 @@ Rectangle {
         anchors.centerIn: parent
         color: "black"
         text: value
+        fontSizeMode: Text.Fit
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }

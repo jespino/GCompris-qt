@@ -19,6 +19,7 @@ var answerArray = [];
 var cardSize;
 var selected = -1; // "-1" indicates no item selected
 var lastSelected = -1;
+var shuffledDataset = [];
 
 function start(items_) {
     items = items_;
@@ -37,7 +38,7 @@ function initLevel() {
     items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = false;
     datasets = items.levels[currentLevel];
-    var shuffledDataset = [];
+    shuffledDataset = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
         shuffledDataset.push(datasets.value[indexForShuffledArray]);
     }
