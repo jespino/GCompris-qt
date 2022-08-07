@@ -12,7 +12,7 @@ Rectangle {
     visible: visibility
     height: cardSize * 0.9
     width: cardSize * 0.9
-    color: bgColor
+    color: backgroundColor
     border.color: borderColor
     border.width: 3
     radius: 15
@@ -30,7 +30,7 @@ Rectangle {
     }
 
     PropertyAnimation {
-        id: changeColorSuccess
+        id: changeColorForCorrectAnswer
         target: numberCard
         property: "color"
         to: "#76F361"
@@ -38,17 +38,17 @@ Rectangle {
     }
 
     SequentialAnimation {
-        id: changeColorFail
+        id: changeColorForIncorrectAnswer
         running: false
         PropertyAnimation { target: numberCard; property: "color"; to: "red"; duration: 500}
-        PropertyAnimation { target: numberCard; property: "color"; to: bgColor; duration: 500}
+        PropertyAnimation { target: numberCard; property: "color"; to: backgroundColor; duration: 500}
     }
 
     MouseArea {
         anchors.fill: parent
         onClicked: {
             if(isNumberContainerCard) {
-                Activity.updateAllCadsToInitialSize()
+                Activity.updateAllCardsToInitialSize()
                 Activity.selected = index
                 Activity.updateSize()
                 Activity.numArray.push(index)
@@ -61,8 +61,8 @@ Rectangle {
                 else {
                     Activity.selectedAnswerCardRow = row
                     Activity.selectedAnswerCardIndex = index
-                    value = Activity.swapNumberCard()
-                    value != "?" ? changeColorSuccess.running = true : changeColorFail.running = true
+                    value = Activity.getEnteredCard()
+                    value != "?" ? changeColorForCorrectAnswer.running = true : changeColorForIncorrectAnswer.running = true
                     Activity.showOkButton()
                 }
             }

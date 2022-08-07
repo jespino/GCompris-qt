@@ -11,7 +11,7 @@ ActivityInfo {
   icon: "tens_complement3/tens_complement3.svg"
   author: "Samarth Raj &lt;mailforsamarth@gmail.com&gt;"
   //: Activity title
-  title: "Splitting ten's complement"
+  title: "Using 10's complements"
   //: Help title
   description: ""
   //intro: "put here in comment the text for the intro voice"
@@ -24,5 +24,5 @@ ActivityInfo {
   credit: ""
   section: "fun"
   createdInVersion: 30000
-  levels: "1"
+  levels: "1,2"
 }

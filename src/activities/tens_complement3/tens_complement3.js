@@ -9,7 +9,7 @@
 .import "../../core/core.js" as Core
 
 var currentLevel = 0;
-var numberOfLevel = 1;
+var numberOfLevel;
 var currentSubLevel = 0;
 var numberOfSubLevel;
 var items;
@@ -36,6 +36,7 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1;
     items.score.currentSubLevel = currentSubLevel + 1;
+    numberOfLevel = items.levels.length;
     numberOfSubLevel = items.levels[currentLevel].value.length;
     items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = false;
@@ -53,7 +54,7 @@ function initLevel() {
             "index": i,
             "row": 1,
             "cardSize": items.cardSize,
-            "bgColor": "#FFFB9A",
+            "backgroundColor": "#FFFB9A",
             "borderColor": "black",
             "isAnswerCard": false,
             "isNumberContainerCard": true
@@ -78,7 +79,7 @@ function initLevel() {
             "index": i,
             "row": 1,
             "cardSize": 100,
-            "bgColor": isNumber ? "#FFFB9A" : "#88A2FE",
+            "backgroundColor": isNumber ? "#FFFB9A" : "#88A2FE",
             "borderColor": isNumber ? "black" : "#88A2FE",
             "isAnswerCard": false,
             "isNumberContainerCard": false
@@ -113,7 +114,7 @@ function initLevel() {
             "index": i,
             "row": 1,
             "cardSize": 100,
-            "bgColor": isNumber ? "#FFFB9A" : "#95F2F8",
+            "backgroundColor": isNumber ? "#FFFB9A" : "#95F2F8",
             "borderColor": isNumber ? "black" : "#95F2F8",
             "isAnswerCard": answerArrayValue[i] == "?" ? true : false,
             "isNumberContainerCard": false
@@ -133,8 +134,9 @@ function initLevel() {
 
 function nextLevel() {
     if(numberOfLevel <= ++currentLevel) {
-        currentLevel = 0
+        currentLevel = 0;
     }
+    currentSubLevel = 0;
     initLevel();
 }
 
@@ -153,7 +155,7 @@ function previousLevel() {
     initLevel();
 }
 
-function updateAllCadsToInitialSize() {
+function updateAllCardsToInitialSize() {
     for( var i = 0; i < 6; i++) {
         items.cardListModel.setProperty(i, "cardSize", items.cardSize);
     }
@@ -165,7 +167,7 @@ function updateSize() {
     }
 }
 
-function swapNumberCard() {
+function getEnteredCard() {
     if(selected == -1) {
         return "?";
     }
@@ -193,7 +195,7 @@ function reappearNumberCard(value) {
             break;
         }
     }
-    updateAllCadsToInitialSize()
+    updateAllCardsToInitialSize()
 }
 
 function clearAllListModels() {
