@@ -43,7 +43,7 @@ function initLevel() {
         shuffledDataset.push(datasets.value[indexForShuffledArray]);
     }
     Core.shuffle(shuffledDataset);
-    cardsToDisplay = datasets.value[currentSubLevel].numberValue.length;
+    cardsToDisplay = shuffledDataset[currentSubLevel].numberValue.length;
     items.cardListModel.clear();
     items.holderListModel.clear();
     for(var cardToDisplayIndex = 0; cardToDisplayIndex < cardsToDisplay; cardToDisplayIndex++) {
