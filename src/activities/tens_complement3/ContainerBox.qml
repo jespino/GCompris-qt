@@ -50,7 +50,8 @@ Rectangle {
         color: "#95F2F8"
         anchors {
             top: questionContainer.bottom
-            horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            leftMargin: answerContainer.width * 0.05
             topMargin: 15
         }
         border.width: 3
@@ -68,6 +69,23 @@ Rectangle {
                 height: answerContainer.height * 0.8
                 width: answerContainer.width / 10
             }
+        }
+    }
+
+    Rectangle {
+        id: answerValidationSymbol
+        height: 100
+        width: 100
+        color: "#F0CB38"
+        anchors {
+            verticalCenter: answerContainer.verticalCenter
+            right: parent.right
+            rightMargin: 20
+        }
+        Image {
+            visible: false
+            anchors.fill: parent
+            source: "qrc:/gcompris/src/core/resource/cancel.svg"
         }
     }
 }

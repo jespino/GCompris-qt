@@ -167,25 +167,18 @@ function updateSize() {
     }
 }
 
+function hideSelectedNumberCard() {
+    items.cardListModel.setProperty(selected, "visibility", false);
+}
+
 function getEnteredCard() {
     if(selected == -1) {
         return "?";
     }
-    var swapped = false
-    if(selectedAnswerCardRow == 1 && items.cardListModel.get(selected).value == datasets.answerValue[Math.floor(selectedAnswerCardIndex / 4)]) {
-        swapped = true;
-    }
-    if(selectedAnswerCardRow == 2 && items.cardListModel.get(selected).value == datasets.answerValue2[Math.floor(selectedAnswerCardIndex / 4)]) {
-        swapped = true;
-    }
-    if(swapped) {
-        items.cardListModel.setProperty(selected, "visibility", false);
-        var tempSelected = selected;
-        selected = -1;
-        return items.cardListModel.get(tempSelected).value.toString();
-    }
-    playWrongClickSound();
-    return "?";
+    hideSelectedNumberCard();
+    var tempSelected = selected;
+    selected = -1;
+    return items.cardListModel.get(tempSelected).value.toString();
 }
 
 function reappearNumberCard(value) {

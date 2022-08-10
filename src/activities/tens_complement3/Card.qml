@@ -29,21 +29,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
     }
 
-    PropertyAnimation {
-        id: changeColorForCorrectAnswer
-        target: numberCard
-        property: "color"
-        to: "#76F361"
-        duration: 300
-    }
-
-    SequentialAnimation {
-        id: changeColorForIncorrectAnswer
-        running: false
-        PropertyAnimation { target: numberCard; property: "color"; to: "red"; duration: 500}
-        PropertyAnimation { target: numberCard; property: "color"; to: backgroundColor; duration: 500}
-    }
-
     MouseArea {
         anchors.fill: parent
         onClicked: {
@@ -62,7 +47,6 @@ Rectangle {
                     Activity.selectedAnswerCardRow = row
                     Activity.selectedAnswerCardIndex = index
                     value = Activity.getEnteredCard()
-                    value != "?" ? changeColorForCorrectAnswer.running = true : changeColorForIncorrectAnswer.running = true
                     Activity.showOkButton()
                 }
             }
