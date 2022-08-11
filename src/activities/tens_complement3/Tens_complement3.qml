@@ -44,6 +44,8 @@ ActivityBase {
             property alias score: score
             property alias okButton: okButton
             readonly property var levels: activity.datasetLoader.data
+            property bool tickVisibility
+            property bool tickVisibility2
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
@@ -127,6 +129,7 @@ ActivityBase {
                 }
                 questionListModel: questionListModel
                 answerListModel: answerListModel
+                tickVisibility: items.tickVisibility
             }
 
             ContainerBox {
@@ -140,6 +143,7 @@ ActivityBase {
                 }
                 questionListModel: questionListModel2
                 answerListModel: answerListModel2
+                tickVisibility: items.tickVisibility2
             }
         }
 

@@ -14,6 +14,7 @@ Rectangle {
     radius: 15
     property ListModel questionListModel
     property ListModel answerListModel
+    property bool tickVisibility
 
     Rectangle {
         id: questionContainer
@@ -83,7 +84,7 @@ Rectangle {
             rightMargin: 20
         }
         Image {
-            visible: false
+            visible: tickVisibility
             anchors.fill: parent
             source: "qrc:/gcompris/src/core/resource/cancel.svg"
         }

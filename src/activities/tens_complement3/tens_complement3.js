@@ -40,6 +40,8 @@ function initLevel() {
     numberOfSubLevel = items.levels[currentLevel].value.length;
     items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = false;
+    items.tickVisibility = false;
+    items.tickVisibility2 = false;
     var shuffledDatasetArray = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
         shuffledDatasetArray.push(indexForShuffledArray);
@@ -217,19 +219,36 @@ function showOkButton() {
 }
 
 function checkAnswer() {
-    var check = true;
+    var check1 = true;
+    var check2 = true
     // separately checking for answers in both (top and bottom) containers.
     if(parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[0]).value) + parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[1]).value) != 10) {
-        check = false;
+        check1 = false;
     }
     if(parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[1]).value) + parseInt(items.answerListModel.get(indexOfNumberInAnswerArray[2]).value) != numberToSplit1) {
-        check = false;
+        check1 = false;
     }
     if(parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[0]).value) + parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[1]).value) != 10) {
-        check = false;
+        check2 = false;
     }
     if(parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[1]).value) + parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[2]).value) != numberToSplit2) {
-        check = false;
+        check2 = false;
     }
-    check ? items.bonus.good("flower") : items.bonus.bad("flower");
+    if(check1 && check2) {
+        items.bonus.good("flower");
+        items.tickVisibility = false;
+        items.tickVisibility2 = false;
+    }
+    else if(check1 && !check2) {
+        items.tickVisibility = false;
+        items.tickVisibility2 = true;
+    }
+    else if(!check1 && check2) {
+        items.tickVisibility = true;
+        items.tickVisibility2 = false;
+    }
+    else {
+        items.visibility = true;
+        items.visibility2 = true;
+    }
 }
