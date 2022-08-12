@@ -15,6 +15,7 @@ Rectangle {
     property ListModel questionListModel
     property ListModel answerListModel
     property bool tickVisibility
+    property string validationImage
 
     Rectangle {
         id: questionContainer
@@ -86,7 +87,7 @@ Rectangle {
         Image {
             visible: tickVisibility
             anchors.fill: parent
-            source: "qrc:/gcompris/src/core/resource/cancel.svg"
+            source: validationImage
         }
     }
 }

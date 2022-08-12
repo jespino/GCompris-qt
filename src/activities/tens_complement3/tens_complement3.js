@@ -23,6 +23,8 @@ var selectedAnswerCardIndex = -1;
 var datasets;
 var numberToSplit1;
 var numberToSplit2;
+var correctAnswerImage = "qrc:/gcompris/src/core/resource/apply.svg"
+var wrongAnswerImage = "qrc:/gcompris/src/core/resource/cancel.svg"
 
 function start(items_) {
     items = items_
@@ -234,21 +236,14 @@ function checkAnswer() {
     if(parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[1]).value) + parseInt(items.answerListModel2.get(indexOfNumberInAnswerArray[2]).value) != numberToSplit2) {
         check2 = false;
     }
+    check1 ? items.validationImage = correctAnswerImage : items.validationImage = wrongAnswerImage;
+    check2 ? items.validationImage2 =  correctAnswerImage : items.validationImage2 = wrongAnswerImage;
+    items.tickVisibility = true;
+    items.tickVisibility2 = true;
     if(check1 && check2) {
         items.bonus.good("flower");
-        items.tickVisibility = false;
-        items.tickVisibility2 = false;
-    }
-    else if(check1 && !check2) {
-        items.tickVisibility = false;
-        items.tickVisibility2 = true;
-    }
-    else if(!check1 && check2) {
-        items.tickVisibility = true;
-        items.tickVisibility2 = false;
     }
     else {
-        items.visibility = true;
-        items.visibility2 = true;
+        items.bonus.bad("flower");
     }
 }

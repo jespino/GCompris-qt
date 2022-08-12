@@ -46,6 +46,8 @@ ActivityBase {
             readonly property var levels: activity.datasetLoader.data
             property bool tickVisibility
             property bool tickVisibility2
+            property string validationImage
+            property string validationImage2
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
@@ -130,6 +132,7 @@ ActivityBase {
                 questionListModel: questionListModel
                 answerListModel: answerListModel
                 tickVisibility: items.tickVisibility
+                validationImage: items.validationImage
             }
 
             ContainerBox {
@@ -144,6 +147,7 @@ ActivityBase {
                 questionListModel: questionListModel2
                 answerListModel: answerListModel2
                 tickVisibility: items.tickVisibility2
+                validationImage: items.validationImage2
             }
         }
 
