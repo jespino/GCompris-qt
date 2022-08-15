@@ -20,6 +20,8 @@ var cardSize;
 var selected = -1; // "-1" indicates no item selected
 var lastSelected = -1;
 var shuffledDataset = [];
+var correctAnswerImage = "qrc:/gcompris/src/core/resource/apply.svg"
+var wrongAnswerImage = "qrc:/gcompris/src/core/resource/cancel.svg"
 
 function start(items_) {
     items = items_;
@@ -38,6 +40,7 @@ function initLevel() {
     items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = false;
     datasets = items.levels[currentLevel];
+    setValidationImages();
     shuffledDataset = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
         shuffledDataset.push(datasets.value[indexForShuffledArray]);
@@ -119,6 +122,15 @@ function reappearNumberCard(value) {
     }
 }
 
+function setValidationImages() {
+    items.tickVisibility1 = false;
+    items.tickVisibility2 = false;
+    items.tickVisibility3 = false;
+    items.validationImage1Source = correctAnswerImage;
+    items.validationImage2Source = correctAnswerImage;
+    items.validationImage3Source = correctAnswerImage;
+}
+
 function updateValue() {
     return selected != -1 ? items.cardListModel.get(selected).value.toString() : "?";
 }
@@ -151,16 +163,14 @@ function updateAnswerArray(row, column, textValue) {
 }
 
 function checkAnswer() {
-    var check = true;
-    for(var row = 0; row < answerArray.length; row++) {
-        var sum = 0;
-        for(var column = 0; column < answerArray[row].length; column++) {
-            sum += parseInt(answerArray[row][column]);
-        }
-        if(sum != 10) {
-            check = false;
-            break;
-        }
-    }
-    check ? items.bonus.good("flower") : items.bonus.bad("flower");
+    var check1 = parseInt(answerArray[0][0]) + parseInt(answerArray[0][1]) == 10 ? true : false;
+    var check2 = parseInt(answerArray[1][0]) + parseInt(answerArray[1][1]) == 10 ? true : false;
+    var check3 = parseInt(answerArray[2][0]) + parseInt(answerArray[2][1]) == 10 ? true : false;
+    check1 ? items.validationImage1Source = correctAnswerImage : items.validationImage1Source = wrongAnswerImage;
+    check2 ? items.validationImage2Source = correctAnswerImage : items.validationImage2Source = wrongAnswerImage;
+    check3 ? items.validationImage3Source = correctAnswerImage : items.validationImage3Source = wrongAnswerImage;
+    items.tickVisibility1 = true;
+    items.tickVisibility2 = true;
+    items.tickVisibility3 = true;
+    check1 && check2 && check3 ? items.bonus.good("flower") : items.bonus.bad("flower");
 }
