@@ -76,13 +76,13 @@ Rectangle {
 
     Rectangle {
         id: answerValidationSymbol
-        height: 100
-        width: 100
+        height: Math.max(answerContainer.height * 0.12, answerContainer.width * 0.12)
+        width: Math.max(answerContainer.height * 0.12, answerContainer.width * 0.12)
         color: "#F0CB38"
         anchors {
             verticalCenter: answerContainer.verticalCenter
             right: parent.right
-            rightMargin: 20
+            rightMargin: 10
         }
         Image {
             visible: tickVisibility
