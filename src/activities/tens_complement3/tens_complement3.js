@@ -15,7 +15,7 @@ var numberOfSubLevel;
 var items;
 var selected = -1;
 var numArray = [];
-var questionArrayValue = [null, "+", "(", null, ")", "=", null];
+var questionArrayValue = [null, "+", null, "=", null];
 var answerArrayValue = ["(", null, "+", null, ")", "+", null, "=", null];
 var indexOfNumberInAnswerArray = [1, 3, 6];
 var selectedAnswerCardRow = -1;

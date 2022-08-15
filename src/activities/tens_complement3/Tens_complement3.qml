@@ -155,6 +155,10 @@ ActivityBase {
             id: score
             parent: layoutArea
             color: "#76F361"
+            anchors {
+                bottomMargin: 5
+                rightMargin: 5
+            }
         }
 
         BarButton {

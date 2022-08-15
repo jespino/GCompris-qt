@@ -40,7 +40,7 @@ Rectangle {
             model: questionListModel
             delegate: Card {
                 height: questionContainer.height * 0.8
-                width: questionContainer.width / 8
+                width: questionContainer.width / 6
             }
         }
     }
