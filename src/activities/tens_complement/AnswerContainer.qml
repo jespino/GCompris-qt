@@ -13,8 +13,6 @@ Item {
     property int rowNumber: rowIndex
     Rectangle {
         id: answerRectangle
-        height: parent.height
-        width: parent.width
         color: "#95F2F8"
         border.width: 2
         border.color: "black"
@@ -146,6 +144,19 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
+        }
+    }
+
+    Image {
+        id: validationImage
+        visible: tickVisibility
+        height: firstPlaceHolder.height * 0.7
+        width: firstPlaceHolder.width * 0.7
+        source: validationImageSource
+        anchors {
+            left: answerRectangle.right
+            leftMargin: 5
+            verticalCenter: answerRectangle.verticalCenter
         }
     }
 }

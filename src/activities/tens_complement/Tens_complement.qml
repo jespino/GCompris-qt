@@ -41,12 +41,6 @@ ActivityBase {
             readonly property var levels: activity.datasetLoader.data
             property alias okButton: okButton
             property alias score: score
-            property bool tickVisibility1
-            property string validationImage1Source
-            property bool tickVisibility2
-            property string validationImage2Source
-            property bool tickVisibility3
-            property string validationImage3Source
             property double cardSize: Core.fitItems(numberContainer.width, numberContainer.height, 6)
         }
 
@@ -123,45 +117,6 @@ ActivityBase {
                         height: items.cardSize
                         width: answerHolder.width
                     }
-                }
-            }
-
-            Image {
-                id: validationImage1
-                visible: items.tickVisibility1
-                height: items.cardSize * 0.6
-                width: items.cardSize * 0.6
-                source: items.validationImage1Source
-                anchors {
-                    left: answerHolder.right
-                    top: answerHolder.top
-                    topMargin: 20
-                }
-            }
-
-            Image {
-                id: validationImage2
-                visible: items.tickVisibility2
-                height: items.cardSize * 0.6
-                width: items.cardSize * 0.6
-                source: items.validationImage2Source
-                anchors {
-                    left: answerHolder.right
-                    top: validationImage1.bottom
-                    topMargin: validationImage2.height * 0.8
-                }
-            }
-
-            Image {
-                id: validationImage3
-                visible: items.tickVisibility3
-                height: items.cardSize * 0.6
-                width: items.cardSize * 0.6
-                source: items.validationImage3Source
-                anchors {
-                    left: answerHolder.right
-                    top: validationImage2.bottom
-                    topMargin: validationImage3.height * 0.6
                 }
             }
 

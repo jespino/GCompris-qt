@@ -38,9 +38,8 @@ function initLevel() {
     numberOfSubLevel = items.levels[currentLevel].value.length;
     items.score.currentSubLevel = currentSubLevel + 1;
     items.score.numberOfSubLevels = numberOfSubLevel;
-    items.okButton.visible = false;
+    items.okButton.visible = true;
     datasets = items.levels[currentLevel];
-    setValidationImages();
     shuffledDataset = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
         shuffledDataset.push(datasets.value[indexForShuffledArray]);
@@ -68,7 +67,9 @@ function initLevel() {
             "questionValue2": toShuffleQuestionValue[1],
             "firstCardClickable": toShuffleQuestionValue[0] == "?" ? true : false,
             "secondCardClickable": toShuffleQuestionValue[1] == "?" ? true : false,
-            "rowIndex": cardToDisplayIndex + 1
+            "rowIndex": cardToDisplayIndex + 1,
+            "validationImageSource": correctAnswerImage,
+            "tickVisibility": false
         }
         answerArray.push([toShuffleQuestionValue[0], toShuffleQuestionValue[1]]);
         items.holderListModel.append(questionCard);
@@ -122,15 +123,6 @@ function reappearNumberCard(value) {
     }
 }
 
-function setValidationImages() {
-    items.tickVisibility1 = false;
-    items.tickVisibility2 = false;
-    items.tickVisibility3 = false;
-    items.validationImage1Source = correctAnswerImage;
-    items.validationImage2Source = correctAnswerImage;
-    items.validationImage3Source = correctAnswerImage;
-}
-
 function updateValue() {
     return selected != -1 ? items.cardListModel.get(selected).value.toString() : "?";
 }
@@ -157,6 +149,16 @@ function showOkButton() {
     }
 }
 
+function visibilityForAllValidationImages(visibility) {
+    for(var i = 0; i < answerArray.length; i++) {
+        items.holderListModel.setProperty(i, "tickVisibility", visibility)
+    }
+}
+
+function setValidationImage(index, validationImage) {
+    items.holderListModel.setProperty(index - 1, "validationImageSource", validationImage);
+}
+
 function updateAnswerArray(row, column, textValue) {
     answerArray[row-1][column-1] = textValue;
     showOkButton();
@@ -166,11 +168,9 @@ function checkAnswer() {
     var check1 = parseInt(answerArray[0][0]) + parseInt(answerArray[0][1]) == 10 ? true : false;
     var check2 = parseInt(answerArray[1][0]) + parseInt(answerArray[1][1]) == 10 ? true : false;
     var check3 = parseInt(answerArray[2][0]) + parseInt(answerArray[2][1]) == 10 ? true : false;
-    check1 ? items.validationImage1Source = correctAnswerImage : items.validationImage1Source = wrongAnswerImage;
-    check2 ? items.validationImage2Source = correctAnswerImage : items.validationImage2Source = wrongAnswerImage;
-    check3 ? items.validationImage3Source = correctAnswerImage : items.validationImage3Source = wrongAnswerImage;
-    items.tickVisibility1 = true;
-    items.tickVisibility2 = true;
-    items.tickVisibility3 = true;
+    setValidationImage(1, check1 ? correctAnswerImage : wrongAnswerImage);
+    setValidationImage(2, check2 ? correctAnswerImage : wrongAnswerImage);
+    setValidationImage(3, check3 ? correctAnswerImage : wrongAnswerImage);
+    visibilityForAllValidationImages(true);
     check1 && check2 && check3 ? items.bonus.good("flower") : items.bonus.bad("flower");
 }
