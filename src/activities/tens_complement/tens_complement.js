@@ -99,10 +99,16 @@ function previousLevel() {
     initLevel();
 }
 
-function updateToInitialSize() {
+function updateCardsToInitialSize() {
     for(var i = 0; i < cardsToDisplay; i++) {
         items.cardListModel.setProperty(i, "cardSize", items.cardSize);
     }
+}
+
+function selectedCard(index) {
+    updateCardsToInitialSize();
+    selected = index;
+    updateSize();
 }
 
 function updateSize() {

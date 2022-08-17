@@ -146,6 +146,14 @@ ActivityBase {
             width: items.cardSize
         }
 
+        onHeightChanged: {
+            Activity.updateCardsToInitialSize()
+        }
+
+        onWidthChanged: {
+            Activity.updateCardsToInitialSize()
+        }
+
         DialogChooseLevel {
             id: dialogActivityConfig
             currentActivity: activity.activityInfo

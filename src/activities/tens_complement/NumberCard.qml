@@ -36,9 +36,7 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            Activity.updateToInitialSize()
-            Activity.selected = index
-            Activity.updateSize()
+            Activity.selectedCard(index)
         }
     }
 }
