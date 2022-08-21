@@ -72,7 +72,7 @@ ActivityBase {
             id: containerHolder
             parent: layoutArea
             height: layoutArea.height * 0.7
-            width: layoutArea.width * 0.5
+            width: layoutArea.width * 0.6
             color: "white"
             radius: 20
             anchors.centerIn: parent

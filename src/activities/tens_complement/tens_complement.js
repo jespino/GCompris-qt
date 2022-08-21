@@ -20,6 +20,8 @@ var cardSize;
 var selected = -1; // "-1" indicates no item selected
 var lastSelected = -1;
 var shuffledDataset = [];
+var currentDatasetLevel = 0;
+var numberOfDatasetLevel;
 var correctAnswerImage = "qrc:/gcompris/src/core/resource/apply.svg"
 var wrongAnswerImage = "qrc:/gcompris/src/core/resource/cancel.svg"
 
@@ -34,15 +36,16 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1;
-    numberOfLevel = items.levels.length;
-    numberOfSubLevel = items.levels[currentLevel].value.length;
+    numberOfDatasetLevel = items.levels.length
+    numberOfLevel = items.levels[currentDatasetLevel].value.length;
+    numberOfSubLevel = items.levels[currentDatasetLevel].value[currentLevel].length;
     items.score.currentSubLevel = currentSubLevel + 1;
     items.score.numberOfSubLevels = numberOfSubLevel;
     items.okButton.visible = true;
-    datasets = items.levels[currentLevel];
+    datasets = items.levels[currentDatasetLevel].value[currentLevel];
     shuffledDataset = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
-        shuffledDataset.push(datasets.value[indexForShuffledArray]);
+        shuffledDataset.push(datasets[indexForShuffledArray]);
     }
     Core.shuffle(shuffledDataset);
     cardsToDisplay = shuffledDataset[currentSubLevel].numberValue.length;
@@ -74,6 +77,14 @@ function initLevel() {
         answerArray.push([toShuffleQuestionValue[0], toShuffleQuestionValue[1]]);
         items.holderListModel.append(questionCard);
     }
+}
+
+function nextDatasetLevel() {
+    if(numberOfDatasetLevel <= ++currentDatasetLevel) {
+        currentDatasetLevel = 0;
+    }
+    currentLevel = 0;
+    initLevel();
 }
 
 function nextLevel() {

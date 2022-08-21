@@ -145,26 +145,30 @@ function updateAnswerArray(list, row, position1, position2, numberCardPosition1,
     answerArray[row-1][numberCardPosition2-1] = list.get(position2).value.toString();
 }
 
-function swapFunction(list, position1, position2) {
+function swapNumberInsideList(list, position1, position2) {
     var firstClickedValue = list.get(position1).value.toString();
     var secondClickedValue = list.get(position2).value.toString();
     list.setProperty(position1, "value", secondClickedValue);
     list.setProperty(position2, "value", firstClickedValue);
 }
 
+function swapCardsAndUpdateAnswerArray(list) {
+    swapNumberInsideList(list, numberArray[0][0] - 1, numberArray[1][0] - 1);
+    updateAnswerArray(list, numberArray[0][1], numberArray[0][0] - 1, numberArray[1][0] - 1, numberArray[0][2], numberArray[1][2]);
+}
+
 function swapNumberCards() {
     if(numberArray.length == 2 && numberArray[0][1] == numberArray[1][1]) { // if both the numbers are from same rows then we proceed.
-        if(numberArray[0][1] == 1) { // if the numbers are from 1st row.
-            swapFunction(items.firstCardListModel, numberArray[0][0] - 1, numberArray[1][0] - 1);
-            updateAnswerArray(items.firstCardListModel, numberArray[0][1], numberArray[0][0] - 1, numberArray[1][0] - 1, numberArray[0][2], numberArray[1][2]);
-        }
-        else if(numberArray[0][1] == 2) {
-            swapFunction(items.secondCardListModel, numberArray[0][0] - 1, numberArray[1][0] - 1);
-            updateAnswerArray(items.secondCardListModel, numberArray[0][1], numberArray[0][0] - 1, numberArray[1][0] - 1, numberArray[0][2], numberArray[1][2]);
-        }
-        else {
-            swapFunction(items.thirdCardListModel, numberArray[0][0] - 1, numberArray[1][0] - 1);
-            updateAnswerArray(items.thirdCardListModel, numberArray[0][1], numberArray[0][0] - 1, numberArray[1][0] - 1, numberArray[0][2], numberArray[1][2]);
+        switch(numberArray[0][1]) {
+            case 1:
+                swapCardsAndUpdateAnswerArray(items.firstCardListModel);
+                break;
+            case 2:
+                swapCardsAndUpdateAnswerArray(items.secondCardListModel);
+                break;
+            case 3:
+                swapCardsAndUpdateAnswerArray(items.thirdCardListModel);
+                break;
         }
         numberArray.length = 0;
         resetSize();

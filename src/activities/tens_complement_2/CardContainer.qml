@@ -6,25 +6,41 @@
 import QtQuick 2.12
 import "../../core"
 
-
-Rectangle {
-    id: cardContainer
-    color: "#95F2F8"
-    border.color: "black"
-    border.width: 3
-    radius: 20
+Item {
     property ListModel listmodel
     property int numberOfCards
-
-    ListView {
+    Rectangle {
+        id: cardContainer
+        color: "#95F2F8"
         height: parent.height
-        width: parent.width
-        interactive: false
-        orientation: ListView.Horizontal
-        model: listmodel
-        delegate: Card {
-            height: cardContainer.height
-            width: cardContainer.width / numberOfCards
+        width: parent.width * 0.9
+        border.color: "black"
+        border.width: 3
+        radius: 20
+
+        ListView {
+            height: parent.height
+            width: parent.width
+            interactive: false
+            orientation: ListView.Horizontal
+            model: listmodel
+            delegate: Card {
+                height: cardContainer.height
+                width: cardContainer.width / numberOfCards
+            }
+        }
+    }
+
+    Image {
+        id: test
+        visible: false
+        height: cardContainer.height * 0.65
+        width: cardContainer.height * 0.65
+        source: "qrc:/gcompris/src/core/resource/apply.svg"
+        anchors {
+            left: cardContainer.right
+            leftMargin: 5
+            verticalCenter: cardContainer.verticalCenter
         }
     }
 }
