@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 import QtQuick 2.12
-import QtCharts 2.12
 import GCompris 1.0
 
 import "../../core"
@@ -37,12 +36,13 @@ ActivityBase {
             property alias background: background
             property alias bar: bar
             property alias bonus: bonus
-            property alias pieSeries: pieSeries
+            property alias chartItem: graphLoader.item
             property alias numeratorValue: numeratorText.value
             property alias denominatorValue: denominatorText.value
             property int numeratorToFind: 0
             property int denominatorToFind: 0
             property var levels: activity.datasetLoader.data
+            property string chartType: "pie"
             property string mode
             property bool fixedNumerator: true
             property bool fixedDenominator: true
@@ -83,57 +83,22 @@ ActivityBase {
             wrapMode: TextEdit.WordWrap
         }
 
-        ChartView {
-            id: chart
+        Loader {
+            id: graphLoader
             width: Math.min(parent.width - 2 * (okButton.width + okButton.anchors.rightMargin), parent.height-bar.height * 1.5 - instruction.height)
             height: width
-            backgroundColor: "#80FFFFFF"
-            legend.visible: false
-            antialiasing: true
             anchors {
                 top: instruction.bottom
                 horizontalCenter: parent.horizontalCenter
             }
-            readonly property string selectedColor: "#ff0000"
-            readonly property string unselectedColor: "#00ffff"
-            PieSeries {
-                id: pieSeries
-                size: 0.9
-
-                PieSlice {
-                    value: 1;
-                    color: chart.unselectedColor
-                    borderColor: "#373737"
-                    borderWidth: 5
-                }
-
-                onClicked: {
-                    if(bonus.isPlaying || items.mode === "findResult") {
-                        return;
-                    }
-                    if(slice.color == chart.selectedColor) {
-                        numeratorText.value --;
-                        slice.color = chart.unselectedColor;
-                    }
-                    else {
-                        numeratorText.value ++;
-                        slice.color = chart.selectedColor;
-                    }
-                }
-
-                function setSliceStyle(sliceNumber, selected) {
-                    var slice = pieSeries.at(sliceNumber);
-                    slice.borderColor = "#373737";
-                    slice.borderWidth = 5;
-                    slice.color = selected ? chart.selectedColor : chart.unselectedColor;
-                }
-            }
+            asynchronous: false
+            source: items.chartType === "pie" ? "ChartDisplay.qml" : "RectangleDisplay.qml"
         }
 
         Item {
             id: fractionDisplay
-            anchors.verticalCenter: chart.verticalCenter
-            anchors.left: chart.right
+            anchors.verticalCenter: graphLoader.verticalCenter
+            anchors.left: graphLoader.right
             width: 140
             FractionNumber {
                 id: numeratorText
@@ -193,26 +158,7 @@ ActivityBase {
             sourceSize.width: 60 * ApplicationInfo.ratio
 
             onClicked: {
-                var goodAnswer = false;
-                if(items.mode === "selectPie") {
-                    // count how many selected
-                    var selected = 0;
-                    for(var i = 0 ; i < pieSeries.count ; ++ i) {
-                        if(pieSeries.at(i).color == chart.selectedColor) {
-                            selected ++;
-                        }
-                    }
-                    goodAnswer = (selected == items.levels[bar.level-1].numerator);
-                }
-                else {
-                    goodAnswer = (items.numeratorValue == items.numeratorToFind) && (items.denominatorValue == items.denominatorToFind);
-                }
-                if(goodAnswer) {
-                    bonus.good("lion");
-                }
-                else {
-                    bonus.bad("lion");
-                }
+                graphLoader.item.checkAnswer();
             }
         }
         DialogChooseLevel {

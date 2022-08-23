@@ -27,26 +27,22 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1
 
+
     // todo make separate activity
-    if(currentLevel > 8) {
-        items.mode = "findResult"
+    if(levels[currentLevel].chartType == undefined) {
+        items.mode = "findResult";
+        items.chartType = "pie";
     }
     else {
-        items.mode = "selectPie"
+        items.mode = "selectPie";
+        items.chartType = levels[currentLevel].chartType;
     }
-    items.pieSeries.clear();
     items.denominatorValue = (items.mode === "findResult") ? 0 : levels[currentLevel].denominator;
     items.numeratorValue = 0;
     items.denominatorToFind = levels[currentLevel].denominator;
     items.numeratorToFind = (items.mode === "findResult") ? levels[currentLevel].numerator : 0;
 
-    var size = 1.0 / levels[currentLevel].denominator;
-    for(var i = 0 ; i < items.denominatorToFind ; ++ i) {
-        items.pieSeries.append(1, size);
-
-        // Select the good number of slices at the beginning
-        items.pieSeries.setSliceStyle(items.pieSeries.count-1, (items.mode === "findResult" && i < items.numeratorToFind));
-    }
+    items.chartItem.initLevel();
 }
 
 function nextLevel() {
