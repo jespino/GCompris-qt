@@ -3,7 +3,7 @@
  * SPDX-FileCopyrightText: 2022 Johnny Jazeix <jazeix@gmail.com>
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
-import QtCharts 2.12
+import QtCharts 2.0
 
 ChartView {
     id: chart
