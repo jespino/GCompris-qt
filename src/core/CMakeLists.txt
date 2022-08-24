@@ -164,7 +164,8 @@ if(BUILD_STANDALONE)
     QtQuick/Particles.2/${_lib_prefix}particlesplugin
     QtQuick.2/${_lib_prefix}qtquick2plugin
     QtMultimedia/${_lib_prefix}declarative_multimedia
-    QtSensors/${_lib_prefix}declarative_sensors)
+    QtSensors/${_lib_prefix}declarative_sensors
+    QtCharts/${_lib_prefix}qtchartsqml2)
 
   # TODO Double check for ubuntutouch, we may need qtquickcontrols2/templates2!
   if(NOT UBUNTUTOUCH)

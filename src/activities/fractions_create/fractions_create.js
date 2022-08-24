@@ -1,4 +1,4 @@
-/* GCompris - fractions.js
+/* GCompris - fractions_create.js
  *
  * Copyright (C) 2022 Johnny Jazeix <jazeix@gmail.com>
  *
@@ -26,21 +26,15 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1
+    items.chartType = levels[currentLevel].chartType;
 
+    items.fixedNumerator = levels[currentLevel].fixedNumerator ? levels[currentLevel].fixedNumerator : false;
+    items.fixedDenominator = levels[currentLevel].fixedDenominator ? levels[currentLevel].fixedDenominator : false;
 
-    // todo make separate activity
-    if(levels[currentLevel].chartType == undefined) {
-        items.mode = "findResult";
-        items.chartType = "pie";
-    }
-    else {
-        items.mode = "selectPie";
-        items.chartType = levels[currentLevel].chartType;
-    }
-    items.denominatorValue = (items.mode === "findResult") ? 0 : levels[currentLevel].denominator;
-    items.numeratorValue = 0;
+    items.denominatorValue = (items.mode === "findFraction" && !items.fixedDenominator) ? 0 : levels[currentLevel].denominator;
     items.denominatorToFind = levels[currentLevel].denominator;
-    items.numeratorToFind = (items.mode === "findResult") ? levels[currentLevel].numerator : 0;
+    items.numeratorValue = (items.mode === "findFraction" && items.fixedNumerator) ? levels[currentLevel].numerator : 0;
+    items.numeratorToFind = (items.mode === "findFraction") ? levels[currentLevel].numerator : 0;
 
     items.chartItem.initLevel();
 }

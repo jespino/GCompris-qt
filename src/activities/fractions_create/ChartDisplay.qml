@@ -25,7 +25,7 @@ ChartView {
         }
 
         onClicked: {
-            if(bonus.isPlaying || items.mode === "findResult") {
+            if(bonus.isPlaying || activity.mode === "findFraction") {
                 return;
             }
             if(slice.color == chart.selectedColor) {
@@ -53,13 +53,13 @@ ChartView {
             pieSeries.append(1, size);
 
             // Select the good number of slices at the beginning
-            pieSeries.setSliceStyle(pieSeries.count-1, (items.mode === "findResult" && i < items.numeratorToFind));
+            pieSeries.setSliceStyle(pieSeries.count-1, (activity.mode === "findFraction" && i < items.numeratorToFind));
         }
 
     }
     function checkAnswer() {
         var goodAnswer = false;
-        if(items.mode === "selectPie") {
+        if(activity.mode === "selectPie") {
             // count how many selected
             var selected = 0;
             for(var i = 0 ; i < pieSeries.count ; ++ i) {

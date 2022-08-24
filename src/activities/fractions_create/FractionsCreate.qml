@@ -1,4 +1,4 @@
-/* GCompris - Fractions.qml
+/* GCompris - FractionsCreate.qml
  *
  * SPDX-FileCopyrightText: 2022 Johnny Jazeix <jazeix@gmail.com>
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -7,7 +7,7 @@ import QtQuick 2.12
 import GCompris 1.0
 
 import "../../core"
-import "fractions.js" as Activity
+import "fractions_create.js" as Activity
 
 ActivityBase {
     id: activity
@@ -15,7 +15,7 @@ ActivityBase {
     onStart: focus = true
     onStop: {}
 
-    readonly property string mode: "selectPie"
+    property string mode: "selectPie" // or "findFraction" in fractions_find activity
     pageComponent: Rectangle {
         id: background
         color: "#373737"
@@ -39,17 +39,16 @@ ActivityBase {
             property alias chartItem: graphLoader.item
             property alias numeratorValue: numeratorText.value
             property alias denominatorValue: denominatorText.value
+            readonly property string mode: activity.mode
             property int numeratorToFind: 0
             property int denominatorToFind: 0
-            property var levels: activity.datasetLoader.data
+            readonly property var levels: activity.datasetLoader.data
             property string chartType: "pie"
-            property string mode
             property bool fixedNumerator: true
             property bool fixedDenominator: true
         }
 
         onStart: {
-            items.mode = activity.mode;
             Activity.start(items, activity.mode);
         }
         onStop: { Activity.stop() }
@@ -73,7 +72,7 @@ ActivityBase {
                 topMargin: 10
                 horizontalCenter: parent.horizontalCenter
             }
-            text: items.levels[bar.level-1].instruction
+            text: items.levels[bar.level-1] ? items.levels[bar.level-1].instruction : ""
             opacity: instruction.opacity
             z: instruction.z
             fontSize: background.vert ? regularSize : smallSize
@@ -105,7 +104,7 @@ ActivityBase {
                 value: 0
                 width: fractionDisplay.width
                 height: 50
-                interactive: items.mode === "findResult"
+                interactive: activity.mode === "findFraction" && !items.fixedNumerator
                 onLeftClicked: {
                     if(items.numeratorValue > 0) {
                         items.numeratorValue --;
@@ -133,7 +132,7 @@ ActivityBase {
                 anchors.topMargin: 10
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: fractionBar.bottom
-                interactive: items.mode === "findResult"
+                interactive: activity.mode === "findFraction" && !items.fixedDenominator
                 onLeftClicked: {
                     if(items.denominatorValue > 0) {
                         items.denominatorValue --;

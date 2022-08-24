@@ -24,7 +24,7 @@ GridView {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(bonus.isPlaying || items.mode === "findResult") {
+                if(bonus.isPlaying || activity.mode === "findFraction") {
                     return;
                 }
                 if(selected) {
@@ -46,14 +46,14 @@ GridView {
         for(var i = 0 ; i < items.denominatorToFind ; ++ i) {
             // Select the good number of slices at the beginning
             chart.model.append({
-                "selected": items.mode === "findResult" && i < items.numeratorToFind
+                "selected": activity.mode === "findFraction" && i < items.numeratorToFind
             });
         }
     }
 
     function checkAnswer() {
         var goodAnswer = false;
-        if(items.mode === "selectPie") {
+        if(activity.mode === "selectPie") {
             // count how many selected
             var selected = 0;
             for(var i = 0 ; i < listModel.count ; ++ i) {

@@ -59,7 +59,8 @@ fifteen
 find_the_day
 followline
 football
-fractions
+fractions_create
+fractions_find
 geo-country
 geography
 gletters
@@ -87,8 +88,8 @@ learn_decimals_subtractions
 learn_digits
 learn_quantities
 learn_subtractions
-leftright
 left_right_click
+leftright
 letter-in-word
 lightsoff
 louis-braille

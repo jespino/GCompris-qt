@@ -6,36 +6,33 @@
 import GCompris 1.0
 
 Data {
-    objective: qsTr("Find the value.")
+    objective: qsTr("Fixed numerator with a pie.")
     difficulty: 3
 
     data: [
         {
+            "chartType": "pie",
             "numerator": 1,
             "denominator": 2,
-            "fixedNumerator": false,
+            "fixedNumerator": true,
             "fixedDenominator": false,
             "instruction": qsTr("Find the represented fraction.")
         },
         {
+            "chartType": "pie",
             "numerator": 3,
             "denominator": 10,
-            "fixedNumerator": false,
-            "fixedDenominator": true,
+            "fixedNumerator": true,
+            "fixedDenominator": false,
             "instruction": qsTr("Find the represented fraction.")
         },
         {
+            "chartType": "pie",
             "numerator": 9,
             "denominator": 12,
             "fixedNumerator": true,
             "fixedDenominator": false,
             "instruction": qsTr("Find the represented fraction.")
-        },
-        // same with percentage?
-        {
-            "numerator": 3,
-            "denominator": 7,
-            "instruction": qsTr("Find the corresponding percentage.")
         }
     ]
 }

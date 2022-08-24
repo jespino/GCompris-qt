@@ -6,12 +6,12 @@
 import GCompris 1.0
 
 ActivityInfo {
-  name: "fractions/Fractions.qml"
+  name: "fractions_find/Fractions_find.qml"
   difficulty: 1
-  icon: "fractions/fractions.svg"
+  icon: "fractions_find/fractions_find.svg"
   author: "Johnny Jazeix &lt;jazeix@gmail.com&gt;"
   //: Activity title
-  title: qsTr("Fractions activity")
+  title: qsTr("Find the fraction")
   //: Help title
   description: ""
   //intro: "put here in comment the text for the intro voice"
@@ -22,7 +22,7 @@ ActivityInfo {
   //: Help manual
   manual: ""
   credit: ""
-  section: "math"
+  section: "math arithmetic"
   createdInVersion: 30000
   levels: "1,2,3"
 }
