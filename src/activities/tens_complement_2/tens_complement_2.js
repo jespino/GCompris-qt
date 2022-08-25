@@ -92,8 +92,8 @@ function initLevel() {
         }
     }
 
-    modifyNumberValue(items.secondCardListModel);
-    modifyNumberValue(items.thirdCardListModel);
+    modifyNumberValueInListModel(items.secondCardListModel);
+    modifyNumberValueInListModel(items.thirdCardListModel);
 
     for(var i = 0; i < datasets.length; i++) { // storing all the values in an array of array (like a matrix) to check answers when okButton is pressed.
         var tempArray = [];
@@ -104,7 +104,7 @@ function initLevel() {
     }
 }
 
-function modifyNumberValue(list) { // this function changes the numbers values in the listModel as per the dataset for second and third listModel.
+function modifyNumberValueInListModel(list) { // this function changes the numbers values in the listModel as per the dataset for second and third listModel.
     var datasetNumber;
     if(list == items.secondCardListModel) {
         datasetNumber = 1;

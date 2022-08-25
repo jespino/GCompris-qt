@@ -54,6 +54,7 @@ function initLevel() {
             "visibility": true,
             "index": cardToDisplayIndex,
             "cardSize": items.cardSize,
+            "selected": false
         }
         items.cardListModel.append(card);
     }
@@ -109,7 +110,7 @@ function previousLevel() {
 
 function updateCardsToInitialSize() {
     for(var i = 0; i < cardsToDisplay; i++) {
-        items.cardListModel.setProperty(i, "cardSize", items.cardSize);
+        items.cardListModel.setProperty(i, "selected", false);
     }
 }
 
@@ -121,7 +122,7 @@ function selectedCard(index) {
 
 function updateSize() {
     if(selected != -1) {
-        items.cardListModel.setProperty(selected, "cardSize", items.cardSize  * 1.1);
+        items.cardListModel.setProperty(selected, "selected", true);
     }
 }
 
@@ -135,6 +136,7 @@ function reappearNumberCard(value) {
     for(var i = 0; i < cardsToDisplay; i++) {
         items.cardListModel.setProperty(i, "cardSize", items.cardSize);
     }
+    updateCardsToInitialSize();
 }
 
 function updateValue() {

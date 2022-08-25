@@ -17,7 +17,6 @@ Item {
         radius: 20
         anchors.centerIn: parent
 
-
         GCText {
             width: parent.width
             height: parent.height

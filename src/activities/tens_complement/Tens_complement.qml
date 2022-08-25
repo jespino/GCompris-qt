@@ -83,6 +83,8 @@ ActivityBase {
                 cellWidth: items.cardSize
                 model: cardListModel
                 delegate: NumberCard {
+                    height: items.cardSize
+                    width: items.cardSize
                 }
             }
         }
@@ -144,14 +146,6 @@ ActivityBase {
             color: "#76F361"
             height: items.cardSize * 0.5
             width: items.cardSize
-        }
-
-        onHeightChanged: {
-            Activity.updateCardsToInitialSize()
-        }
-
-        onWidthChanged: {
-            Activity.updateCardsToInitialSize()
         }
 
         DialogChooseLevel {
