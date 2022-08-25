@@ -9,6 +9,7 @@ import "../../core"
 Item {
     property ListModel listmodel
     property int numberOfCards
+    property string validationImage
     Rectangle {
         id: cardContainer
         color: "#95F2F8"
@@ -33,10 +34,9 @@ Item {
 
     Image {
         id: test
-        visible: false
         height: cardContainer.height * 0.65
         width: cardContainer.height * 0.65
-        source: "qrc:/gcompris/src/core/resource/apply.svg"
+        source: validationImage
         anchors {
             left: cardContainer.right
             leftMargin: 5

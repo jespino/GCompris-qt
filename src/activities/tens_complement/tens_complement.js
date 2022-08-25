@@ -18,12 +18,9 @@ var datasets;
 var answerArray = [];
 var cardSize;
 var selected = -1; // "-1" indicates no item selected
-var lastSelected = -1;
 var shuffledDataset = [];
 var currentDatasetLevel = 0;
 var numberOfDatasetLevel;
-var correctAnswerImage = "qrc:/gcompris/src/core/resource/apply.svg"
-var wrongAnswerImage = "qrc:/gcompris/src/core/resource/cancel.svg"
 
 function start(items_) {
     items = items_;
@@ -36,13 +33,13 @@ function stop() {
 
 function initLevel() {
     items.bar.level = currentLevel + 1;
-    numberOfDatasetLevel = items.levels.length
-    numberOfLevel = items.levels[currentDatasetLevel].value.length;
-    numberOfSubLevel = items.levels[currentDatasetLevel].value[currentLevel].length;
+    numberOfDatasetLevel = items.levels.length;
+    numberOfLevel = items.levels[currentDatasetLevel].value.length * numberOfDatasetLevel;
+    numberOfSubLevel = items.levels[currentDatasetLevel + Math.floor(currentLevel/3)].value[currentLevel%items.levels[currentDatasetLevel].value.length].length;
     items.score.currentSubLevel = currentSubLevel + 1;
     items.score.numberOfSubLevels = numberOfSubLevel;
-    items.okButton.visible = true;
-    datasets = items.levels[currentDatasetLevel].value[currentLevel];
+    items.okButton.visible = false;
+    datasets = items.levels[currentDatasetLevel + Math.floor(currentLevel/3)].value[currentLevel%items.levels[currentDatasetLevel].value.length];
     shuffledDataset = [];
     for(var indexForShuffledArray = 0; indexForShuffledArray < numberOfSubLevel; indexForShuffledArray++) {
         shuffledDataset.push(datasets[indexForShuffledArray]);
@@ -71,7 +68,7 @@ function initLevel() {
             "firstCardClickable": toShuffleQuestionValue[0] == "?" ? true : false,
             "secondCardClickable": toShuffleQuestionValue[1] == "?" ? true : false,
             "rowIndex": cardToDisplayIndex + 1,
-            "validationImageSource": correctAnswerImage,
+            "isCorrect": true,
             "tickVisibility": false
         }
         answerArray.push([toShuffleQuestionValue[0], toShuffleQuestionValue[1]]);
@@ -160,6 +157,9 @@ function showOkButton() {
                 break;
             }
         }
+        if(!checkQuestionMark) {
+            break;
+        }
     }
     if(checkQuestionMark) {
         items.okButton.visible = true
@@ -172,8 +172,8 @@ function visibilityForAllValidationImages(visibility) {
     }
 }
 
-function setValidationImage(index, validationImage) {
-    items.holderListModel.setProperty(index - 1, "validationImageSource", validationImage);
+function setValidationImage(index, isGood) {
+    items.holderListModel.setProperty(index, "isCorrect", isGood);
 }
 
 function updateAnswerArray(row, column, textValue) {
@@ -182,12 +182,14 @@ function updateAnswerArray(row, column, textValue) {
 }
 
 function checkAnswer() {
-    var check1 = parseInt(answerArray[0][0]) + parseInt(answerArray[0][1]) == 10 ? true : false;
-    var check2 = parseInt(answerArray[1][0]) + parseInt(answerArray[1][1]) == 10 ? true : false;
-    var check3 = parseInt(answerArray[2][0]) + parseInt(answerArray[2][1]) == 10 ? true : false;
-    setValidationImage(1, check1 ? correctAnswerImage : wrongAnswerImage);
-    setValidationImage(2, check2 ? correctAnswerImage : wrongAnswerImage);
-    setValidationImage(3, check3 ? correctAnswerImage : wrongAnswerImage);
+    var isAllCorrect = true;
+    for( var i = 0; i < answerArray.length; i++) {
+        var isGood = parseInt(answerArray[i][0]) + parseInt(answerArray[i][1]) == 10 ? true : false;
+        setValidationImage(i, isGood);
+        if(!isGood) {
+            isAllCorrect = false;
+        }
+    }
     visibilityForAllValidationImages(true);
-    check1 && check2 && check3 ? items.bonus.good("flower") : items.bonus.bad("flower");
+    isAllCorrect ? items.bonus.good("flower") : items.bonus.bad("flower");
 }

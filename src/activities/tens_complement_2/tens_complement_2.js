@@ -19,7 +19,10 @@ var numberArray;
 var valueArray;
 var answerArray = [];
 var datasets;
-
+var correctAnswerImage = "qrc:/gcompris/src/core/resource/apply.svg"
+var wrongAnswerImage = "qrc:/gcompris/src/core/resource/cancel.svg"
+var currentDatasetLevel = 0;
+var numberOfDatasetLevel;
 
 function start(items_) {
     items = items_
@@ -33,30 +36,34 @@ function stop() {
 function initLevel() {
     items.bar.level = currentLevel + 1;
     var numberCardCounter = 1;
-    datasets = items.levels[currentLevel];
-    numberOfLevel = items.levels.length;
+    numberOfDatasetLevel = items.levels.length;
+    numberOfLevel = items.levels[currentDatasetLevel].value.length * numberOfDatasetLevel;
+    datasets = items.levels[currentDatasetLevel].value[currentLevel];
+    items.validationImage1 = null;
+    items.validationImage2 = null;
+    items.validationImage3 = null;
+    items.firstCardListModel.clear();
+    items.secondCardListModel.clear();
+    items.thirdCardListModel.clear();
     numberArray = [];
     answerArray.length = 0;
     valueArray = displayArray[currentLevel];
     items.numberOfCards = valueArray.length;
-    items.firstCardListModel.clear();
-    items.secondCardListModel.clear();
-    items.thirdCardListModel.clear();
     var countForNumbersInDataset = 0;
     for(var i = 0; i < valueArray.length - 1; i++) {
         if(valueArray[i] == null) {
-            valueArray[i] = datasets.value[0].numberValue[countForNumbersInDataset];
+            valueArray[i] = datasets[0].numberValue[countForNumbersInDataset];
             countForNumbersInDataset++;
         }
     }
-    valueArray[valueArray.length - 1] = datasets.value[0].totalSum;
+    valueArray[valueArray.length - 1] = datasets[0].totalSum;
     for(var i = 0;i < valueArray.length; i++) {
         var isNumber = true;
         if(valueArray[i] == "+" || valueArray[i] == "(" || valueArray[i] == ")" || valueArray[i] == "=") {
             isNumber = false;
         }
         var numberCard = {
-            "type": 1, // if the card is numberCard the value is 1 else 0.
+            "type": "numberCard", // if the card is numberCard the value is 1 else 0.
             "bgColor": "#FFFB9A",
             "borderColor": "black",
             "value": valueArray[i].toString(),
@@ -64,10 +71,10 @@ function initLevel() {
             "columnNumber": i + 1,
             "selected": false,
             "numberCardPosition": numberCardCounter,
-            "totalNumberCards": datasets.value[0].numberValue.length + 1
+            "totalNumberCards": datasets[0].numberValue.length + 1
         }
         var symbolCard= {
-            "type": 0,
+            "type": "symbolCard",
             "bgColor": "#95F2F8",
             "borderColor": "#95F2F8",
             "value": valueArray[i].toString()
@@ -85,31 +92,35 @@ function initLevel() {
         }
     }
 
-    countForNumbersInDataset = 0;
-    for(var i = 0; i < valueArray.length; i++) {
-        items.secondCardListModel.setProperty(i, "rowNumber", 2);
-        if(valueArray[i] >= '1' && valueArray[i] <= '9') {
-            items.secondCardListModel.setProperty(i, "value", datasets.value[1].numberValue[countForNumbersInDataset].toString());
-            countForNumbersInDataset++;
-        }
-    }
-    items.secondCardListModel.setProperty(valueArray.length-1, "value", datasets.value[1].totalSum.toString());
-    countForNumbersInDataset = 0;
-    for(var i = 0; i < valueArray.length; i++) {
-        items.thirdCardListModel.setProperty(i, "rowNumber", 3);
-        if(valueArray[i] >= '1' && valueArray[i] <= '9') {
-            items.thirdCardListModel.setProperty(i, "value", datasets.value[2].numberValue[countForNumbersInDataset].toString());
-            countForNumbersInDataset++;
-        }
-    }
-    items.thirdCardListModel.setProperty(valueArray.length-1, "value", datasets.value[2].totalSum.toString());
-    for(var i = 0; i < datasets.value.length; i++) {
+    modifyNumberValue(items.secondCardListModel);
+    modifyNumberValue(items.thirdCardListModel);
+
+    for(var i = 0; i < datasets.length; i++) { // storing all the values in an array of array (like a matrix) to check answers when okButton is pressed.
         var tempArray = [];
-        for(var j = 0; j < datasets.value[i].numberValue.length; j++) {
-            tempArray.push(datasets.value[i].numberValue[j]);
+        for(var j = 0; j < datasets[i].numberValue.length; j++) {
+            tempArray.push(datasets[i].numberValue[j]);
         }
         answerArray.push(tempArray);
     }
+}
+
+function modifyNumberValue(list) { // this function changes the numbers values in the listModel as per the dataset for second and third listModel.
+    var datasetNumber;
+    if(list == items.secondCardListModel) {
+        datasetNumber = 1;
+    }
+    else {
+        datasetNumber = 2;
+    }
+    var countOfNumbers = 0;
+    for(var i = 0; i < valueArray.length; i++) {
+        list.setProperty(i, "rowNumber", datasetNumber + 1);
+        if(valueArray[i] >= '1' && valueArray[i] <= '9') {
+            list.setProperty(i, "value", datasets[datasetNumber].numberValue[countOfNumbers].toString());
+            countOfNumbers++;
+        }
+    }
+    list.setProperty(valueArray.length-1, "value", datasets[datasetNumber].totalSum.toString());
 }
 
 function displayAnswerArray() {
@@ -120,23 +131,24 @@ function displayAnswerArray() {
         console.log()
     }
 }
+
 function resize(row, col) {
-    if(row == 0) {
-        items.firstCardListModel.setProperty(col, "selected", true);
+    if(row - 1 == 0) {
+        items.firstCardListModel.setProperty(col - 1, "selected", true);
     }
-    else if(row == 1) {
-        items.secondCardListModel.setProperty(col, "selected", true);
+    else if(row - 1 == 1) {
+        items.secondCardListModel.setProperty(col - 1, "selected", true);
     }
     else {
-        items.thirdCardListModel.setProperty(col, "selected", true);
+        items.thirdCardListModel.setProperty(col - 1, "selected", true);
     }
 }
 
 function resetSize() {
     for(var i = 0; i < valueArray.length; i++) {
-        items.firstCardListModel.setProperty(i, "selected", false)
-        items.secondCardListModel.setProperty(i, "selected", false)
-        items.thirdCardListModel.setProperty(i, "selected", false)
+        items.firstCardListModel.setProperty(i, "selected", false);
+        items.secondCardListModel.setProperty(i, "selected", false);
+        items.thirdCardListModel.setProperty(i, "selected", false);
     }
 }
 
@@ -186,6 +198,14 @@ function nextLevel() {
     initLevel();
 }
 
+function nextDatasetLevel() {
+    if(numberOfDatasetLevel <= ++currentDatasetLevel) {
+        currentDatasetLevel = 0;
+    }
+    currentLevel = 0;
+    initLevel();
+}
+
 function previousLevel() {
     if(--currentLevel < 0) {
         currentLevel = numberOfLevel - 1;
@@ -194,15 +214,20 @@ function previousLevel() {
 }
 
 function checkAnswer() {
-    console.log(answerArray);
-    var check = true;
+    var check = [true, true, true];
     for(var row = 0; row < answerArray.length; row++) {
+        var isGood = true;
         for(var col = 1; col < answerArray[row].length; col+=2) {
             if(parseInt(answerArray[row][col-1]) + parseInt(answerArray[row][col]) != 10) {
-                check = false;
-                break;
+                isGood = false;
             }
         }
+        if(!isGood) {
+            check[row] = false;
+        }
     }
-    check ? items.bonus.good("flower") : items.bonus.bad("flower");
+    check[0] ? items.validationImage1 = correctAnswerImage : items.validationImage1 = wrongAnswerImage;
+    check[1] ? items.validationImage2 = correctAnswerImage : items.validationImage2 = wrongAnswerImage;
+    check[2] ? items.validationImage3 = correctAnswerImage : items.validationImage3 = wrongAnswerImage;
+    check[0] && check[1] && check[2] ? items.bonus.good("flower") : items.bonus.bad("flower");
 }

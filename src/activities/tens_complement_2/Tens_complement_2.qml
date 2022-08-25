@@ -40,6 +40,9 @@ ActivityBase {
             property alias firstCardListModel: firstCardListModel
             property alias secondCardListModel: secondCardListModel
             property alias thirdCardListModel: thirdCardListModel
+            property string validationImage1
+            property string validationImage2
+            property string validationImage3
             readonly property var levels: activity.datasetLoader.data
             property int numberOfCards: 18
         }
@@ -84,6 +87,7 @@ ActivityBase {
                 anchors.top: parent.top
                 listmodel: firstCardListModel
                 numberOfCards: items.numberOfCards
+                validationImage: items.validationImage1
             }
 
             CardContainer {
@@ -94,6 +98,7 @@ ActivityBase {
                 anchors.topMargin: firstCardListContainer.height / 3
                 listmodel: secondCardListModel
                 numberOfCards: items.numberOfCards
+                validationImage: items.validationImage2
             }
 
             CardContainer {
@@ -104,6 +109,7 @@ ActivityBase {
                 anchors.topMargin: firstCardListContainer.height / 3
                 listmodel: thirdCardListModel
                 numberOfCards: items.numberOfCards
+                validationImage: items.validationImage3
             }
         }
 

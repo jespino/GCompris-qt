@@ -11,6 +11,8 @@ import "tens_complement.js" as Activity
 Item {
     id: answerContainer
     property int rowNumber: rowIndex
+    readonly property string correctAnswerImage: "qrc:/gcompris/src/core/resource/apply.svg"
+    readonly property string wrongAnswerImage:  "qrc:/gcompris/src/core/resource/cancel.svg"
     Rectangle {
         id: answerRectangle
         color: "#95F2F8"
@@ -152,7 +154,7 @@ Item {
         visible: tickVisibility
         height: firstPlaceHolder.height * 0.7
         width: firstPlaceHolder.width * 0.7
-        source: validationImageSource
+        source: isCorrect ? correctAnswerImage : wrongAnswerImage
         anchors {
             left: answerRectangle.right
             leftMargin: 5

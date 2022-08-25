@@ -22,7 +22,7 @@ ActivityInfo {
   //: Help manual
   manual: ""
   credit: ""
-  section: "fun"
+  section: "math arithmetic"
   createdInVersion: 30000
-  levels: "1,2,3"
+  levels: "1"
 }
